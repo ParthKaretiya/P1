@@ -16,26 +16,26 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-family: var(--font-head);
-  font-size: 0.72rem;
+  font-family: var(--font-sub);
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #ea580c;
   background: rgba(234, 88, 12, 0.08);
   border: 1px solid rgba(234, 88, 12, 0.2);
-  padding: 0.32rem 0.85rem;
+  padding: 0.35rem 0.9rem;
   border-radius: var(--radius-pill);
   margin-bottom: var(--space-2);
 }
 
 .sectionTitle {
-  font-family: var(--font-head);
+  font-family: var(--font-display);
   font-size: clamp(2.1rem, 4vw, 3.2rem);
   font-weight: 800;
   color: #0f172a;
   line-height: 1.12;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   margin-bottom: var(--space-2);
 }
 
@@ -44,6 +44,7 @@
 }
 
 .sectionDesc {
+  font-family: var(--font-body);
   font-size: 1.05rem;
   color: #475569;
   line-height: 1.65;
@@ -61,19 +62,19 @@
 
 .metricCard {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 18px;
   padding: 1.75rem 1.5rem;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  box-shadow: 0 1px 3px rgba(15,23,42,0.05), 0 8px 24px -4px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,1);
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease-spring), border-color 0.2s ease;
 }
 
 .metricCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-  border-color: #cbd5e1;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(15,23,42,0.05), 0 20px 48px -8px rgba(15,23,42,0.14);
+  border-color: rgba(203, 213, 225, 0.85);
 }
 
 .cardHeader {
@@ -84,11 +85,11 @@
 }
 
 .cardTag {
-  font-family: var(--font-head);
+  font-family: var(--font-sub);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
   color: #64748b;
 }
 
@@ -105,9 +106,9 @@
 }
 
 .metricValue {
-  font-family: var(--font-head);
+  font-family: var(--font-mono);
   font-size: clamp(2.4rem, 3.5vw, 3rem);
-  font-weight: 800;
+  font-weight: 700;
   color: #0f172a;
   line-height: 1;
   letter-spacing: -0.03em;

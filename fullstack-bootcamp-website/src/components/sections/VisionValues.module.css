@@ -16,11 +16,13 @@
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-xl);
   padding: var(--space-4);
-  transition: transform .4s var(--ease-spring), box-shadow .4s var(--ease-spring);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 14px rgba(15, 23, 42, 0.03);
+  transition: transform .4s var(--ease-spring), box-shadow .4s var(--ease-spring), border-color .3s ease;
 }
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(0,0,0,.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 16px 36px rgba(15, 23, 42, 0.08);
+  border-color: var(--gray-300);
 }
 
 .iconWrap {
@@ -35,14 +37,16 @@
 
 .card h3 {
   font-family: var(--font-head);
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--navy-dark);
+  letter-spacing: -0.02em;
   margin-bottom: .6rem;
 }
 
 .card p {
-  font-size: .9rem;
+  font-family: var(--font-body);
+  font-size: .92rem;
   color: var(--text-mid);
   line-height: 1.7;
 }

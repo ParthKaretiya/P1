@@ -9,6 +9,7 @@ import BackToTop       from './components/BackToTop'
 import ScrollToTop     from './components/layout/ScrollToTop'
 import ScrollProgress  from './components/layout/ScrollProgress'
 import PageTransition  from './components/layout/PageTransition'
+import SmoothScroll    from './components/layout/SmoothScroll'
 import './App.css'
 
 // Lazy loaded page components for optimal performance & code splitting
@@ -89,17 +90,19 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <ScrollProgress />
-      <Navbar />
-      <main>
-        <Suspense fallback={<PageLoader />}>
-          <AnimatedRoutes showToast={showToast} />
-        </Suspense>
-      </main>
-      <Footer />
-      <Toast show={toast.show} message={toast.message} />
-      <BackToTop />
+      <SmoothScroll>
+        <ScrollToTop />
+        <ScrollProgress />
+        <Navbar />
+        <main>
+          <Suspense fallback={<PageLoader />}>
+            <AnimatedRoutes showToast={showToast} />
+          </Suspense>
+        </main>
+        <Footer />
+        <Toast show={toast.show} message={toast.message} />
+        <BackToTop />
+      </SmoothScroll>
     </BrowserRouter>
   )
 }

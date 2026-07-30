@@ -29,8 +29,8 @@ export default function Hero() {
     offset: ['start end', 'end start'],
   })
   const yEditor = useTransform(scrollYProgress, [0, 1], [30, -30])
-  const yMid    = useTransform(scrollYProgress, [0, 1], [55, -55])
-  const yFront  = useTransform(scrollYProgress, [0, 1], [85, -85])
+  const yMid = useTransform(scrollYProgress, [0, 1], [55, -55])
+  const yFront = useTransform(scrollYProgress, [0, 1], [85, -85])
 
   /* Cursor-follow glow — writes CSS vars directly (no re-render per move) */
   const onGlowMove = useCallback((e) => {
@@ -66,8 +66,8 @@ export default function Hero() {
 
           {/* 1. Badge pill */}
           <div className={styles.badge}>
-            <i className="fa-solid fa-shield-halved" />
-            100% Placement Assistance &nbsp;|&nbsp; Ahmedabad's Most Practical Full Stack Program
+            <i className="fa-solid fa-wand-magic-sparkles" />
+            100% PLACEMENT ASSISTANCE &nbsp;•&nbsp; AHMEDABAD'S MOST PRACTICAL BOOTCAMP
           </div>
 
           {/* 2. Headline */}
