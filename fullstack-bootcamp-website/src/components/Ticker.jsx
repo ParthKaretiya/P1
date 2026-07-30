@@ -22,7 +22,6 @@ export default function Ticker() {
           <span key={idx} className={styles.item}>
             <i className={item.icon} />
             {item.label}
-            <span className={styles.sep}>✦</span>
           </span>
         ))}
       </div>

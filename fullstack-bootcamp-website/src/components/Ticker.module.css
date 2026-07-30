@@ -1,44 +1,82 @@
-/* Ticker.module.css */
+/* Ticker.module.css — icon-chip marquee with hover-pause + glow */
 
 .ticker {
   background: var(--navy-dark);
   border-top: 1px solid var(--navy-mid);
   border-bottom: 1px solid var(--navy-mid);
-  padding: .9rem 0;
+  padding: 1.1rem 0;
   overflow: hidden;
   position: relative;
   z-index: 10;
+  /* Soft edge fade so chips slide in/out gracefully */
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .track {
   display: flex;
+  align-items: center;
   width: max-content;
+  gap: 1.1rem;
   animation: scroll 32s linear infinite;
-  gap: 0;
 }
 .track:hover { animation-play-state: paused; }
 
-@keyframes scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
 }
 
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 0.55rem)); } /* half width + half gap */
+}
+
+/* Chip: glassy pill with an icon medallion.
+   Faint electric-blue tint at rest so the accent language reads
+   even without hover; hover intensifies it. */
 .item {
   display: inline-flex;
   align-items: center;
-  gap: .55rem;
+  gap: .6rem;
+  padding: .45rem 1.1rem .45rem .5rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.12);
   color: var(--white);
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: .85rem;
-  letter-spacing: .5px;
-  padding: 0 2.5rem;
+  font-size: .82rem;
+  letter-spacing: .4px;
   white-space: nowrap;
+  cursor: default;
+  transition: border-color .35s var(--ease-spring),
+              background .35s var(--ease-spring),
+              box-shadow .35s var(--ease-spring);
 }
-.item i { font-size: .9rem; }
 
-.sep {
-  margin-left: 2rem;
-  color: rgba(255,255,255,.45);
-  font-size: .7rem;
+/* Stronger electric-blue glow on hover */
+.item:hover {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.55);
+  box-shadow: 0 0 22px rgba(59, 130, 246, 0.4);
+}
+
+/* Icon medallion */
+.item i {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--orange);
+  flex-shrink: 0;
+  transition: background .35s var(--ease-spring), color .35s var(--ease-spring);
+}
+.item:hover i {
+  background: rgba(59, 130, 246, 0.25);
+  color: #93c5fd;
 }

@@ -34,14 +34,23 @@
 }
 
 .avatar {
-  width: 96px; height: 96px;
-  border-radius: var(--radius-lg);
+  /* Circular crop — the Mentors section's signature silhouette.
+     Swap the initials div for an <img> and the circle crop holds. */
+  width: 104px; height: 104px;
+  border-radius: 50%;
   background: var(--gray-100);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-head);
   font-weight: 700;
   font-size: 1.8rem;
   color: var(--navy-dark);
+  border: 3px solid var(--white);
+  outline: 2px solid var(--gray-200);
+  overflow: hidden; /* clips a future <img> to the circle */
+  transition: outline-color .4s var(--ease-spring);
+}
+.card:hover .avatar {
+  outline-color: var(--orange);
 }
 
 .linkedin {

@@ -1,4 +1,4 @@
-/* Testimonials.module.css */
+/* Testimonials.module.css — oversized pull-quote anchor + supporting grid */
 
 .section {
   padding: var(--section-pad) 0;
@@ -7,138 +7,160 @@
 }
 
 .head {
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
   text-align: center;
 }
 .head :global(.section-desc) {
   margin-inline: auto;
 }
 
-/* ─── Slider ────────────────────────────────────────────────── */
-.slider {
+/* ─── Featured pull-quote — the section's visual anchor ─────── */
+.featured {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto var(--space-8);
+  text-align: center;
+  padding-top: var(--space-4);
+}
+
+/* Enormous ghosted quotation mark behind the text */
+.featuredMark {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  translate: -50% 0;
+  font-size: 7rem;
+  color: var(--gray-100);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.featuredQuote {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-head);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  color: var(--navy-dark);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+
+.featuredMeta {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  max-width: 780px;
-  margin: 0 auto;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.viewport {
-  overflow: hidden;
-  flex: 1;
+.avatarLg {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--gray-100);
+  color: var(--navy-dark);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.15rem;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--orange);
+  flex-shrink: 0;
 }
 
-/* Single-card slide — motion handles the transition */
-.slide {
-  padding: var(--space-1);
+.featuredPerson {
+  text-align: left;
+}
+.featuredPerson h4 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+}
+.featuredPerson span {
+  font-size: .8rem;
+  color: var(--gray-600);
+}
+
+/* ─── Supporting quote cards — all visible, no pagination ───── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-3);
 }
 
 .card {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
   border-radius: var(--radius-xl);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3);
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: border-color .4s var(--ease-spring);
+  transition: border-color .4s var(--ease-spring), transform .4s var(--ease-spring);
 }
-.card:hover { border-color: var(--border-hairline-hover); }
+.card:hover {
+  border-color: var(--border-hairline-hover);
+  transform: translateY(-4px);
+}
 
 .quoteMark {
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   color: var(--gray-400);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
 }
 
 .quote {
-  font-size: 1.02rem;
+  font-size: .92rem;
   color: var(--text-mid);
-  line-height: 1.75;
+  line-height: 1.7;
   margin-bottom: var(--space-2);
-  min-height: 88px;
+  flex: 1;
 }
 
 .stars {
   display: flex;
-  justify-content: center;
   gap: .3rem;
-  font-size: .85rem;
-  margin-bottom: var(--space-3);
+  font-size: .78rem;
+  margin-bottom: var(--space-2);
 }
+/* Featured meta row centers its stars */
+.featuredMeta .stars { margin-bottom: 0; }
 
 .person {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: .9rem;
+  gap: .8rem;
   text-align: left;
 }
 
 .avatar {
-  width: 52px; height: 52px;
-  border-radius: var(--radius-lg);
+  width: 44px; height: 44px;
+  border-radius: 50%;
   background: var(--gray-100);
   color: var(--navy-dark);
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: .9rem;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 
 .person h4 {
   font-family: var(--font-head);
-  font-size: .95rem;
+  font-size: .9rem;
   font-weight: 700;
   color: var(--navy-dark);
 }
 .person span {
-  font-size: .75rem;
+  font-size: .72rem;
   color: var(--gray-600);
-}
-
-/* ─── Arrows ────────────────────────────────────────────────── */
-.arrow {
-  width: 48px; height: 48px;
-  border-radius: var(--radius-lg);
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  color: var(--navy-dark);
-  font-size: 1.1rem;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: transform .3s var(--ease-spring), border-color .3s;
-}
-.arrow:hover { border-color: var(--border-hairline-hover); }
-.arrow:active { transform: scale(0.97); }
-
-/* ─── Dots ──────────────────────────────────────────────────── */
-.dots {
-  display: flex;
-  justify-content: center;
-  gap: .5rem;
-  margin-top: var(--space-2);
-}
-
-.dot {
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  background: var(--gray-200);
-  transition: background .4s var(--ease-spring), width .4s var(--ease-spring);
-}
-.dotActive {
-  width: 26px;
-  border-radius: var(--radius-sm);
-  background: var(--orange-deep);
 }
 
 /* ─── Responsive ────────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .arrow { display: none; }
-  .card { padding: var(--space-3); }
-  .quote { min-height: 0; font-size: .95rem; }
+  .featured { margin-bottom: var(--space-6); }
+  .featuredMark { font-size: 4.5rem; }
+  .grid { grid-template-columns: 1fr; }
 }

@@ -113,7 +113,8 @@ function SparkArea({ data }) {
           transition={reduce ? { duration: 0 } : { duration: 1.4, ease: SPRING_EASE }}
         />
       </svg>
-      <span className={styles.statNum}>₹4–8 LPA</span>
+      {/* Hero stat — intentionally oversized, bleeds past the card edge */}
+      <span className={styles.heroStat}>₹4–8 <em>LPA</em></span>
       <span className={styles.statLabel}>Average Package Growth</span>
     </div>
   )
@@ -121,7 +122,7 @@ function SparkArea({ data }) {
 
 export default function Placement() {
   return (
-    <section id="placement" className={styles.section}>
+    <section id="placement" className={`${styles.section} texture-grain`}>
       <div className="container">
 
         <Reveal className={styles.head}>
@@ -186,6 +187,13 @@ export default function Placement() {
           </a>
         </div>
 
+      </div>
+
+      {/* Diagonal divider slicing into the Pricing section below */}
+      <div className={styles.divider} aria-hidden="true">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+          <polygon points="0,90 1440,12 1440,90" fill="var(--off-white)" />
+        </svg>
       </div>
     </section>
   )

@@ -117,6 +117,9 @@ export default function Navbar() {
     e.preventDefault()
     setMenuOpen(false)
     setMegaOpen(false)
+    /* Touch devices fire mouseenter on tap with no matching mouseleave —
+       clear the hover highlight so the pill doesn't stay stuck */
+    setHoveredHref(null)
     const target = document.querySelector(href)
     if (target) {
       window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' })
@@ -138,7 +141,10 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav links */}
-          <ul className={`${styles.menu} ${menuOpen ? styles.open : ''}`}>
+          <ul
+            className={`${styles.menu} ${menuOpen ? styles.open : ''}`}
+            onMouseLeave={() => setHoveredHref(null)}
+          >
             {/* Mega-menu trigger — "Curriculum" */}
             <li
               className={styles.megaWrap}
@@ -194,31 +200,43 @@ export default function Navbar() {
               </AnimatePresence>
             </li>
 
-            {navItems.map(item => {
-              const id = item.href.slice(1)
-              const highlighted = hoveredHref === item.href || activeId === id
-              return (
-                <li key={item.href} className={styles.navItem}>
-                  {/* Shared pill slides between items via layoutId */}
-                  {highlighted && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className={styles.pillBg}
-                      transition={{ duration: 0.25, ease: SPRING_EASE }}
-                    />
-                  )}
-                  <a
-                    href={item.href}
-                    className={`${styles.pillItem} ${highlighted ? styles.pillActive : ''}`}
-                    onClick={e => handleNav(e, item.href)}
-                    onMouseEnter={() => setHoveredHref(item.href)}
-                    onMouseLeave={() => setHoveredHref(null)}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              )
-            })}
+            {(() => {
+              /* Exactly ONE item may own the shared pill at a time —
+                 mounting two motion.spans with the same layoutId breaks
+                 Motion's shared-layout animation (the pill flickers or
+                 stops sliding). Hover wins; otherwise the active section. */
+              const activeHref = `#${activeId}`
+              const pillHref =
+                hoveredHref ??
+                (navItems.some(n => n.href === activeHref) ? activeHref : null)
+
+              return navItems.map(item => {
+                const highlighted = pillHref === item.href
+                return (
+                  <li key={item.href} className={styles.navItem}>
+                    {/* Shared pill slides between items via layoutId */}
+                    {highlighted && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className={styles.pillBg}
+                        transition={{ duration: 0.25, ease: SPRING_EASE }}
+                      />
+                    )}
+                    <a
+                      href={item.href}
+                      className={`${styles.pillItem} ${highlighted ? styles.pillActive : ''}`}
+                      onClick={e => handleNav(e, item.href)}
+                      onMouseEnter={() => setHoveredHref(item.href)}
+                      /* mouseleave lives on the <ul>, not each link — a
+                         per-link leave fires in the gap BETWEEN links and
+                         snaps the pill back to the active section mid-travel */
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                )
+              })
+            })()}
           </ul>
 
           {/* Always-visible CTA + hamburger */}

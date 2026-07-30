@@ -73,7 +73,7 @@ export default function Curriculum() {
   }, [active])
 
   return (
-    <section id="curriculum" className={styles.section}>
+    <section id="curriculum" className={`${styles.section} texture-grain`}>
       <div className="container">
 
         <Reveal className={styles.head}>
@@ -103,15 +103,40 @@ export default function Curriculum() {
         </Reveal>
 
         <div className={styles.timelineContainer}>
-          <div className={styles.timelineLine}></div>
+          {/* Organic hand-drawn spine — a wavy SVG path stretched to the
+              container height; glow + slow breathing pulse in CSS */}
+          <svg
+            className={styles.timelineLine}
+            viewBox="0 0 40 1200"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              className={styles.timelinePath}
+              d="M20,0
+                 C 30,50 8,100 22,150
+                 C 34,195 6,240 18,300
+                 C 28,350 10,400 24,450
+                 C 36,495 8,540 16,600
+                 C 24,650 32,700 14,750
+                 C 4,795 30,840 22,900
+                 C 16,950 34,1000 18,1050
+                 C 10,1095 26,1150 20,1200"
+            />
+          </svg>
+
           <div className={styles.timeline} ref={timelineRef}>
             {MODULES[active].map((mod, i) => (
-              <div key={mod.num} className={styles.timelineItem}>
+              <div
+                key={mod.num}
+                className={`${styles.timelineItem} ${i % 2 === 0 ? styles.itemLeft : styles.itemRight}`}
+              >
                 <div className={styles.timelineNode}>
                   <div className={styles.timelineDot}></div>
                 </div>
                 <div className={styles.timelineContent}>
-                  <div className={styles.num}>{mod.num}</div>
+                  {/* Oversized ghost number behind the card content */}
+                  <span className={styles.ghostNum} aria-hidden="true">{mod.num}</span>
                   <div className={styles.info}>
                     <h4>{mod.title}</h4>
                     <p>{mod.desc}</p>

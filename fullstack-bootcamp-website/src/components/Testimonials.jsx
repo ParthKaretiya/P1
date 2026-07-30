@@ -1,7 +1,5 @@
-import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
 import styles from './Testimonials.module.css'
-import { Reveal, EASE } from './Reveal'
+import { Reveal, RevealItem } from './Reveal'
 
 /* ── PLACEHOLDER testimonials: replace with real student quotes & photos ── */
 const TESTIMONIALS = [
@@ -27,34 +25,24 @@ const TESTIMONIALS = [
   },
 ]
 
-const AUTOPLAY_MS = 5000
+/* The strongest quote anchors the section; the rest support it below */
+const [FEATURED, ...SUPPORTING] = TESTIMONIALS
 
-/* Slide variants — direction-aware (1 = next, -1 = prev) */
-const slideVariants = {
-  enter: (dir) => ({ x: dir > 0 ? '60%' : '-60%', opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit:  (dir) => ({ x: dir > 0 ? '-60%' : '60%', opacity: 0 }),
+function Stars({ count }) {
+  return (
+    <div className={styles.stars}>
+      {Array.from({ length: 5 }, (_, s) => (
+        <i
+          key={s}
+          className="fa-solid fa-star"
+          style={{ color: s < count ? 'var(--orange)' : 'var(--gray-200)' }}
+        />
+      ))}
+    </div>
+  )
 }
 
 export default function Testimonials() {
-  const [[idx, dir], setState] = useState([0, 1])
-  const [paused, setPaused] = useState(false)
-
-  const go = useCallback((newIdx, newDir) => {
-    setState([(newIdx + TESTIMONIALS.length) % TESTIMONIALS.length, newDir])
-  }, [])
-  const next = useCallback(() => setState(([i]) => [(i + 1) % TESTIMONIALS.length, 1]), [])
-  const prev = () => setState(([i]) => [(i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length, -1])
-
-  /* Autoplay, paused on hover */
-  useEffect(() => {
-    if (paused) return
-    const t = setInterval(next, AUTOPLAY_MS)
-    return () => clearInterval(t)
-  }, [paused, next])
-
-  const t = TESTIMONIALS[idx]
-
   return (
     <section id="testimonials" className={styles.section}>
       <div className="container">
@@ -71,69 +59,40 @@ export default function Testimonials() {
           </p>
         </Reveal>
 
-        <Reveal
-          className={styles.slider}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          <button className={styles.arrow} onClick={prev} aria-label="Previous testimonial">
-            <i className="fa-solid fa-chevron-left" />
-          </button>
-
-          {/* One card at a time — AnimatePresence slides between them */}
-          <div className={styles.viewport}>
-            <AnimatePresence mode="wait" custom={dir} initial={false}>
-              <motion.div
-                key={idx}
-                className={styles.slide}
-                custom={dir}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.45, ease: EASE }}
-              >
-                <div className={styles.card}>
-                  <i className={`fa-solid fa-quote-left ${styles.quoteMark}`} />
-                  <p className={styles.quote}>{t.quote}</p>
-                  <div className={styles.stars}>
-                    {Array.from({ length: 5 }, (_, s) => (
-                      <i
-                        key={s}
-                        className="fa-solid fa-star"
-                        style={{ color: s < t.stars ? 'var(--orange)' : 'var(--gray-200)' }}
-                      />
-                    ))}
-                  </div>
-                  <div className={styles.person}>
-                    {/* Photo placeholder — swap for <img> when photos exist */}
-                    <div className={styles.avatar}>{t.initials}</div>
-                    <div>
-                      <h4>{t.name}</h4>
-                      <span>{t.batch}</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+        {/* ── Oversized pull-quote — the section's visual anchor ── */}
+        <Reveal className={styles.featured}>
+          <i className={`fa-solid fa-quote-left ${styles.featuredMark}`} aria-hidden="true" />
+          <blockquote className={styles.featuredQuote}>
+            {FEATURED.quote}
+          </blockquote>
+          <div className={styles.featuredMeta}>
+            <div className={styles.avatarLg}>{FEATURED.initials}</div>
+            <div className={styles.featuredPerson}>
+              <h4>{FEATURED.name}</h4>
+              <span>{FEATURED.batch}</span>
+            </div>
+            <Stars count={FEATURED.stars} />
           </div>
-
-          <button className={styles.arrow} onClick={next} aria-label="Next testimonial">
-            <i className="fa-solid fa-chevron-right" />
-          </button>
         </Reveal>
 
-        {/* Dots */}
-        <div className={styles.dots}>
-          {TESTIMONIALS.map((item, i) => (
-            <button
-              key={item.name}
-              className={`${styles.dot} ${i === idx ? styles.dotActive : ''}`}
-              onClick={() => go(i, i > idx ? 1 : -1)}
-              aria-label={`Go to testimonial ${i + 1}`}
-            />
+        {/* ── Supporting quotes — all visible, no pagination ── */}
+        <Reveal stagger className={styles.grid}>
+          {SUPPORTING.map(t => (
+            <RevealItem key={t.name} className={styles.card}>
+              <i className={`fa-solid fa-quote-left ${styles.quoteMark}`} />
+              <p className={styles.quote}>{t.quote}</p>
+              <Stars count={t.stars} />
+              <div className={styles.person}>
+                {/* Photo placeholder — swap for <img> when photos exist */}
+                <div className={styles.avatar}>{t.initials}</div>
+                <div>
+                  <h4>{t.name}</h4>
+                  <span>{t.batch}</span>
+                </div>
+              </div>
+            </RevealItem>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

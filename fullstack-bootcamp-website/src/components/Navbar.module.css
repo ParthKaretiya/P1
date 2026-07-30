@@ -111,6 +111,19 @@
   background: #1a1a1a;
   border-radius: 50px;
   z-index: 0;
+  /* The slide is driven by Motion's layout animation (transform) —
+     never by CSS transition, so no `transition: all` here that could
+     fight the FLIP animation or lag on fast mouse movement */
+  pointer-events: none;
+}
+
+/* Touch / coarse pointers get an instant pressed state instead of
+   relying on hover (which sticks or never fires on tap) */
+@media (hover: none) {
+  .pillItem:active {
+    background: rgba(26, 26, 26, 0.08);
+    color: var(--navy-dark);
+  }
 }
 
 /* Mega trigger keeps its own static pill since it isn't part of the

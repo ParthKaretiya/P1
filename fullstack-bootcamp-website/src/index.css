@@ -118,6 +118,24 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   line-height: 1.7;
 }
 
+/* ─── Film-grain texture overlay (dark sections) ────────────── */
+/* Tiny inline SVG noise tile (~200B) — no image request, GPU-cheap.
+   Sits above content at very low opacity for tactile depth. */
+.texture-grain {
+  position: relative;
+  isolation: isolate;
+}
+.texture-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
 /* Scroll reveals are now handled by Motion (<Reveal> in components/Reveal.jsx).
    The old .animate-on-scroll / .stagger-children IntersectionObserver classes
    were removed during the Motion migration. */

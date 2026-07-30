@@ -22,10 +22,20 @@
 }
 
 .card {
-  background: var(--white);
-  border-radius: var(--radius-xl);
-  border: 2px solid var(--navy-mid);
-  box-shadow: 0 10px 40px rgba(10, 22, 40, 0.08);
+  /* Warm tint so the conversion card doesn't read as a standard white box */
+  background: linear-gradient(160deg, #fff8f2 0%, var(--white) 55%);
+  /* Ticket silhouette — this section's signature shape: asymmetric
+     sweeping corners + semicircle notches punched into both sides
+     (like a tear-off event pass). The notches are cut with a mask,
+     so the thick border is drawn by an inset shadow instead. */
+  border-radius: 40px 12px 40px 12px;
+  box-shadow: inset 0 0 0 3px var(--navy-mid);
+  mask:
+    radial-gradient(14px at 0 62%, transparent 97%, black) left / 51% 100% no-repeat,
+    radial-gradient(14px at 100% 62%, transparent 97%, black) right / 51% 100% no-repeat;
+  -webkit-mask:
+    radial-gradient(14px at 0 62%, transparent 97%, black) left / 51% 100% no-repeat,
+    radial-gradient(14px at 100% 62%, transparent 97%, black) right / 51% 100% no-repeat;
   padding: var(--space-5) var(--space-4);
   max-width: 460px;
   width: 100%;
