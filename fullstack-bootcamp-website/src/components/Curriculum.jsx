@@ -1,164 +1,142 @@
-import { useState, useRef, useEffect } from 'react'
-import { createTimeline, stagger } from 'animejs'
+import { useState } from 'react'
 import styles from './Curriculum.module.css'
 import { Reveal } from './Reveal'
 
-const TABS = [
-  { id: 'core',     label: 'Core (14 Modules)',    icon: 'fa-solid fa-star' },
-  { id: 'optional', label: 'Optional (4 Modules)', icon: 'fa-solid fa-plus-circle' },
-  { id: 'advanced', label: 'Advanced (4 Modules)', icon: 'fa-solid fa-rocket' },
+const PHASES = [
+  {
+    id: 'foundation',
+    phase: 'Phase 01',
+    title: 'Development Foundations',
+    subtitle: 'Weeks 1–6',
+    desc: 'Master version control, web standards, semantic markup, layout systems, and Figma developer handoff.',
+    nodes: [
+      { label: 'Git & GitHub', sub: 'Version Control' },
+      { label: 'Design Systems', sub: 'UI/UX & Figma' },
+      { label: 'Semantic HTML5', sub: 'DOM & Accessibility' },
+      { label: 'Modern CSS3', sub: 'Flexbox, Grid & Animations' },
+    ],
+  },
+  {
+    id: 'frontend',
+    phase: 'Phase 02',
+    title: 'Frontend Engineering',
+    subtitle: 'Weeks 7–16',
+    desc: 'Deep dive into modern ES6+ JavaScript, component-driven React architecture, and state management.',
+    nodes: [
+      { label: 'JavaScript (ES6+)', sub: 'Async, Promises & OOP' },
+      { label: 'React Core', sub: 'Hooks, Context & Lifecycle' },
+      { label: 'State Management', sub: 'Redux Toolkit & Zustand' },
+      { label: 'Client Routing', sub: 'React Router & SPA Architecture' },
+    ],
+  },
+  {
+    id: 'backend',
+    phase: 'Phase 03',
+    title: 'Backend & API Architecture',
+    subtitle: 'Weeks 17–26',
+    desc: 'Build secure, scalable REST APIs, authentication layers, microservices, and real-time WebSockets.',
+    nodes: [
+      { label: 'Node.js Runtime', sub: 'Event Loop & Modules' },
+      { label: 'Express Framework', sub: 'REST APIs & Middleware' },
+      { label: 'Auth & Security', sub: 'JWT, OAuth & Rate Limiting' },
+      { label: 'Real-Time WebSockets', sub: 'Socket.io & Events' },
+    ],
+  },
+  {
+    id: 'database',
+    phase: 'Phase 04',
+    title: 'Database & Cloud DevOps',
+    subtitle: 'Weeks 27–34',
+    desc: 'Database schema design, indexing, containerization with Docker, CI/CD, and AWS deployment.',
+    nodes: [
+      { label: 'MongoDB & Mongoose', sub: 'Document Store & Indexing' },
+      { label: 'PostgreSQL Basics', sub: 'Relational Schemas & SQL' },
+      { label: 'Docker Containers', sub: 'Images, Compose & Deployment' },
+      { label: 'CI/CD Pipelines', sub: 'GitHub Actions & Monitoring' },
+    ],
+  },
+  {
+    id: 'capstone',
+    phase: 'Phase 05',
+    title: 'Production Capstone & Career Placement',
+    subtitle: 'Weeks 35–40+',
+    desc: 'Build an end-to-end full stack application, code review by senior engineers, and placement preparation.',
+    nodes: [
+      { label: 'Industry Capstone', sub: 'Full Stack Real-World Application' },
+      { label: 'Code Quality', sub: 'Testing, Performance & Security' },
+      { label: 'Portfolio & Resume', sub: 'Technical Interview Prep' },
+      { label: 'Hiring Drives', sub: 'Direct Partner Interviews' },
+    ],
+  },
 ]
 
-const MODULES = {
-  core: [
-    { num: '01', title: 'Git & GitHub',           desc: 'Version control, branching & collaboration' },
-    { num: '02', title: 'Design for Developers',  desc: 'UI/UX principles & Figma workflows' },
-    { num: '03', title: 'HTML',                   desc: 'Semantic markup & accessibility' },
-    { num: '04', title: 'CSS',                    desc: 'Flexbox, Grid & modern CSS techniques' },
-    { num: '05', title: 'JavaScript',             desc: 'ES6+, DOM, Async/Await, Fetch API & OOP' },
-    { num: '06', title: 'React',                  desc: 'Components, State, Routing & Redux' },
-    { num: '07', title: 'Node.js',                desc: 'Server-side JS & runtime fundamentals' },
-    { num: '08', title: 'Express & REST APIs',    desc: 'RESTful architecture & middleware' },
-    { num: '09', title: 'Authentication',         desc: 'JWT, Cookies & Sessions' },
-    { num: '10', title: 'API Gateway',            desc: 'Rate limiting, routing & orchestration' },
-    { num: '11', title: 'WebSocket & Socket.io',  desc: 'Real-time bidirectional communication' },
-    { num: '12', title: 'Database (MongoDB)',      desc: 'CRUD, Indexing & schema design' },
-    { num: '13', title: 'Deployment & Monitoring', desc: 'CI/CD, Docker basics & logging' },
-    { num: '14', title: 'Capstone Project',       desc: 'Full stack project + portfolio showcase' },
-  ],
-  optional: [
-    { num: 'A', title: 'AWS',            desc: 'EC2, S3 & IAM fundamentals' },
-    { num: 'B', title: 'Docker',         desc: 'Containers, images & orchestration' },
-    { num: 'C', title: 'Testing',        desc: 'Jest, Postman & Cypress end-to-end' },
-    { num: 'D', title: 'Spring Boot',    desc: 'Java-based enterprise backend' },
-  ],
-  advanced: [
-    { num: 'I',   title: 'Advanced Frontend',   desc: 'Redux Toolkit & code splitting strategies' },
-    { num: 'II',  title: 'Advanced Backend',    desc: 'Microservices & message queues' },
-    { num: 'III', title: 'Industry Project',    desc: 'Real client-grade full stack build' },
-    { num: 'IV',  title: 'Next.js',             desc: 'SSR, SSG & the App Router' },
-  ],
-}
-
 export default function Curriculum() {
-  const [active, setActive] = useState('core')
-  const timelineRef = useRef(null)
-
-  useEffect(() => {
-    const timelineElement = timelineRef.current
-    if (!timelineElement) return
-
-    const nodes = timelineElement.querySelectorAll(`.${styles.timelineItem}`)
-    if (!nodes.length) return
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) {
-      nodes.forEach((c) => {
-        c.style.opacity = '1'
-        c.style.transform = 'none'
-      })
-      return
-    }
-
-    const tl = createTimeline({
-      defaults: { ease: 'out(3)', duration: 620 },
-    })
-    tl.add(nodes, {
-      opacity: [0, 1],
-      translateY: [20, 0],
-      delay: stagger(100),
-    })
-
-    return () => tl.revert()
-  }, [active])
+  const [activePhase, setActivePhase] = useState(0)
 
   return (
-    <section id="curriculum" className={`${styles.section} texture-grain`}>
+    <section id="curriculum" className={styles.section}>
       <div className="container">
-
         <Reveal className={styles.head}>
-          <span className="section-tag">
-            <i className="fa-solid fa-book-open" style={{ marginRight: '.4rem' }} />
-            Curriculum
+          <span className={styles.sectionTag}>
+            <i className="fa-solid fa-graduation-cap" />
+            Structured Curriculum
           </span>
-          <h2 className="section-title" style={{ color: 'var(--white)' }}>
-            What You'll <span className="grad" style={{ color: 'var(--orange-deep)' }}>Learn</span>
+          <h2 className={styles.sectionTitle}>
+            From Zero to <span className={styles.accent}>Industry-Ready</span>
           </h2>
-          <p className="section-desc" style={{ color: 'var(--gray-200)' }}>
-            A comprehensive, structured curriculum covering every layer of the modern web stack — from design to deployment.
+          <p className={styles.sectionDesc}>
+            A comprehensive, industry-designed 40-week curriculum engineered to turn beginners into job-ready full stack developers.
           </p>
         </Reveal>
 
-        <Reveal className={styles.tabs}>
-          {TABS.map(tab => (
+        {/* ─── Phase Navigation Tabs ───────────────────────────── */}
+        <div className={styles.tabsContainer}>
+          {PHASES.map((p, index) => (
             <button
-              key={tab.id}
-              className={`${styles.tabBtn} ${active === tab.id ? styles.activeTab : ''}`}
-              onClick={() => setActive(tab.id)}
+              key={p.id}
+              className={`${styles.tabBtn} ${activePhase === index ? styles.tabActive : ''}`}
+              onClick={() => setActivePhase(index)}
             >
-              <i className={tab.icon} />
-              {tab.label}
+              <span className={styles.tabStep}>{p.phase}</span>
+              <span className={styles.tabTitle}>{p.title}</span>
             </button>
           ))}
-        </Reveal>
+        </div>
 
-        <div className={styles.timelineContainer}>
-          {/* Organic hand-drawn spine — a wavy SVG path stretched to the
-              container height; glow + slow breathing pulse in CSS */}
-          <svg
-            className={styles.timelineLine}
-            viewBox="0 0 40 1200"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path
-              className={styles.timelinePath}
-              d="M20,0
-                 C 30,50 8,100 22,150
-                 C 34,195 6,240 18,300
-                 C 28,350 10,400 24,450
-                 C 36,495 8,540 16,600
-                 C 24,650 32,700 14,750
-                 C 4,795 30,840 22,900
-                 C 16,950 34,1000 18,1050
-                 C 10,1095 26,1150 20,1200"
-            />
-          </svg>
+        {/* ─── Active Phase Detail Card ────────────────────────── */}
+        <div className={styles.phaseDetailCard}>
+          <div className={styles.detailHeader}>
+            <div>
+              <span className={styles.phaseBadge}>{PHASES[activePhase].phase} · {PHASES[activePhase].subtitle}</span>
+              <h3 className={styles.detailTitle}>{PHASES[activePhase].title}</h3>
+            </div>
+            <span className={styles.stepCounter}>0{activePhase + 1} / 05</span>
+          </div>
 
-          <div className={styles.timeline} ref={timelineRef}>
-            {MODULES[active].map((mod, i) => (
-              <div
-                key={mod.num}
-                className={`${styles.timelineItem} ${i % 2 === 0 ? styles.itemLeft : styles.itemRight}`}
-              >
-                <div className={styles.timelineNode}>
-                  <div className={styles.timelineDot}></div>
-                </div>
-                <div className={styles.timelineContent}>
-                  {/* Oversized ghost number behind the card content */}
-                  <span className={styles.ghostNum} aria-hidden="true">{mod.num}</span>
-                  <div className={styles.info}>
-                    <h4>{mod.title}</h4>
-                    <p>{mod.desc}</p>
-                  </div>
-                  {active === 'optional' && <span className={`${styles.badge} ${styles.badgeOpt}`}>Optional</span>}
-                  {active === 'advanced' && <span className={`${styles.badge} ${styles.badgeAdv}`}>Advanced</span>}
+          <p className={styles.detailDesc}>{PHASES[activePhase].desc}</p>
+
+          <div className={styles.moduleGrid}>
+            {PHASES[activePhase].nodes.map((node, i) => (
+              <div key={i} className={styles.moduleCard}>
+                <div className={styles.moduleNum}>0{i + 1}</div>
+                <div className={styles.moduleContent}>
+                  <h4>{node.label}</h4>
+                  <p>{node.sub}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+        <div className={styles.ctaRow}>
           <button
-            className="btn btn-primary"
+            className={styles.downloadBtn}
             onClick={() => alert('Full syllabus PDF coming soon! Contact us to receive it by email.')}
           >
             <i className="fa-solid fa-download" />
-            Download Full Syllabus
+            Download Complete Syllabus (PDF)
           </button>
         </div>
-
       </div>
     </section>
   )

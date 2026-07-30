@@ -1,233 +1,273 @@
-/* Placement.module.css */
+/* ── Clean Corporate Placement Section ──────────────────────────── */
 
 .section {
   padding: var(--section-pad) 0;
-  background: var(--navy-dark);
+  background: #f8fafc; /* Crisp off-white / light slate corporate canvas */
+  color: #0f172a;
   position: relative;
 }
 
-.head { margin-bottom: var(--space-2); }
-
-/* ─── Stat cards ────────────────────────────────────────────── */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
-}
-
-.statCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-xl);
-  padding: var(--space-4) var(--space-3);
+.head {
+  margin-bottom: var(--space-8);
   text-align: center;
-  display: flex;
-  flex-direction: column;
+}
+
+.sectionTag {
+  display: inline-flex;
   align-items: center;
-  gap: .4rem;
-  transition: border-color .4s var(--ease-spring), background .4s var(--ease-spring);
-}
-.statCard:hover {
-  border-color: rgba(255,255,255,.25);
-  background: rgba(255,255,255,0.06);
-}
-
-.statIcon {
-  width: 56px; height: 56px;
-  border-radius: var(--radius-lg);
-  background: rgba(255,255,255,.08);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem;
-  color: var(--orange);
-  margin-bottom: .6rem;
-}
-
-.statNum {
+  gap: 0.45rem;
   font-family: var(--font-head);
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1;
-}
-
-.statLabel {
-  font-size: .8rem;
-  font-weight: 600;
-  color: rgba(255,255,255,.65);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  letter-spacing: .5px;
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  padding: 0.32rem 0.85rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-2);
 }
 
-/* ─── Ring chart (placement rate) ───────────────────────────── */
-.ringWrap {
-  position: relative;
+.sectionTitle {
+  font-family: var(--font-head);
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-2);
+}
+
+.accent {
+  color: #ea580c;
+}
+
+.sectionDesc {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.65;
+  max-width: 580px;
+  margin-inline: auto;
+}
+
+/* ── Metrics Grid (Clean 4-card layout) ───────────────────────── */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 4rem;
+}
+
+.metricCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
   display: flex;
   flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  border-color: #cbd5e1;
+}
+
+.cardHeader {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
-.ringSvg {
-  width: 128px;
-  height: 128px;
+.cardTag {
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
 }
 
-.ringLabel {
-  position: absolute;
-  inset: 0;
+.cardIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #fff7ed;
+  color: #ea580c;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: .2rem;
+  font-size: 0.95rem;
 }
-.ringLabel .statNum { font-size: 1.6rem; }
-.ringLabel .statLabel { font-size: .6rem; }
 
-/* ─── Sparkline / area chart (package growth) ───────────────── */
+.metricValue {
+  font-family: var(--font-head);
+  font-size: clamp(2.4rem, 3.5vw, 3rem);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+}
+
+.metricValue .unit {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ea580c;
+}
+
 .sparkWrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .4rem;
+  margin: -0.25rem 0 0.5rem 0;
 }
 
 .sparkSvg {
   width: 100%;
-  max-width: 220px;
-  height: 72px;
-  margin-bottom: var(--space-1);
+  height: 48px;
 }
 
-/* ─── Oversized focal stat — intentionally breaks the grid ──── */
-/* The strongest number on the page: rendered big enough to bleed
-   past the card's right edge as a deliberate focal moment */
-.heroStat {
+.metricDesc {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+/* ── Alumni Showcase Section ──────────────────────────────────── */
+.alumniSection {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+}
+
+.alumniTitle {
   font-family: var(--font-head);
-  font-size: clamp(3.4rem, 6vw, 5.2rem);
-  font-weight: 900;
-  color: var(--white);
-  line-height: 0.95;
-  white-space: nowrap;
-  letter-spacing: -0.02em;
-  /* Slide out past the card boundary */
-  margin-right: calc(var(--space-3) * -2.2);
-  align-self: flex-end;
-  text-shadow: 0 0 40px rgba(246, 173, 85, 0.35);
-}
-.heroStat em {
-  font-style: normal;
-  font-size: 0.42em;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: var(--orange);
+  color: #0f172a;
+  margin-bottom: 1.75rem;
+  text-align: center;
 }
 
-/* The bleeding stat needs its card (and the grid) to let it out */
-.statCard:has(.heroStat) { overflow: visible; }
-
-/* ─── Alumni scroller ───────────────────────────────────────── */
-.alumniWrap {
-  overflow-x: auto;
-  padding-bottom: var(--space-2);
-  /* soft edge fade hint that the row scrolls */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.2) transparent;
-}
-
-.alumniRow {
-  display: flex;
-  gap: var(--space-3);
-  width: max-content;
+.alumniGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
 }
 
 .alumniCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4) var(--space-3);
-  width: 220px;
-  text-align: center;
-  transition: border-color .4s var(--ease-spring), background .4s var(--ease-spring);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
+
 .alumniCard:hover {
-  border-color: rgba(255,255,255,.25);
-  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  background: #ffffff;
+}
+
+.alumniHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
 }
 
 .avatar {
-  width: 64px; height: 64px;
-  border-radius: var(--radius-lg);
-  margin: 0 auto var(--space-2);
-  background: rgba(255,255,255,0.1);
-  color: var(--white);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #ffffff;
   font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 1.2rem;
-  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.alumniCard h4 {
+.pkgBadge {
   font-family: var(--font-head);
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--white);
-  margin-bottom: .3rem;
+  color: #ea580c;
+  background: #fff7ed;
+  border: 1px solid #ffedd5;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
 }
 
-.placedAt {
-  font-size: .8rem;
-  color: var(--gray-400);
-  margin-bottom: .5rem;
-}
-.placedAt strong { color: var(--orange-deep); }
-
-.role {
-  display: inline-block;
-  font-size: .68rem;
+.alumniName {
+  font-family: var(--font-head);
+  font-size: 0.98rem;
   font-weight: 700;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.15);
-  padding: .3rem .8rem;
-  border-radius: var(--radius-sm);
+  color: #0f172a;
+  margin-bottom: 0.2rem;
 }
 
-/* ─── View-all button ───────────────────────────────────────── */
-.moreWrap {
+.alumniRole {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.companyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: #475569;
+}
+.companyRow i { color: #94a3b8; }
+.companyRow strong { color: #0f172a; }
+
+/* ── CTA Row ─────────────────────────────────────────────────── */
+.ctaRow {
   text-align: center;
-  margin-top: var(--space-5);
-  /* keep clear of the diagonal divider slice below */
-  padding-bottom: var(--space-6);
+  margin-top: 2.5rem;
 }
 
-/* ─── Diagonal bottom divider (placement → pricing) ─────────── */
-.divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  line-height: 0;
-  pointer-events: none;
-  /* above the grain overlay (z-index 3) so the slice reads clean */
-  z-index: 4;
-}
-.divider svg {
-  display: block;
-  width: 100%;
-  height: clamp(40px, 6.5vw, 90px);
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.8rem 1.8rem;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-/* ─── Responsive ────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .stats {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
+.ctaBtn:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  /* On a single column the bleed would push past the viewport —
-     pull it back to a gentler overhang */
-  .heroStat {
-    margin-right: calc(var(--space-3) * -1.2);
-    font-size: clamp(2.8rem, 11vw, 4rem);
+}
+
+@media (max-width: 640px) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+  .alumniSection {
+    padding: 1.5rem 1rem;
   }
 }

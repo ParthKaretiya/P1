@@ -1,0 +1,96 @@
+.header {
+  background: #0f172a; /* Deep corporate slate header */
+  padding: calc(var(--space-12) + 50px) 0 var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle corporate mesh */
+.meshBg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(234, 88, 12, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 10% 90%, rgba(30, 41, 59, 0.5) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Subtle dot grid */
+.dotGrid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* Horizontal line at bottom */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #1e293b;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  flex-wrap: wrap;
+}
+
+.crumbItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #ea580c;
+}
+
+.crumbSep {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.currentCrumb {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.title {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-2);
+  max-width: 800px;
+}
+
+.accent {
+  color: #ea580c;
+}
+
+.desc {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 620px;
+  line-height: 1.65;
+}

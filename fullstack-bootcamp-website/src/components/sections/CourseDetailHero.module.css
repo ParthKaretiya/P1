@@ -1,0 +1,103 @@
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--off-white);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.factsCol h3, .toolsCol h3 {
+  font-family: var(--font-head);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  margin-bottom: var(--space-3);
+}
+
+.factsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.fact {
+  display: flex;
+  align-items: flex-start;
+  gap: .9rem;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-2);
+  transition: border-color .3s var(--ease-spring);
+}
+.fact:hover { border-color: var(--border-hairline-hover); }
+
+.fact > i {
+  color: var(--orange-deep);
+  font-size: 1rem;
+  margin-top: .2rem;
+  flex-shrink: 0;
+}
+
+.factLabel {
+  display: block;
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--gray-600);
+  margin-bottom: .12rem;
+}
+
+.factValue {
+  display: block;
+  font-family: var(--font-head);
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  line-height: 1.2;
+}
+
+.toolsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-bottom: var(--space-4);
+}
+
+.toolChip {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--navy-dark);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  padding: .35rem .85rem;
+  border-radius: 50px;
+  transition: background .3s var(--ease-spring), border-color .3s var(--ease-spring);
+  cursor: default;
+}
+.toolChip:hover {
+  background: var(--navy-dark);
+  color: var(--white);
+  border-color: var(--navy-dark);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .inner { grid-template-columns: 1fr; gap: var(--space-6); }
+  .factsGrid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .factsGrid { grid-template-columns: 1fr; }
+  .actions { flex-direction: column; }
+  .actions .btn { width: 100%; justify-content: center; }
+}

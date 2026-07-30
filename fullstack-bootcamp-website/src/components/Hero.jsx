@@ -1,4 +1,5 @@
 import { useRef, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import styles from './Hero.module.css'
 
@@ -107,22 +108,20 @@ export default function Hero() {
 
           {/* 6. CTA buttons */}
           <div className={styles.ctas}>
-            <a
-              href="#contact"
+            <Link
+              to="/admissions"
               className={styles.btnPrimary}
-              onClick={scrollTo('#contact')}
             >
               <i className="fa-solid fa-rocket" />
               Enroll Now
-            </a>
-            <a
-              href="#curriculum"
+            </Link>
+            <Link
+              to="/courses"
               className={styles.btnOutline}
-              onClick={scrollTo('#curriculum')}
             >
               <i className="fa-solid fa-book-open" />
-              View Curriculum
-            </a>
+              Explore Programs & Roadmaps
+            </Link>
           </div>
 
           {/* 7. Microcopy under CTAs */}

@@ -1,43 +1,52 @@
 /* ============================================================
-   Nirayush EduTech — Global CSS Variables & Reset
+   Nirayush EduTech — Premium Modern SaaS Design System (DM Sans)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
-
 :root {
-  --navy:        #1a365d;
-  --navy-dark:   #0f2340;
-  --navy-mid:    #243b6e;
-  --orange:      #f6ad55;
-  --orange-deep: #dd6b20;
-  --orange-hot:  #e8591a;
+  --navy:        #0f172a;
+  --navy-dark:   #020617;
+  --navy-mid:    #1e293b;
+  --orange:      #f97316;
+  --orange-deep: #ea580c;
+  --orange-hot:  #c2410c;
   --white:       #ffffff;
-  --off-white:   #f7f8fc;
-  --gray-100:    #edf2f7;
+  --off-white:   #f8fafc;
+  --gray-50:     #f8fafc;
+  --gray-100:    #f1f5f9;
   --gray-200:    #e2e8f0;
-  --gray-400:    #a0aec0;
-  --gray-600:    #718096;
-  --gray-800:    #2d3748;
-  --text-dark:   #1a202c;
-  --text-mid:    #4a5568;
+  --gray-300:    #cbd5e1;
+  --gray-400:    #94a3b8;
+  --gray-600:    #475569;
+  --gray-800:    #1e293b;
+  --text-dark:   #0f172a;
+  --text-mid:    #475569;
 
-  --font-body: 'Outfit', sans-serif;
-  --font-head: 'Space Grotesk', sans-serif;
+  /* Typography: DM Sans primary font */
+  --font-head: 'DM Sans', 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'DM Sans', 'Plus Jakarta Sans', sans-serif;
+  --font-sans: 'DM Sans', sans-serif;
 
-  /* Hairline borders replace drop shadows for card depth */
+  /* Modern Glassmorphism Design Tokens */
+  --glass-bg-light: rgba(255, 255, 255, 0.82);
+  --glass-bg-dark:  rgba(15, 23, 42, 0.88);
+  --glass-border-light: 1px solid rgba(226, 232, 240, 0.8);
+  --glass-border-dark:  1px solid rgba(255, 255, 255, 0.12);
+  --glass-blur: blur(20px) saturate(180%);
+
   --border-hairline:       1px solid var(--gray-200);
-  --border-hairline-hover: #b8c4d4; /* darkened border color on hover */
-  --shadow-sm:     none;
-  --shadow-md:     none;
-  --shadow-lg:     none;
-  --shadow-orange: none;
+  --border-hairline-hover: #cbd5e1;
+  --shadow-sm:     0 2px 8px rgba(0, 0, 0, 0.03);
+  --shadow-md:     0 8px 24px rgba(15, 23, 42, 0.06);
+  --shadow-lg:     0 20px 48px rgba(15, 23, 42, 0.08);
+  --shadow-glass:  0 12px 32px rgba(15, 23, 42, 0.06);
 
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
 
-  /* ─── 8px spacing scale ─────────────────────────────────────── */
+  /* Spacing Scale */
   --space-1: 8px;
   --space-2: 16px;
   --space-3: 24px;
@@ -49,93 +58,147 @@
   --space-12: 96px;
   --space-15: 120px;
 
-  /* Generous vertical rhythm for sections (120px) */
-  --section-pad: var(--space-15);
-
-  /* Spring-based easing — weighted, physical motion */
+  --section-pad: 96px;
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition: 0.4s var(--ease-spring);
+  --transition: 0.35s var(--ease-spring);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-dark);
+  background-color: var(--white);
+}
 
 body {
-  font-family: var(--font-body);
-  color: var(--text-dark);
-  background: var(--white);
   overflow-x: hidden;
   line-height: 1.6;
 }
 
-img { max-width: 100%; display: block; }
-a   { text-decoration: none; color: inherit; }
-ul  { list-style: none; }
-button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+/* Glassmorphism Utilities */
+.glass-card {
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border-light);
+  box-shadow: var(--shadow-glass);
+}
 
-/* ─── Utility classes ──────────────────────────────────────── */
+.glass-card-dark {
+  background: var(--glass-bg-dark);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border-dark);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Typography & Shared Elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1240px;
   margin-inline: auto;
+  padding-inline: var(--space-3);
 }
 
 .section-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--font-head);
-  font-size: .75rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--orange-deep);
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  padding: .35rem 1rem;
-  border-radius: var(--radius-sm);
+  color: var(--navy-mid);
+  background: rgba(30, 41, 59, 0.06);
+  border: 1px solid rgba(30, 41, 59, 0.12);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-pill);
   margin-bottom: var(--space-2);
 }
 
 .section-title {
   font-family: var(--font-head);
-  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
   font-weight: 800;
-  color: var(--navy-dark);
+  color: var(--navy);
   line-height: 1.15;
-  margin-bottom: .75rem;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-2);
 }
 
 .section-title .grad {
-  /* Solid accent — no gradient fills in this design language */
-  color: var(--orange-deep);
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section-desc {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text-mid);
-  max-width: 600px;
-  margin-bottom: var(--space-6);
-  line-height: 1.7;
+  max-width: 640px;
+  line-height: 1.65;
 }
 
-/* ─── Film-grain texture overlay (dark sections) ────────────── */
-/* Tiny inline SVG noise tile (~200B) — no image request, GPU-cheap.
-   Sits above content at very low opacity for tactile depth. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-head);
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+}
+.btn-primary:hover {
+  background: var(--navy-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+.btn-orange {
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange));
+  color: var(--white);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.3);
+}
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(234, 88, 12, 0.45);
+}
+
+.btn-outline-dark {
+  background: var(--white);
+  color: var(--navy);
+  border: 1px solid var(--gray-300);
+}
+.btn-outline-dark:hover {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
 .texture-grain {
   position: relative;
-  isolation: isolate;
 }
-.texture-grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
-}
-
-/* Scroll reveals are now handled by Motion (<Reveal> in components/Reveal.jsx).
-   The old .animate-on-scroll / .stagger-children IntersectionObserver classes
-   were removed during the Motion migration. */

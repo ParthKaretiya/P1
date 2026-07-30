@@ -1,0 +1,118 @@
+.mapSection {
+  padding: var(--section-pad) 0;
+  background: var(--off-white);
+}
+
+.mapGrid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.campusCard {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.campusCard h3 {
+  font-family: var(--font-head);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  margin-bottom: var(--space-2);
+}
+
+.addr {
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin-bottom: var(--space-3);
+}
+
+.actionRow {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.copyBtn, .directionsBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  font-family: var(--font-head);
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.copyBtn {
+  background: var(--navy-dark);
+  color: var(--white);
+  border: none;
+}
+.copyBtn:hover {
+  background: var(--navy-mid);
+  transform: translateY(-1px);
+}
+
+.directionsBtn {
+  background: var(--orange-deep);
+  color: var(--white);
+  border: none;
+}
+.directionsBtn:hover {
+  background: var(--orange-hot);
+  transform: translateY(-1px);
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  color: var(--navy-dark);
+  font-weight: 600;
+  border-top: 1px solid var(--gray-200);
+  padding-top: var(--space-3);
+  margin-top: auto;
+}
+
+.contactDetails p {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.contactDetails i { color: var(--orange-deep); font-size: 1rem; }
+
+.contactDetails a {
+  color: var(--navy-dark);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.contactDetails a:hover { color: var(--orange-deep); }
+
+.mapFrameWrap {
+  min-height: 380px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--gray-200);
+}
+
+@media (max-width: 900px) {
+  .mapGrid { grid-template-columns: 1fr; }
+  .mapFrameWrap { height: 320px; }
+}

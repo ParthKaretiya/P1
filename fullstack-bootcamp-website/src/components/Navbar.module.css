@@ -1,351 +1,368 @@
-/* Navbar.module.css — clean, minimal, max height 72px */
-
-.navbar {
+.headerWrapper {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background .4s var(--ease-spring), border-color .4s var(--ease-spring);
+  padding: 14px var(--space-3);
+  pointer-events: none;
+  transition: padding 0.3s var(--ease-spring);
 }
 
-/* Subtle background blur once scrolled */
-.navbar.scrolled {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--gray-200);
+.headerScrolled {
+  padding: 10px var(--space-3);
 }
 
-.inner {
+.glassPillNav {
+  pointer-events: auto;
+  max-width: 1240px;
+  margin-inline: auto;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-pill);
+  padding: 0.48rem 1.25rem;
+  transition: all 0.35s var(--ease-spring);
+}
+
+.pillContracted {
+  padding: 0.38rem 1.1rem;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
+  border-color: rgba(203, 213, 225, 0.9);
+}
+
+.navInner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
-  width: 100%;
-}
-
-/* ─── Logo (left) ──────────────────────────────────────────── */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  text-decoration: none;
-}
-
-.logoIcon {
-  width: 40px; height: 40px;
-  background: var(--navy-dark);
-  border-radius: var(--radius-md);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: 1.25rem;
-  color: var(--white);
-  flex-shrink: 0;
-  transition: transform .4s var(--ease-spring);
-}
-.logo:hover .logoIcon { transform: scale(1.05); }
-
-.logoText {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-.logoName {
-  font-family: var(--font-head);
-  font-weight: 800;
-  font-size: 1rem;
-  color: var(--navy-dark);
-}
-.logoSub {
-  font-size: .65rem;
-  font-weight: 500;
-  color: var(--text-mid);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* ─── Menu (right-aligned) ─────────────────────────────────── */
-.menu {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
-  list-style: none;
-  margin-left: auto;
-}
-
-.navItem {
-  position: relative;
-}
-
-/* Pill-shaped nav items — dark rounded highlight on hover/active */
-.pillItem {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  padding: .45rem .9rem;
-  border-radius: 50px;
-  background: transparent;
-  border: none;
-  font-family: var(--font-body);
-  color: var(--text-mid);
-  font-weight: 600;
-  font-size: .87rem;
-  cursor: pointer;
-  transition: color .25s var(--ease-spring);
-  text-decoration: none;
-  white-space: nowrap;
-  z-index: 1;
-}
-.pillItem.pillActive { color: var(--white); }
-
-/* Shared sliding pill background (Motion layoutId) */
-.pillBg {
-  position: absolute;
-  inset: 0;
-  background: #1a1a1a;
-  border-radius: 50px;
-  z-index: 0;
-  /* The slide is driven by Motion's layout animation (transform) —
-     never by CSS transition, so no `transition: all` here that could
-     fight the FLIP animation or lag on fast mouse movement */
-  pointer-events: none;
-}
-
-/* Touch / coarse pointers get an instant pressed state instead of
-   relying on hover (which sticks or never fires on tap) */
-@media (hover: none) {
-  .pillItem:active {
-    background: rgba(26, 26, 26, 0.08);
-    color: var(--navy-dark);
-  }
-}
-
-/* Mega trigger keeps its own static pill since it isn't part of the
-   shared sliding highlight */
-.megaTrigger.pillActive {
-  background: #1a1a1a;
-}
-
-/* Always-visible actions (CTA + hamburger) */
-.actions {
-  display: flex;
-  align-items: center;
   gap: var(--space-2);
 }
 
-/* Single solid CTA */
-.navCta {
-  display: inline-block;
-  padding: .6rem 1.4rem;
-  background: var(--orange-deep);
-  color: var(--white);
-  border-radius: var(--radius-md);
-  font-family: var(--font-head);
-  font-size: .85rem;
-  font-weight: 700;
-  white-space: nowrap;
+/* Logo Frame */
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   text-decoration: none;
-  transition: background .3s var(--ease-spring), transform .3s var(--ease-spring);
+  transition: transform 0.25s var(--ease-spring), opacity 0.25s ease;
 }
-.navCta:hover { background: var(--orange-hot); }
-.navCta:active { transform: scale(0.97); }
+.logoLink:hover {
+  transform: scale(1.02);
+  opacity: 0.9;
+}
 
-/* ─── Mega menu ─────────────────────────────────────────────── */
+.logoFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 4px;
+  background: transparent;
+  border-radius: 10px;
+}
+
+.logoImg {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
+
+.logoTextWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1;
+}
+
+.logoText {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.logoSub {
+  font-family: var(--font-head);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--orange-deep);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Desktop Menu */
+.desktopMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  list-style: none;
+}
+
+.navPillBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.48rem 0.95rem;
+  font-family: var(--font-head);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: color 0.22s ease, background 0.22s ease;
+  z-index: 1;
+}
+
+.navPillBtn:hover {
+  color: var(--navy-dark);
+  background: rgba(15, 23, 42, 0.05);
+}
+
+.navPillActive {
+  color: var(--white) !important;
+}
+
+.activePillBg {
+  position: absolute;
+  inset: 0;
+  background: var(--navy);
+  border-radius: var(--radius-pill);
+  z-index: -1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.navLabel {
+  position: relative;
+  z-index: 2;
+}
+
+.chevron {
+  font-size: 0.62rem;
+  transition: transform 0.25s var(--ease-spring);
+}
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Mega Menu Glass Panel */
 .megaWrap {
   position: relative;
 }
 
-.megaChevron {
-  font-size: .6rem;
-  transition: transform .25s var(--ease-spring);
-}
-.megaChevronOpen { transform: rotate(180deg); }
-
-/* Full-width dark panel dropping below the navbar
-   (open/close animation handled by Motion) */
-.megaPanel {
-  position: fixed;
-  top: 80px; /* 72px navbar + 8px gap */
-  left: 50%;
-  translate: -50% 0;
-  width: min(1200px, calc(100vw - 32px));
-  background: #1a1a1a;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 18px;
-  box-shadow: 0 24px 64px rgba(0,0,0,.35);
-  padding: var(--space-4) var(--space-5);
-  z-index: 1000;
+.megaPanelGlass {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: 760px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12);
+  z-index: 1100;
 }
 
-/* Dimmed + blurred backdrop over the page content
-   (fade handled by Motion) */
-.megaBackdrop {
-  position: fixed;
-  inset: 72px 0 0;
-  background: rgba(0,0,0,.35);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 900;
-}
-
-/* 4-column link grid */
 .megaGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-5);
-}
-
-.megaCol {
-  display: flex;
-  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .megaHeader {
-  font-size: .72rem;
-  font-weight: 600;
-  letter-spacing: 1.2px;
+  display: block;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 800;
   text-transform: uppercase;
-  color: rgba(255,255,255,.45);
-  margin-bottom: var(--space-2);
+  letter-spacing: 0.5px;
+  color: var(--orange-deep);
+  margin-bottom: 0.75rem;
 }
 
 .megaList {
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  list-style: none;
+  gap: 0.35rem;
 }
 
-/* Primary links — bold white */
-.megaLink {
-  display: inline-flex;
+.megaItemPrimary, .megaItemSecondary {
+  display: flex;
   align-items: center;
-  gap: .55rem;
-  font-size: .92rem;
-  font-weight: 700;
-  color: var(--white);
-  text-decoration: none;
-  transition: color .25s var(--ease-spring);
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0.38rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-head);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--navy-dark);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, padding-left 0.18s ease;
 }
-.megaLink:hover { color: var(--orange); }
 
-/* Secondary links (e.g. "View all") — muted gray */
-.megaLinkMuted {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-  font-size: .88rem;
-  font-weight: 500;
-  color: rgba(255,255,255,.5);
-  text-decoration: none;
-  transition: color .25s var(--ease-spring);
+.megaItemPrimary:hover, .megaItemSecondary:hover {
+  background: rgba(234, 88, 12, 0.06);
+  color: var(--orange-deep);
+  padding-left: 0.85rem;
 }
-.megaLinkMuted:hover { color: rgba(255,255,255,.8); }
 
-/* Small badge/pill next to a link */
 .megaBadge {
-  display: inline-block;
-  font-size: .6rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: .5px;
   text-transform: uppercase;
-  color: var(--white);
   background: var(--orange-deep);
-  padding: .12rem .5rem;
-  border-radius: 50px;
-  line-height: 1.4;
+  color: var(--white);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-pill);
 }
 
-/* ─── Hamburger ─────────────────────────────────────────────── */
-.hamburger {
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.applyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-head);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange));
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.32);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s var(--ease-spring);
+  letter-spacing: -0.01em;
+}
+
+.applyBtn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 24px rgba(234, 88, 12, 0.52);
+}
+
+/* Hamburger */
+.hamburgerBtn {
   display: none;
   flex-direction: column;
-  gap: 5px;
-  padding: 5px;
-  background: none;
+  justify-content: space-between;
+  width: 26px;
+  height: 18px;
+  background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1001;
+  padding: 0;
 }
-.hamburger span {
-  display: block;
-  width: 24px; height: 2px;
-  background: var(--navy-dark);
-  border-radius: 2px;
-  transition: transform .4s var(--ease-spring), opacity .4s var(--ease-spring), background .4s var(--ease-spring);
-}
-/* Slide-in panel is white — bars stay navy in every state */
-.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* Mobile overlay */
-.overlay {
+.bar1, .bar2, .bar3 {
+  width: 100%;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.hamburgerActive .bar1 { transform: translateY(8px) rotate(45deg); }
+.hamburgerActive .bar2 { opacity: 0; }
+.hamburgerActive .bar3 { transform: translateY(-8px) rotate(-45deg); }
+
+/* Mobile Drawer */
+.mobileGlassDrawer {
+  position: fixed;
+  top: 76px;
+  left: 16px;
+  right: 16px;
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.15);
+}
+
+.mobileNavList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy-dark);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: background 0.18s ease, color 0.18s ease, padding-left 0.18s ease;
+}
+
+.mobileNavLink:hover {
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--orange-deep);
+  padding-left: 1.2rem;
+}
+
+.mobileNavActive {
+  background: rgba(234, 88, 12, 0.08);
+  color: var(--orange-deep);
+}
+
+.mobileDrawerFooter {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--gray-200);
+}
+
+.mobileApplyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange));
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+}
+
+.backdropBlur {
   position: fixed;
   inset: 0;
-  background: rgba(15, 35, 64, .35);
+  background: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(4px);
   z-index: 998;
 }
 
-/* ─── Responsive ─────────────────────────────────────────────── */
-/* 9 links + CTA need ~900px — collapse to hamburger below 1080px */
-@media (max-width: 1080px) {
-  .hamburger { display: flex; }
-
-  .menu {
-    position: fixed;
-    top: 0; right: -100%;
-    width: 75%;
-    max-width: 320px;
-    height: 100vh;
-    background: var(--white);
-    border-left: 1px solid var(--gray-200);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: var(--space-12) var(--space-4) var(--space-4);
-    gap: var(--space-3);
-    transition: right .5s var(--ease-spring);
-    z-index: 999;
-    overflow-y: auto;
-  }
-  .menu.open { right: 0; }
-  .menu a { color: var(--text-mid); font-size: 1.05rem; }
-  .menu a:hover,
-  .menu a.active { color: var(--navy-dark); }
-
-  /* Pills flatten into plain links inside the mobile panel */
-  .pillItem {
-    padding: 0;
-    font-size: 1.05rem;
-    color: var(--text-mid);
-  }
-  .pillItem.pillActive {
-    background: transparent;
-    color: var(--navy-dark);
-  }
-  .pillBg { display: none; }
-
-  /* Mega menu inside the mobile panel: inline dark block instead of
-     a fixed full-width dropdown; backdrop is unnecessary here */
-  .megaWrap { width: 100%; }
-  .megaTrigger.pillActive { background: transparent; }
-  .megaPanel {
-    position: static;
-    width: 100%;
-    translate: none;
-    padding: var(--space-3);
-    margin-top: var(--space-2);
-    border-radius: 12px;
-  }
-  .megaGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
-  }
-  .megaBackdrop { display: none; }
+@media (max-width: 1024px) {
+  .desktopMenu { display: none; }
+  .hamburgerBtn { display: flex; }
+  .megaPanelGlass { display: none; }
 }

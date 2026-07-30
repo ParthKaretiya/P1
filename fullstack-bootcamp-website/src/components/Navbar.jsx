@@ -1,95 +1,88 @@
 import { useState, useEffect, useRef } from 'react'
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import styles from './Navbar.module.css'
 
+const LOGO_URL = 'https://i.postimg.cc/nz96D1VJ/Chat-GPT-Image-Jul-30-2026-05-17-19-PM.png'
+
 const navItems = [
-  { label: 'Home',         href: '#hero' },
-  { label: 'Why Us',       href: '#why' },
-  { label: 'Eligibility',  href: '#eligibility' },
-  { label: 'Placement',    href: '#placement' },
-  { label: 'Pricing',      href: '#pricing' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'FAQ',          href: '#faq' },
-  { label: 'Contact',      href: '#contact' },
+  { label: 'Home',         href: '/' },
+  { label: 'About',        href: '/about' },
+  { label: 'Courses',      href: '/courses' },
+  { label: 'Placements',   href: '/placements' },
+  { label: 'Success Stories', href: '/testimonials' },
+  { label: 'Faculty',      href: '/mentors' },
+  { label: 'Blog',         href: '/blog' },
+  { label: 'Contact',      href: '/contact' },
 ]
 
-/* ── Mega-menu content: 4 columns of links ── */
 const megaColumns = [
   {
-    header: 'Program',
+    header: 'Programs & Roadmaps',
     links: [
-      { label: 'Curriculum Phases',  href: '#curriculum', primary: true, badge: 'Popular' },
-      { label: 'Eligibility',        href: '#eligibility', primary: true },
-      { label: 'Download Syllabus',  href: '#curriculum' },
+      { label: 'Full Stack Developer (MERN)', href: '/courses/fullstack-developer', primary: true, badge: 'Popular' },
+      { label: 'React Specialisation',       href: '/courses', primary: true },
+      { label: 'Node.js Backend Track',      href: '/courses', primary: true },
+      { label: 'C++ & Data Structures',      href: '/courses/cpp-dsa', badge: 'Core' },
     ],
   },
   {
-    header: 'Outcomes',
+    header: 'Outcomes & Alumni',
     links: [
-      { label: 'Placement Stats',  href: '#placement', primary: true },
-      { label: 'Alumni Success',   href: '#placement', primary: true },
-      { label: 'Testimonials',     href: '#testimonials' },
+      { label: 'Placement Records', href: '/placements', primary: true },
+      { label: 'Success Stories',  href: '/testimonials', primary: true },
+      { label: 'Hiring Partners',  href: '/placements#partners' },
     ],
   },
   {
-    header: 'Pricing',
+    header: 'Campus & Life',
     links: [
-      { label: 'Fees & EMI',   href: '#pricing', primary: true },
-      { label: 'Scholarship',  href: '#pricing', primary: true, badge: 'New' },
+      { label: 'Our Faculty',    href: '/mentors', primary: true },
+      { label: 'Campus Gallery', href: '/gallery', primary: true, badge: 'New' },
+      { label: 'Blog & Guides',  href: '/blog' },
     ],
   },
   {
-    header: 'Resources',
+    header: 'Quick Action',
     links: [
-      { label: 'FAQ',      href: '#faq', primary: true },
-      { label: 'Contact',  href: '#contact', primary: true },
+      { label: 'Admissions & Fees', href: '/admissions', primary: true },
+      { label: 'FAQ',               href: '/faq' },
+      { label: 'Contact Us',        href: '/contact' },
     ],
   },
 ]
 
-/* Spring-feel easing shared with the site's design language */
 const SPRING_EASE = [0.16, 1, 0.3, 1]
 
 export default function Navbar() {
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
-  const [activeId,  setActiveId]  = useState('hero')
   const [megaOpen,  setMegaOpen]  = useState(false)
-  const [hoveredHref, setHoveredHref] = useState(null)
   const megaWrapRef = useRef(null)
   const closeTimer  = useRef(null)
+  const location    = useLocation()
+  const navigate    = useNavigate()
 
-  /* Glass effect + active section tracking */
   useEffect(() => {
-    const sections = document.querySelectorAll('section[id]')
-
-    const onScroll = () => {
-      setScrolled(window.scrollY > 60)
-
-      let current = 'hero'
-      sections.forEach(sec => {
-        if (window.scrollY >= sec.offsetTop - 130) current = sec.id
-      })
-      setActiveId(current)
-    }
-
+    const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Lock body scroll when menu is open */
+  useEffect(() => {
+    setMenuOpen(false)
+    setMegaOpen(false)
+  }, [location.pathname])
+
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  /* Close mega-menu on click outside or Escape */
   useEffect(() => {
     if (!megaOpen) return
     const onDown = (e) => {
-      if (megaWrapRef.current && !megaWrapRef.current.contains(e.target)) {
-        setMegaOpen(false)
-      }
+      if (megaWrapRef.current && !megaWrapRef.current.contains(e.target)) setMegaOpen(false)
     }
     const onKey = (e) => { if (e.key === 'Escape') setMegaOpen(false) }
     document.addEventListener('pointerdown', onDown)
@@ -100,186 +93,195 @@ export default function Navbar() {
     }
   }, [megaOpen])
 
-  /* Hover open/close with a small grace period so the pointer can
-     travel from trigger to panel without the menu snapping shut */
-  const megaEnter = () => {
-    clearTimeout(closeTimer.current)
-    setMegaOpen(true)
-  }
+  const megaEnter = () => { clearTimeout(closeTimer.current); setMegaOpen(true) }
   const megaLeave = () => {
     clearTimeout(closeTimer.current)
     closeTimer.current = setTimeout(() => setMegaOpen(false), 150)
   }
-  useEffect(() => () => clearTimeout(closeTimer.current), [])
 
-  /* Smooth scroll helper */
-  const handleNav = (e, href) => {
-    e.preventDefault()
-    setMenuOpen(false)
+  const handleMegaLink = (href) => {
     setMegaOpen(false)
-    /* Touch devices fire mouseenter on tap with no matching mouseleave —
-       clear the hover highlight so the pill doesn't stay stuck */
-    setHoveredHref(null)
-    const target = document.querySelector(href)
-    if (target) {
-      window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' })
-    }
+    setMenuOpen(false)
+    navigate(href)
   }
 
   return (
     <>
-      <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
-        <div className={`container ${styles.inner}`}>
+      <header className={`${styles.headerWrapper} ${scrolled ? styles.headerScrolled : ''}`}>
+        <nav className={`${styles.glassPillNav} ${scrolled ? styles.pillContracted : ''}`}>
+          <div className={styles.navInner}>
 
-          {/* Logo */}
-          <a href="#hero" className={styles.logo} onClick={e => handleNav(e, '#hero')}>
-            <span className={styles.logoIcon}>N</span>
-            <span className={styles.logoText}>
-              <span className={styles.logoName}>Nirayush EduTech</span>
-              <span className={styles.logoSub}>Full Stack Bootcamp</span>
-            </span>
-          </a>
+            {/* Premium Logo */}
+            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech Home">
+              <img
+                src={LOGO_URL}
+                alt="Nirayush EduTech"
+                className={styles.logoImg}
+                loading="eager"
+                width="40"
+                height="40"
+              />
+              <div className={styles.logoTextWrap}>
+                <span className={styles.logoText}>Nirayush</span>
+                <span className={styles.logoSub}>EduTech</span>
+              </div>
+            </Link>
 
-          {/* Desktop nav links */}
-          <ul
-            className={`${styles.menu} ${menuOpen ? styles.open : ''}`}
-            onMouseLeave={() => setHoveredHref(null)}
-          >
-            {/* Mega-menu trigger — "Curriculum" */}
-            <li
-              className={styles.megaWrap}
-              ref={megaWrapRef}
-              onMouseEnter={megaEnter}
-              onMouseLeave={megaLeave}
-            >
-              <button
-                className={`${styles.pillItem} ${styles.megaTrigger} ${megaOpen || activeId === 'curriculum' ? styles.pillActive : ''}`}
-                onClick={() => setMegaOpen(v => !v)}
-                aria-expanded={megaOpen}
-                aria-haspopup="true"
+
+            {/* Desktop Navigation */}
+            <ul className={styles.desktopMenu}>
+              {/* Mega Dropdown */}
+              <li
+                className={styles.megaWrap}
+                ref={megaWrapRef}
+                onMouseEnter={megaEnter}
+                onMouseLeave={megaLeave}
               >
-                Curriculum
-                <i className={`fa-solid fa-chevron-down ${styles.megaChevron} ${megaOpen ? styles.megaChevronOpen : ''}`} />
-              </button>
+                <button
+                  className={`${styles.navPillBtn} ${megaOpen ? styles.navPillActive : ''}`}
+                  onClick={() => setMegaOpen(v => !v)}
+                  aria-expanded={megaOpen}
+                >
+                  <span>Explore</span>
+                  <i className={`fa-solid fa-chevron-down ${styles.chevron} ${megaOpen ? styles.chevronOpen : ''}`} />
+                </button>
 
-              {/* Mega panel — Motion fade + slide-down */}
-              <AnimatePresence>
-                {megaOpen && (
-                  <motion.div
-                    className={styles.megaPanel}
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.22, ease: SPRING_EASE }}
+                <AnimatePresence>
+                  {megaOpen && (
+                    <motion.div
+                      className={styles.megaPanelGlass}
+                      initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                      transition={{ duration: 0.22, ease: SPRING_EASE }}
+                    >
+                      <div className={styles.megaGrid}>
+                        {megaColumns.map(col => (
+                          <div key={col.header} className={styles.megaCol}>
+                            <span className={styles.megaHeader}>{col.header}</span>
+                            <ul className={styles.megaList}>
+                              {col.links.map(link => (
+                                <li key={link.label}>
+                                  <button
+                                    className={link.primary ? styles.megaItemPrimary : styles.megaItemSecondary}
+                                    onClick={() => handleMegaLink(link.href)}
+                                  >
+                                    <span>{link.label}</span>
+                                    {link.badge && (
+                                      <span className={styles.megaBadge}>{link.badge}</span>
+                                    )}
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
+
+              {navItems.map(item => (
+                <li key={item.href}>
+                  <NavLink
+                    to={item.href}
+                    end={item.href === '/'}
+                    className={({ isActive }) =>
+                      `${styles.navPillBtn} ${isActive ? styles.navPillActive : ''}`
+                    }
                   >
-                    <div className={styles.megaGrid}>
-                      {megaColumns.map(col => (
-                        <div key={col.header} className={styles.megaCol}>
-                          <span className={styles.megaHeader}>{col.header}</span>
-                          <ul className={styles.megaList}>
-                            {col.links.map(link => (
-                              <li key={link.label}>
-                                <a
-                                  href={link.href}
-                                  className={link.primary ? styles.megaLink : styles.megaLinkMuted}
-                                  onClick={e => handleNav(e, link.href)}
-                                >
-                                  {link.label}
-                                  {link.badge && (
-                                    <span className={styles.megaBadge}>{link.badge}</span>
-                                  )}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </li>
-
-            {(() => {
-              /* Exactly ONE item may own the shared pill at a time —
-                 mounting two motion.spans with the same layoutId breaks
-                 Motion's shared-layout animation (the pill flickers or
-                 stops sliding). Hover wins; otherwise the active section. */
-              const activeHref = `#${activeId}`
-              const pillHref =
-                hoveredHref ??
-                (navItems.some(n => n.href === activeHref) ? activeHref : null)
-
-              return navItems.map(item => {
-                const highlighted = pillHref === item.href
-                return (
-                  <li key={item.href} className={styles.navItem}>
-                    {/* Shared pill slides between items via layoutId */}
-                    {highlighted && (
-                      <motion.span
-                        layoutId="nav-pill"
-                        className={styles.pillBg}
-                        transition={{ duration: 0.25, ease: SPRING_EASE }}
-                      />
+                    {({ isActive }) => (
+                      <>
+                        {isActive && (
+                          <motion.span
+                            layoutId="active-nav-pill-modern"
+                            className={styles.activePillBg}
+                            transition={{ duration: 0.25, ease: SPRING_EASE }}
+                          />
+                        )}
+                        <span className={styles.navLabel}>{item.label}</span>
+                      </>
                     )}
-                    <a
-                      href={item.href}
-                      className={`${styles.pillItem} ${highlighted ? styles.pillActive : ''}`}
-                      onClick={e => handleNav(e, item.href)}
-                      onMouseEnter={() => setHoveredHref(item.href)}
-                      /* mouseleave lives on the <ul>, not each link — a
-                         per-link leave fires in the gap BETWEEN links and
-                         snaps the pill back to the active section mid-travel */
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+
+            {/* Action CTA & Mobile Hamburger */}
+            <div className={styles.actions}>
+              <Link to="/admissions" className={styles.applyBtn}>
+                <span>Apply Now</span>
+                <i className="fa-solid fa-arrow-right-long" />
+              </Link>
+
+              <button
+                className={`${styles.hamburgerBtn} ${menuOpen ? styles.hamburgerActive : ''}`}
+                onClick={() => setMenuOpen(v => !v)}
+                aria-label="Toggle menu"
+              >
+                <span className={styles.bar1} />
+                <span className={styles.bar2} />
+                <span className={styles.bar3} />
+              </button>
+            </div>
+
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className={styles.mobileGlassDrawer}
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25, ease: SPRING_EASE }}
+          >
+            <div className={styles.mobileMenuContainer}>
+              <ul className={styles.mobileNavList}>
+                {navItems.map((item, idx) => (
+                  <motion.li
+                    key={item.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.03 + 0.04, duration: 0.2 }}
+                  >
+                    <NavLink
+                      to={item.href}
+                      end={item.href === '/'}
+                      className={({ isActive }) =>
+                        `${styles.mobileNavLink} ${isActive ? styles.mobileNavActive : ''}`
+                      }
                     >
                       {item.label}
-                    </a>
-                  </li>
-                )
-              })
-            })()}
-          </ul>
-
-          {/* Always-visible CTA + hamburger */}
-          <div className={styles.actions}>
-            <a
-              href="#contact"
-              className={styles.navCta}
-              data-magnetic
-              onClick={e => handleNav(e, '#contact')}
-            >
-              Enroll Now
-            </a>
-            <button
-              id="hamburger"
-              className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
-              onClick={() => setMenuOpen(v => !v)}
-              aria-label="Toggle navigation"
-            >
-              <span />
-              <span />
-              <span />
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Dimmed + blurred backdrop while the mega-menu is open */}
-      <AnimatePresence>
-        {megaOpen && (
-          <motion.div
-            className={styles.megaBackdrop}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: SPRING_EASE }}
-          />
+                    </NavLink>
+                  </motion.li>
+                ))}
+              </ul>
+              <div className={styles.mobileDrawerFooter}>
+                <Link to="/admissions" className={styles.mobileApplyBtn}>
+                  Apply Now — Cohort 2025
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Mobile overlay */}
-      {menuOpen && (
-        <div className={styles.overlay} onClick={() => setMenuOpen(false)} />
-      )}
+      <AnimatePresence>
+        {megaOpen && (
+          <motion.div
+            className={styles.backdropBlur}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
+      </AnimatePresence>
     </>
   )
 }

@@ -1,215 +1,252 @@
-/* Curriculum.module.css */
+/* ── Clean Corporate Curriculum Section ──────────────────────────── */
 
 .section {
   padding: var(--section-pad) 0;
-  background: var(--navy-dark);
+  background: #ffffff;
+  color: #0f172a;
+  position: relative;
 }
 
-.head { margin-bottom: var(--space-2); }
-
-/* ─── Tabs ──────────────────────────────────────────────────── */
-.tabs {
-  display: flex;
-  gap: var(--space-1);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-5);
+.head {
+  margin-bottom: var(--space-8);
+  text-align: center;
 }
 
-.tabBtn {
+.sectionTag {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: .62rem 1.4rem;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-  font-family: var(--font-body);
-  font-size: .88rem;
-  font-weight: 600;
-  color: var(--gray-200);
-  cursor: pointer;
-  transition: background .3s var(--ease-spring), color .3s var(--ease-spring),
-              border-color .3s var(--ease-spring), transform .3s var(--ease-spring);
-}
-.tabBtn:active { transform: scale(0.97); }
-.tabBtn:hover { border-color: rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.08); }
-.activeTab,
-.activeTab:hover {
-  background: var(--orange-deep);
-  border-color: var(--orange-deep);
-  color: var(--white);
+  gap: 0.45rem;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  padding: 0.32rem 0.85rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-2);
 }
 
-/* ─── Timeline layout — alternating zigzag around a central spine ── */
-.timelineContainer {
-  position: relative;
-  padding: var(--space-2) 0;
-  max-width: 960px;
+.sectionTitle {
+  font-family: var(--font-head);
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-2);
+}
+
+.accent {
+  color: #ea580c;
+}
+
+.sectionDesc {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.65;
+  max-width: 600px;
   margin-inline: auto;
 }
 
-/* Organic hand-drawn SVG spine, centered, stretched to full height */
-.timelineLine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  translate: -50% 0;
-  width: 40px;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
+/* ── Tabs Navigation ─────────────────────────────────────────── */
+.tabsContainer {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.timelinePath {
-  fill: none;
-  stroke: rgba(59, 130, 246, 0.65);
-  stroke-width: 4px;
-  stroke-linecap: round;
-  /* vector-effect keeps the 4px stroke crisp despite the
-     preserveAspectRatio="none" vertical stretch */
-  vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
-  animation: spinePulse 3s ease-in-out infinite;
-}
-
-/* Slow 3s breathing glow */
-@keyframes spinePulse {
-  0%, 100% { opacity: 0.55; }
-  50%      { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .timelinePath { animation: none; }
-}
-
-.timeline {
+.tabBtn {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-}
-
-.timelineItem {
-  position: relative;
-  display: flex;
   align-items: flex-start;
-  opacity: 0; /* Animated in by anime.js */
-}
-
-/* Odd stages sit left of the spine, even stages right */
-.itemLeft {
-  justify-content: flex-start;
-  padding-right: calc(50% + 36px);
-}
-.itemRight {
-  justify-content: flex-end;
-  padding-left: calc(50% + 36px);
-}
-
-/* Node dot pinned to the spine */
-.timelineNode {
-  position: absolute;
-  left: 50%;
-  top: 28px;
-  translate: -50% 0;
-  display: flex;
-  justify-content: center;
-}
-
-.timelineDot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #3b82f6; /* Electric blue */
-  box-shadow: 0 0 12px 2px rgba(59,130,246,0.7);
-  border: 2px solid var(--navy-dark);
-}
-
-.timelineContent {
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--space-3);
-  border-radius: var(--radius-lg);
-  overflow: hidden; /* clips the oversized ghost number */
-  transition: background .4s var(--ease-spring), border-color .4s var(--ease-spring);
-}
-.timelineContent:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Oversized semi-transparent stage number behind the card content */
-.ghostNum {
-  position: absolute;
-  top: 50%;
-  /* Always the card's right edge — the text column is left-aligned, so
-     this keeps every number clear of the copy on both zigzag sides */
-  right: -0.5rem;
-  translate: 0 -50%;
-  font-family: var(--font-head);
-  font-size: 5.5rem;
-  font-weight: 900;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.07);
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-.info { flex: 1; position: relative; z-index: 1; }
-.info h4 {
-  font-family: var(--font-head);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: .25rem;
-}
-.info p {
-  font-size: .85rem;
-  color: var(--gray-400);
-  line-height: 1.5;
-}
-
-/* ─── Badges ────────────────────────────────────────────────── */
-.badge {
-  display: inline-block;
-  font-size: .65rem;
-  font-weight: 700;
-  padding: .22rem .6rem;
-  border-radius: var(--radius-sm);
+  gap: 0.2rem;
+  padding: 1rem 1.25rem;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
   flex-shrink: 0;
 }
-.badgeOpt { background: rgba(255,255,255,0.1); color: var(--orange); }
-.badgeAdv { background: rgba(255,255,255,0.1); color: #3b82f6; }
 
-/* ─── Responsive ─────────────────────────────────────────────── */
-/* Zigzag collapses to a single column with the spine on the left */
-@media (max-width: 720px) {
-  .timelineLine {
-    left: 20px;
-    translate: 0 0;
-    width: 28px;
-  }
-  .itemLeft,
-  .itemRight {
-    justify-content: flex-start;
-    padding-left: 56px;
-    padding-right: 0;
-  }
-  .timelineNode {
-    left: 20px;
-    translate: 0 0;
-  }
-  .ghostNum { font-size: 4rem; }
+.tabStep {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
 }
 
-@media (max-width: 600px) {
-  .tabs { gap: var(--space-1); }
-  .tabBtn { font-size: .8rem; padding: .55rem 1rem; }
-  .timelineContent { flex-direction: column; align-items: flex-start; }
+.tabTitle {
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.tabBtn:hover .tabTitle {
+  color: #0f172a;
+}
+
+.tabActive {
+  border-bottom-color: #ea580c;
+}
+
+.tabActive .tabStep {
+  color: #ea580c;
+}
+
+.tabActive .tabTitle {
+  color: #0f172a;
+}
+
+/* ── Phase Detail Card ────────────────────────────────────────── */
+.phaseDetailCard {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+}
+
+.detailHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.phaseBadge {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ea580c;
+  background: #fff7ed;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.5rem;
+}
+
+.detailTitle {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.stepCounter {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #cbd5e1;
+}
+
+.detailDesc {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 720px;
+  margin-bottom: 2rem;
+}
+
+/* ── Module Grid ─────────────────────────────────────────────── */
+.moduleGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.moduleCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.moduleCard:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+}
+
+.moduleNum {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.moduleContent h4 {
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.15rem;
+}
+
+.moduleContent p {
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+/* ── CTA Row ─────────────────────────────────────────────────── */
+.ctaRow {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.downloadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.8rem;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.downloadBtn:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .moduleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .phaseDetailCard {
+    padding: 1.5rem;
+  }
 }
