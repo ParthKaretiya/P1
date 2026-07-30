@@ -1,0 +1,182 @@
+/* Placement.module.css */
+
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--navy-dark);
+  position: relative;
+}
+
+.head { margin-bottom: var(--space-2); }
+
+/* ─── Stat cards ────────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  transition: border-color .4s var(--ease-spring), background .4s var(--ease-spring);
+}
+.statCard:hover {
+  border-color: rgba(255,255,255,.25);
+  background: rgba(255,255,255,0.06);
+}
+
+.statIcon {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  color: var(--orange);
+  margin-bottom: .6rem;
+}
+
+.statNum {
+  font-family: var(--font-head);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: .8rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.65);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* ─── Ring chart (placement rate) ───────────────────────────── */
+.ringWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ringSvg {
+  width: 128px;
+  height: 128px;
+}
+
+.ringLabel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .2rem;
+}
+.ringLabel .statNum { font-size: 1.6rem; }
+.ringLabel .statLabel { font-size: .6rem; }
+
+/* ─── Sparkline / area chart (package growth) ───────────────── */
+.sparkWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+}
+
+.sparkSvg {
+  width: 100%;
+  max-width: 220px;
+  height: 72px;
+  margin-bottom: var(--space-1);
+}
+
+/* ─── Alumni scroller ───────────────────────────────────────── */
+.alumniWrap {
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  /* soft edge fade hint that the row scrolls */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+.alumniRow {
+  display: flex;
+  gap: var(--space-3);
+  width: max-content;
+}
+
+.alumniCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-3);
+  width: 220px;
+  text-align: center;
+  transition: border-color .4s var(--ease-spring), background .4s var(--ease-spring);
+}
+.alumniCard:hover {
+  border-color: rgba(255,255,255,.25);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.avatar {
+  width: 64px; height: 64px;
+  border-radius: var(--radius-lg);
+  margin: 0 auto var(--space-2);
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.alumniCard h4 {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: .3rem;
+}
+
+.placedAt {
+  font-size: .8rem;
+  color: var(--gray-400);
+  margin-bottom: .5rem;
+}
+.placedAt strong { color: var(--orange-deep); }
+
+.role {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.15);
+  padding: .3rem .8rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── View-all button ───────────────────────────────────────── */
+.moreWrap {
+  text-align: center;
+  margin-top: var(--space-5);
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+}

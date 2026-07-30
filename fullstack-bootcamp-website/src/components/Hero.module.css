@@ -1,0 +1,546 @@
+.hero {
+  min-height: 100vh;
+  /* Very light grey/blue background instead of dark navy, to contrast with navy text */
+  background: var(--off-white);
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* 80px bottom padding keeps clear air between the hero and the ticker bar */
+  padding: var(--space-15) 0 var(--space-10);
+  overflow: hidden;
+}
+
+/* Clips the decorative background layers to the section */
+.bgWrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ─── Ambient Glows ─────────────────────────────────────────── */
+.blobOrange {
+  position: absolute;
+  top: -150px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(246, 173, 85, 0.15) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.blobNavy {
+  position: absolute;
+  bottom: -200px;
+  left: -150px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(26, 54, 93, 0.08) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.dotGrid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(26, 54, 93, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ════════════════════════════════════════════════════════════
+   LEFT COLUMN — TEXT
+════════════════════════════════════════════════════════════ */
+.textCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Staggered fade-up entrance: each direct child rises in, 100ms apart,
+   with spring easing so motion feels weighted rather than robotic */
+.textCol > * {
+  opacity: 0;
+  animation: fadeUp 0.7s var(--ease-spring) forwards;
+}
+.textCol > *:nth-child(1) { animation-delay: 0ms; }
+.textCol > *:nth-child(2) { animation-delay: 100ms; }
+.textCol > *:nth-child(3) { animation-delay: 200ms; }
+.textCol > *:nth-child(4) { animation-delay: 300ms; }
+.textCol > *:nth-child(5) { animation-delay: 400ms; }
+.textCol > *:nth-child(6) { animation-delay: 500ms; }
+.textCol > *:nth-child(7) { animation-delay: 600ms; }
+.textCol > *:nth-child(8) { animation-delay: 700ms; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── 1. Badge ──────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-sm);
+  color: var(--navy-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.badge i {
+  color: var(--text-mid);
+  font-size: 0.9rem;
+}
+
+/* ─── 2. Headline ───────────────────────────────────────────── */
+.title {
+  font-family: var(--font-head);
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 900;
+  color: var(--navy-dark);
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+.accent {
+  color: var(--orange-deep);
+  /* Optional: if you want the gradient look */
+  /* background: linear-gradient(135deg, var(--orange-deep), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}
+
+/* ─── 3. Tagline ────────────────────────────────────────────── */
+.tagline {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-mid);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* ─── 4. Stats Row ──────────────────────────────────────────── */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+.statNum {
+  font-family: var(--font-head);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--navy-dark);
+  line-height: 1;
+}
+.statLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: var(--gray-200);
+}
+
+/* ─── 5. Urgency Line ───────────────────────────────────────── */
+.urgency {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  margin-bottom: 1.2rem;
+}
+.urgency i {
+  font-size: 1rem;
+}
+.urgency strong {
+  font-weight: 700;
+}
+
+/* ─── 6. CTAs ───────────────────────────────────────────────── */
+.ctas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Slightly larger than the outline button — the dominant action */
+  padding: 1.05rem 2.6rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: var(--orange-deep);
+  color: var(--white);
+  text-decoration: none;
+  transition: background 0.3s var(--ease-spring), transform 0.3s var(--ease-spring);
+}
+.btnPrimary:hover {
+  background: var(--orange-hot);
+  color: var(--white);
+}
+.btnPrimary:active {
+  transform: scale(0.97);
+}
+
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  background: transparent;
+  color: var(--navy-dark);
+  border: 1px solid var(--navy-dark);
+  text-decoration: none;
+  transition: background 0.3s var(--ease-spring), color 0.3s var(--ease-spring), transform 0.3s var(--ease-spring);
+}
+.btnOutline:hover {
+  background: rgba(26, 54, 93, 0.05);
+}
+.btnOutline:active {
+  transform: scale(0.97);
+}
+
+/* ─── 7. Microcopy ──────────────────────────────────────────── */
+.microcopy {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin-top: 0.9rem;
+}
+
+/* ─── 8. Hiring partners (placeholder wordmarks) ────────────── */
+.partners {
+  margin-top: 2.2rem;
+}
+.partnersLabel {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 0.8rem;
+}
+.partnersRow {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+}
+.partnerLogo {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  /* Grayscale, low-opacity treatment — swap <span> for <img> logos later,
+     this filter/opacity works on images too */
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+.partnerLogo:hover {
+  opacity: 1;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RIGHT COLUMN — VISUAL
+════════════════════════════════════════════════════════════ */
+.visualCol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeLeft 0.8s var(--ease-spring) forwards;
+  animation-delay: 0.2s;
+  opacity: 0; /* for animation */
+}
+
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Tech Pattern Background ───────────────────────────────── */
+.techPattern {
+  position: absolute;
+  inset: -40px;
+  pointer-events: none;
+  z-index: 0;
+}
+.techSym {
+  position: absolute;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--navy-mid);
+  opacity: 0.1;
+  animation: floatSym 10s linear infinite alternate;
+  animation-delay: calc(var(--i) * -2s);
+}
+.techSym:nth-child(1) { top: 10%; left: 10%; font-size: 2.5rem; }
+.techSym:nth-child(2) { top: 20%; right: 15%; font-size: 2rem; }
+.techSym:nth-child(3) { bottom: 20%; left: 5%; font-size: 1.8rem; }
+.techSym:nth-child(4) { bottom: 10%; right: 10%; font-size: 2.2rem; }
+.techSym:nth-child(5) { top: 50%; left: -5%; font-size: 2rem; }
+.techSym:nth-child(6) { top: 60%; right: -5%; font-size: 1.6rem; }
+
+@keyframes floatSym {
+  0%   { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-20px) rotate(15deg); }
+}
+
+/* ─── Photo Wrap & Image ────────────────────────────────────── */
+.photoWrap {
+  position: relative;
+  z-index: 1;
+  max-width: 480px;
+  width: 100%;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  /* Hairline border lifts the photo off the background */
+  border: 1px solid var(--gray-200);
+  display: block;
+}
+
+/* ─── Floating Badges ───────────────────────────────────────── */
+.floatCard {
+  position: absolute;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 1px solid var(--gray-200);
+  z-index: 2;
+  /* Gentle continuous float: ±6px over 3.5s */
+  animation: floatCardAnim 3.5s ease-in-out infinite;
+}
+
+.floatCardIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.floatCard div:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.floatCard strong {
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  line-height: 1.1;
+}
+
+.floatCard span {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+
+/* specific positions and delays */
+.cardTopRight {
+  top: -20px;
+  right: -30px;
+  animation-delay: 0s;
+}
+
+.cardBotLeft {
+  bottom: 20px;
+  left: -40px;
+  animation-delay: -1.5s;
+}
+
+.cardBotRight {
+  bottom: -20px;
+  right: -20px;
+  animation-delay: -3s;
+}
+
+@keyframes floatCardAnim {
+  0%, 100% { transform: translateY(6px); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .inner {
+    gap: 2rem;
+  }
+  .title {
+    font-size: clamp(2rem, 3vw, 3rem);
+  }
+  .cardTopRight { right: -10px; }
+  .cardBotLeft { left: -10px; }
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .textCol {
+    align-items: center;
+  }
+
+  .badge {
+    margin: 0 auto 1.5rem;
+  }
+
+  .tagline {
+    margin: 0 auto 2.5rem;
+  }
+
+  .stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .ctas {
+    justify-content: center;
+  }
+
+  .partnersRow {
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  .visualCol {
+    margin-top: 3rem;
+  }
+
+  .photoWrap {
+    max-width: 80%;
+  }
+
+  .cardTopRight { right: -5%; }
+  .cardBotLeft { left: -5%; }
+  .cardBotRight { right: 5%; }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 6rem;
+  }
+
+  .stats {
+    gap: 1rem;
+  }
+
+  .statNum {
+    font-size: 1.8rem;
+  }
+
+  .statLabel {
+    font-size: 0.65rem;
+  }
+
+  .ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btnPrimary, .btnOutline {
+    width: 100%;
+    justify-content: center;
+    /* Comfortable tap target (≥44px) */
+    min-height: 48px;
+  }
+
+  .partnersRow {
+    gap: 1rem;
+  }
+  .partnerLogo {
+    font-size: 0.85rem;
+  }
+
+  .photoWrap {
+    max-width: 100%;
+  }
+
+  /* Keep the decorative pattern inside the viewport — its -40px inset
+     causes horizontal overflow on small screens */
+  .techPattern {
+    inset: 0;
+  }
+
+  .floatCard {
+    padding: 0.5rem 0.6rem;
+    gap: 0.5rem;
+  }
+
+  .floatCardIcon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+
+  .floatCard strong {
+    font-size: 0.75rem;
+  }
+
+  .floatCard span {
+    font-size: 0.55rem;
+  }
+
+  /* Keep badges inside the viewport — anchored to photo corners,
+     never hanging past the screen edge */
+  .cardTopRight { top: -12px; right: 4px; }
+  .cardBotLeft { bottom: 48px; left: 4px; }
+  .cardBotRight { bottom: -12px; right: 4px; }
+}

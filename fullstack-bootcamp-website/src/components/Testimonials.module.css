@@ -1,0 +1,144 @@
+/* Testimonials.module.css */
+
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+  position: relative;
+}
+
+.head {
+  margin-bottom: var(--space-2);
+  text-align: center;
+}
+.head :global(.section-desc) {
+  margin-inline: auto;
+}
+
+/* ─── Slider ────────────────────────────────────────────────── */
+.slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.viewport {
+  overflow: hidden;
+  flex: 1;
+}
+
+/* Single-card slide — motion handles the transition */
+.slide {
+  padding: var(--space-1);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .4s var(--ease-spring);
+}
+.card:hover { border-color: var(--border-hairline-hover); }
+
+.quoteMark {
+  font-size: 1.8rem;
+  color: var(--gray-400);
+  margin-bottom: var(--space-2);
+}
+
+.quote {
+  font-size: 1.02rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+  margin-bottom: var(--space-2);
+  min-height: 88px;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: .3rem;
+  font-size: .85rem;
+  margin-bottom: var(--space-3);
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .9rem;
+  text-align: left;
+}
+
+.avatar {
+  width: 52px; height: 52px;
+  border-radius: var(--radius-lg);
+  background: var(--gray-100);
+  color: var(--navy-dark);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.person h4 {
+  font-family: var(--font-head);
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+}
+.person span {
+  font-size: .75rem;
+  color: var(--gray-600);
+}
+
+/* ─── Arrows ────────────────────────────────────────────────── */
+.arrow {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  color: var(--navy-dark);
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform .3s var(--ease-spring), border-color .3s;
+}
+.arrow:hover { border-color: var(--border-hairline-hover); }
+.arrow:active { transform: scale(0.97); }
+
+/* ─── Dots ──────────────────────────────────────────────────── */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: var(--space-2);
+}
+
+.dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  transition: background .4s var(--ease-spring), width .4s var(--ease-spring);
+}
+.dotActive {
+  width: 26px;
+  border-radius: var(--radius-sm);
+  background: var(--orange-deep);
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .arrow { display: none; }
+  .card { padding: var(--space-3); }
+  .quote { min-height: 0; font-size: .95rem; }
+}

@@ -1,0 +1,95 @@
+/* Mentors.module.css */
+
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--off-white);
+}
+
+.head { margin-bottom: var(--space-4); text-align: center; }
+.head p { margin-inline: auto; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  text-align: center;
+  border: 1px solid var(--gray-200);
+  transition: transform .4s var(--ease-spring), box-shadow .4s var(--ease-spring);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.avatarWrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--space-3);
+}
+
+.avatar {
+  width: 96px; height: 96px;
+  border-radius: var(--radius-lg);
+  background: var(--gray-100);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--navy-dark);
+}
+
+.linkedin {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  width: 32px; height: 32px;
+  background: #0077b5;
+  color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  border: 2px solid var(--white);
+  cursor: pointer;
+  transition: transform .3s var(--ease-spring);
+}
+.linkedin:hover {
+  transform: scale(1.1);
+}
+
+.card h3 {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  margin-bottom: 0.2rem;
+}
+
+.role {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+}
+
+.meta {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--navy-mid);
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.meta i {
+  color: var(--orange-deep);
+}

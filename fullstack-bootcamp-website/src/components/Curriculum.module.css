@@ -1,0 +1,151 @@
+/* Curriculum.module.css */
+
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--navy-dark);
+}
+
+.head { margin-bottom: var(--space-2); }
+
+/* ─── Tabs ──────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .62rem 1.4rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-body);
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--gray-200);
+  cursor: pointer;
+  transition: background .3s var(--ease-spring), color .3s var(--ease-spring),
+              border-color .3s var(--ease-spring), transform .3s var(--ease-spring);
+}
+.tabBtn:active { transform: scale(0.97); }
+.tabBtn:hover { border-color: rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.08); }
+.activeTab,
+.activeTab:hover {
+  background: var(--orange-deep);
+  border-color: var(--orange-deep);
+  color: var(--white);
+}
+
+/* ─── Timeline layout ───────────────────────────────────────── */
+.timelineContainer {
+  position: relative;
+  padding: var(--space-2) 0;
+  max-width: 800px;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 21px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(59,130,246,0) 0%, rgba(59,130,246,0.6) 15%, rgba(59,130,246,0.6) 85%, rgba(59,130,246,0) 100%);
+  box-shadow: 0 0 10px rgba(59,130,246,0.5);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.timelineItem {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  opacity: 0; /* Animated in by anime.js */
+}
+
+.timelineNode {
+  position: relative;
+  width: 44px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.timelineDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3b82f6; /* Electric blue */
+  box-shadow: 0 0 12px 2px rgba(59,130,246,0.7);
+  border: 2px solid var(--navy-dark);
+}
+
+.timelineContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  transition: background .4s var(--ease-spring), border-color .4s var(--ease-spring);
+}
+.timelineContent:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.num {
+  width: 38px; height: 38px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-size: .72rem;
+  font-weight: 800;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.info { flex: 1; }
+.info h4 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: .25rem;
+}
+.info p {
+  font-size: .85rem;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+/* ─── Badges ────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: .65rem;
+  font-weight: 700;
+  padding: .22rem .6rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.badgeOpt { background: rgba(255,255,255,0.1); color: var(--orange); }
+.badgeAdv { background: rgba(255,255,255,0.1); color: #3b82f6; }
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .tabs { gap: var(--space-1); }
+  .tabBtn { font-size: .8rem; padding: .55rem 1rem; }
+  .timelineItem { gap: var(--space-2); }
+  .timelineContent { flex-direction: column; align-items: flex-start; }
+}

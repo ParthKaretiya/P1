@@ -1,0 +1,54 @@
+/* App-level styles – button primitives and floating background shapes */
+
+/* ─── Button primitive ──────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .85rem 2rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-head);
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .3s var(--ease-spring), color .3s var(--ease-spring),
+              border-color .3s var(--ease-spring), transform .3s var(--ease-spring);
+  border: none;
+  white-space: nowrap;
+  text-decoration: none;
+}
+/* Confident press feedback — subtle scale-down */
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--orange-deep);
+  color: var(--white);
+}
+.btn-primary:hover {
+  background: var(--orange-hot);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,.45);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,.1);
+  border-color: var(--white);
+}
+
+/* Outline variant for light backgrounds */
+.btn-outline-dark {
+  background: transparent;
+  color: var(--navy-dark);
+  border: 1px solid var(--navy-dark);
+}
+.btn-outline-dark:hover {
+  background: rgba(26,54,93,.05);
+}
+
+/* ─── Solid accent text helper (gradient retired) ───────────── */
+.grad {
+  color: var(--orange-deep);
+}

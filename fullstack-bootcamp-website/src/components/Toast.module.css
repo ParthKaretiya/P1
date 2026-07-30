@@ -1,0 +1,45 @@
+/* Toast.module.css */
+
+.toast {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  background: var(--navy-dark);
+  color: var(--white);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--navy-mid);
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  font-family: var(--font-head);
+  font-size: .92rem;
+  font-weight: 600;
+  transform: translateY(120px);
+  opacity: 0;
+  transition: transform .5s var(--ease-spring), opacity .5s var(--ease-spring);
+  z-index: 9999;
+  border-left: 4px solid var(--orange);
+  max-width: 360px;
+  pointer-events: none;
+}
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast i {
+  font-size: 1.4rem;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+.msg { line-height: 1.45; }
+
+@media (max-width: 480px) {
+  .toast {
+    left: 1rem;
+    right: 1rem;
+    max-width: unset;
+  }
+}

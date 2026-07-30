@@ -1,0 +1,156 @@
+/* Eligibility.module.css */
+
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+  position: relative;
+}
+
+.head { margin-bottom: var(--space-2); }
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* ─── Criteria cards ────────────────────────────────────────── */
+.cardsCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.eligCard {
+  background: var(--white);
+  border-left: 4px solid var(--navy-mid);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: var(--space-3);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  transition: transform .4s var(--ease-spring), box-shadow .4s var(--ease-spring);
+}
+.eligCard:hover { 
+  transform: translateX(4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.eligIcon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--gray-100);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem;
+  color: var(--text-mid);
+  flex-shrink: 0;
+}
+
+.eligText h4 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--navy-dark);
+  margin-bottom: .35rem;
+}
+.eligText p {
+  font-size: .87rem;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+
+/* ─── Scholarship banner ────────────────────────────────────── */
+.scholarship {
+  background: var(--off-white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  transition: border-color .4s var(--ease-spring);
+}
+.scholarship:hover { border-color: var(--border-hairline-hover); }
+.scholarship > i {
+  font-size: 1.75rem;
+  color: var(--orange-deep);
+  flex-shrink: 0;
+  margin-top: .15rem;
+}
+.scholarship h4 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--navy-dark);
+  margin-bottom: .3rem;
+}
+.scholarship p {
+  font-size: .87rem;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+.scholarship strong { color: var(--orange-deep); }
+
+/* ─── Duration card ─────────────────────────────────────────── */
+.durationCard {
+  background: var(--navy-dark);
+  border: 1px solid var(--navy-mid);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  color: var(--white);
+  position: relative;
+}
+
+.durationLabel {
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: .5rem;
+}
+
+.durationNum {
+  font-family: var(--font-head);
+  font-size: 6rem;
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
+}
+
+.durationUnit {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  margin-bottom: .5rem;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,.1);
+  margin: var(--space-3) 0;
+}
+
+.features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-align: left;
+}
+.features li {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: .9rem;
+  color: rgba(255,255,255,.75);
+}
+.features li i { color: var(--orange); font-size: .9rem; }
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .inner { grid-template-columns: 1fr; gap: var(--space-5); }
+}
