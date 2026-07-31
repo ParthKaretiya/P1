@@ -90,19 +90,19 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--gray-200);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
   border-radius: var(--radius-xl);
   padding: var(--space-3);
   display: flex;
   flex-direction: column;
-  transition: border-color .4s var(--ease-spring), transform .4s var(--ease-spring);
+  transition: border-color 0.3s var(--ease-spring), transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-spring);
 }
 .card:hover {
-  border-color: var(--border-hairline-hover);
+  border-color: #cbd5e1;
   transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
 }
 
 .quoteMark {
