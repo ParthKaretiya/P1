@@ -15,7 +15,7 @@ import { useSEO } from '../hooks/useSEO'
 export default function Home({ onSuccess }) {
   useSEO({
     title: 'Full Stack Developer Bootcamp — Ahmedabad',
-    description: '12-Month industry-ready Full Stack Developer Bootcamp by Nirayush EduTech. Learn React, Node.js, MongoDB, and more with 100% Placement Assistance in Ahmedabad.',
+    description: '12-Month industry-ready Full Stack Developer Bootcamp by Nirayush EduTech. Learn React, Node.js, MongoDB, and more with dedicated placement support in Ahmedabad.',
     keywords: 'full stack bootcamp, developer course, react nodejs, Ahmedabad, Nirayush EduTech',
   })
 

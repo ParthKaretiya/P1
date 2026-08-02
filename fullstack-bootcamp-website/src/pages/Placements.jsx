@@ -7,18 +7,18 @@ import { useSEO } from '../hooks/useSEO'
 
 export default function Placements() {
   useSEO({
-    title: 'Placements & Career Outcomes',
-    description: "500+ students placed with 100% placement assistance. View Nirayush EduTech's placement statistics, hiring partners, and average packages of ₹4–8 LPA.",
-    keywords: 'placements Ahmedabad, full stack developer placement, 100% placement bootcamp, tech jobs Gujarat',
+    title: 'Placement Support & Career Preparation',
+    description: "Dedicated placement support for Nirayush EduTech's founding batch — resume building, mock interviews, portfolio reviews, and introductions to our growing hiring network.",
+    keywords: 'placement support Ahmedabad, full stack developer career prep, bootcamp placement assistance, tech jobs Gujarat',
   })
 
   return (
     <>
       <PageHeader
-        tag="Placement Success"
-        title="Real Careers, Real Companies, Real Packages"
-        accent="Real Companies"
-        desc="Our dedicated placement cell works with you from month 9 until you receive your first offer letter. 100% placement assistance — not just a promise, a process."
+        tag="Placement Support"
+        title="A Real Process to Get You Job-Ready"
+        accent="Job-Ready"
+        desc="Our dedicated placement cell works with you from month 9 until you're interview-ready — resume building, mock interviews, portfolio reviews, and introductions to our growing hiring network."
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Placements' },

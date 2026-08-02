@@ -2,10 +2,10 @@ import styles from './AboutStory.module.css'
 import { Reveal } from '../Reveal'
 
 const STATS = [
-  { num: '500+', label: 'Students Placed' },
-  { num: '98%',  label: 'Satisfaction Rate' },
-  { num: '50+',  label: 'Hiring Partners' },
-  { num: '7+',   label: 'Years of Excellence' },
+  { num: '12',   label: 'Month Program' },
+  { num: '14+',  label: 'Core Modules' },
+  { num: '10+',  label: 'Portfolio Projects' },
+  { num: '1:1',  label: 'Placement Support' },
 ]
 
 export default function AboutStory() {
@@ -21,20 +21,20 @@ export default function AboutStory() {
               Our Origin
             </span>
             <h2 className="section-title">
-              From a Small Class to <span className="grad">Ahmedabad's Best</span>
+              Built to Close the <span className="grad">Education–Industry Gap</span>
             </h2>
             <p className={styles.body}>
-              Nirayush EduTech started with a single classroom and a bold belief — that with the right
-              mentorship and practical exposure, any motivated student could become a world-class developer.
+              Nirayush EduTech was founded on a bold belief — that with the right mentorship and
+              practical exposure, any motivated student can become a world-class developer.
             </p>
             <p className={styles.body}>
-              Today, with 500+ placed graduates, 50+ hiring partners across Gujarat and beyond, and a
-              curriculum co-designed with industry professionals, we have become Ahmedabad's most trusted
-              full stack developer training institution.
+              We kept meeting talented graduates who had degrees but had never shipped anything real.
+              So we built a 12-month, project-first curriculum with industry practitioners — and we're
+              now enrolling our founding batch in Ahmedabad.
             </p>
             <p className={styles.body}>
               Our approach is simple: teach the way the industry works, not the way textbooks describe it.
-              Every project is real. Every mentor is a practitioner. Every placement is evidence.
+              Every project is real. Every mentor is a practitioner. Our founding batch will be our proof.
             </p>
           </Reveal>
 

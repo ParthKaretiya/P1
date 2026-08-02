@@ -9,7 +9,7 @@ const quickLinks = [
   { label: 'About Us',        href: '/about' },
   { label: 'Courses',         href: '/courses' },
   { label: 'Placements',      href: '/placements' },
-  { label: 'Success Stories', href: '/testimonials' },
+  { label: 'Our Commitment',  href: '/testimonials' },
   { label: 'Faculty',         href: '/mentors' },
   { label: 'Gallery',         href: '/gallery' },
   { label: 'FAQ',             href: '/faq' },

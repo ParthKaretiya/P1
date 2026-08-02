@@ -34,9 +34,10 @@
     0 calc(100% - 30px)
   );
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.05));
-  transition: transform .4s var(--ease-spring), filter .4s var(--ease-spring);
+  transition: transform .4s var(--ease-spring), filter .4s var(--ease-spring),
+              border-color .2s ease;
 }
-/* Folded-corner accent along the top-right cut */
+/* Folded-corner accent along the top-right cut — orange at rest */
 .card::before {
   content: '';
   position: absolute;
@@ -44,16 +45,16 @@
   right: 0;
   width: 30px;
   height: 30px;
-  background: var(--navy-mid);
+  background: var(--orange-deep);
   clip-path: polygon(0 0, 100% 100%, 0 100%);
-  transition: background .4s var(--ease-spring);
 }
-.card:hover {
+.card:hover,
+.card:focus-visible {
   transform: translateY(-4px);
   filter: drop-shadow(0 10px 18px rgba(0,0,0,0.09));
-}
-.card:hover::before {
-  background: var(--orange-deep);
+  /* Top bar turns orange in step with the icon */
+  border-top-color: var(--orange-deep);
+  outline: none;
 }
 
 .iconWrap {
@@ -64,10 +65,11 @@
   margin: 0 auto var(--space-3);
   font-size: 1.5rem;
   color: var(--text-mid);
-  transition: color .4s var(--ease-spring);
+  transition: color .2s ease;
 }
-.card:hover .iconWrap {
-  color: var(--navy-dark);
+.card:hover .iconWrap,
+.card:focus-visible .iconWrap {
+  color: var(--orange-deep);
 }
 
 .card h3 {

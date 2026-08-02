@@ -67,7 +67,7 @@ export default function HomeCoursesPreview() {
               <div className={styles.meta}>
                 <span><i className="fa-solid fa-cube" /> {c.modules} Modules</span>
                 <span><i className="fa-solid fa-certificate" /> Certificate</span>
-                <span><i className="fa-solid fa-handshake-angle" /> 100% Placement</span>
+                <span><i className="fa-solid fa-handshake-angle" /> Placement Support</span>
               </div>
               <Link to={c.href} className={styles.cta}>
                 View Details <i className="fa-solid fa-arrow-right" />

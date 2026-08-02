@@ -5,21 +5,21 @@ import { useSEO }   from '../hooks/useSEO'
 
 export default function TestimonialsPage() {
   useSEO({
-    title: 'Success Stories & Student Reviews',
-    description: "Read inspirational transformation stories from alumni who graduated from Nirayush EduTech's Full Stack Bootcamp and landed top software engineer jobs.",
-    keywords: 'student reviews, alumni testimonials, bootcamp success stories Ahmedabad, Nirayush EduTech reviews',
+    title: 'Our Commitment & Founding Batch Promise',
+    description: "Why Nirayush EduTech built its Full Stack Bootcamp, and the commitments we make to every founding batch student — mentorship, real projects, and dedicated placement support.",
+    keywords: 'Nirayush EduTech founding batch, bootcamp commitment Ahmedabad, full stack bootcamp mission',
   })
 
   return (
     <>
       <PageHeader
-        tag="Alumni Voices"
-        title="Student Success Stories & Reviews"
-        accent="Reviews"
-        desc="Hear directly from non-coders, career switchers, and fresh graduates who transformed their careers with Nirayush EduTech."
+        tag="Our Commitment"
+        title="Why We Built This Program"
+        accent="This Program"
+        desc="We're launching our founding batch — here's what we stand for, and the promises you can hold us to."
         breadcrumbs={[
           { label: 'Home', href: '/' },
-          { label: 'Success Stories' },
+          { label: 'Our Commitment' },
         ]}
       />
       <Testimonials />

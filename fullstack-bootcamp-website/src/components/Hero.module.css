@@ -446,135 +446,43 @@
   filter: blur(6px);
 }
 
-/* ─── Layered glass mockup ──────────────────────────────────── */
+/* ─── Layered mockup (photo + floating cards) ───────────────── */
 .mockupWrap {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 520px;
-  /* reserve height for absolutely-positioned layers */
-  min-height: 420px;
+  max-width: 560px;
 }
 
-/* Layer 1 (back) — code editor */
-.editorCard {
+/* Layer 1 (back) — classroom photo card.
+   Same rounded-corner + deep-shadow treatment as the old editor card. */
+.photoCard {
   position: relative;
-  width: 88%;
-  background: #090d16;
-  border: 1px solid #1e293b;
+  width: 94%;
   border-radius: var(--radius-xl);
   box-shadow: 0 20px 50px rgba(2, 6, 23, 0.4), 0 4px 16px rgba(2, 6, 23, 0.2);
   overflow: hidden;
+  border: 1px solid #1e293b;
 }
 
-.editorBar {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 0.7rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+.photoImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Reserve space before load — matches the source 1376×768 frame */
+  aspect-ratio: 1376 / 768;
+  object-fit: cover;
 }
 
-.winDot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-}
-
-.winDot[data-c="r"] {
-  background: #ff5f57;
-}
-
-.winDot[data-c="y"] {
-  background: #febc2e;
-}
-
-.winDot[data-c="g"] {
-  background: #28c840;
-}
-
-.editorTab {
-  margin-left: 0.8rem;
-  font-family: 'Consolas', 'Monaco', monospace;
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.75);
-  background: rgba(255, 255, 255, 0.08);
-  padding: 0.2rem 0.7rem;
-  border-radius: var(--radius-sm);
-}
-
-.editorBody {
-  margin: 0;
-  padding: 1rem 1.1rem 1.2rem;
-  font-family: 'Consolas', 'Monaco', monospace;
-  font-size: 0.78rem;
-  line-height: 1.9;
-  overflow: hidden;
-}
-
-.codeLine {
-  display: flex;
-  gap: 0.9rem;
-  white-space: pre;
-}
-
-.lineNum {
-  color: rgba(255, 255, 255, 0.3);
-  min-width: 1ch;
-  text-align: right;
-  user-select: none;
-}
-
-/* Syntax token colors */
-.tok_kw {
-  color: #c792ea;
-}
-
-.tok_var {
-  color: #82aaff;
-}
-
-.tok_fn {
-  color: #ffcb6b;
-}
-
-.tok_str {
-  color: #c3e88d;
-}
-
-.tok_num {
-  color: #f78c6c;
-}
-
-.tok_op {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.tok_cmt {
-  color: rgba(255, 255, 255, 0.4);
-  font-style: italic;
-}
-
-.caret {
-  display: inline-block;
-  width: 8px;
-  height: 1.05em;
-  background: #3b82f6;
-  vertical-align: text-bottom;
-  animation: caretBlink 1.1s step-end infinite;
-}
-
-@keyframes caretBlink {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
+/* Edge-only deepening vignette so the white floating cards stay legible
+   against the photo; center stays untouched */
+.photoVignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 23, 0.28) 0%, transparent 22%, transparent 72%, rgba(2, 6, 23, 0.38) 100%),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.18) 0%, transparent 18%, transparent 82%, rgba(2, 6, 23, 0.22) 100%);
 }
 
 /* Layer 2 (middle) — dashboard mini-card, overlapping bottom-right */
@@ -716,8 +624,8 @@
 }
 
 .cardBotRight {
-  top: 44%;
-  right: -28px;
+  top: -18px;
+  left: -30px;
   animation-delay: -3s;
 }
 
@@ -822,7 +730,7 @@
   }
 
   .cardBotRight {
-    right: -5%;
+    left: -5%;
   }
 }
 
@@ -866,26 +774,16 @@
 
   .mockupWrap {
     max-width: 100%;
-    min-height: 340px;
   }
 
-  .editorCard {
+  .photoCard {
     width: 100%;
   }
 
-  .editorBody {
-    font-size: 0.68rem;
-  }
-
+  /* The photo is small at this width — drop the decorative dash card so
+     the classroom image itself stays visible under the badges */
   .dashCard {
-    right: 0;
-    bottom: -22px;
-    width: 190px;
-    padding: 0.8rem 0.9rem;
-  }
-
-  .dashBars {
-    height: 48px;
+    display: none;
   }
 
   /* Cursor glow is meaningless on touch — hide it */
@@ -931,7 +829,7 @@
   }
 
   .cardBotRight {
-    top: 40%;
-    right: 4px;
+    top: -12px;
+    left: 4px;
   }
 }

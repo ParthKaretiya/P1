@@ -203,7 +203,7 @@ export default function CourseDetail({ onSuccess }) {
                   <h3><i className="fa-solid fa-chart-line" /> Average Salary Expectation</h3>
                   <div className={styles.salaryHighlight}>
                     <span className={styles.salaryNum}>{course.salaryRange}</span>
-                    <p>Based on 2024-2025 Ahmedabad & Pan-India placement data for bootcamp graduates.</p>
+                    <p>Industry benchmark based on publicly available 2024-2025 salary data for entry-level developers in Ahmedabad & Pan-India — a target range, not our batch outcomes.</p>
                   </div>
                 </div>
               </div>

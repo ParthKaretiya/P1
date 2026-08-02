@@ -84,20 +84,18 @@
   justify-content: center;
   gap: .5rem;
 }
-.amount {
-  font-family: var(--font-mono);
-  font-size: 3rem;
-  font-weight: 700;
+/* Fee-on-request prompt — sits where the price number used to be,
+   heavy enough that the card doesn't feel like it's missing something */
+.feePrompt {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  font-weight: 800;
   color: var(--navy-dark);
-  line-height: 1;
-  letter-spacing: -0.03em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  max-width: 320px;
 }
-.per {
-  font-family: var(--font-sub);
-  font-size: .9rem;
-  color: var(--gray-600);
-}
-.emiNote {
+.feeSub {
   font-family: var(--font-sub);
   font-size: .85rem;
   color: var(--orange-deep);

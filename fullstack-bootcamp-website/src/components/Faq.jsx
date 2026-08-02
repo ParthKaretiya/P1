@@ -10,7 +10,7 @@ const FAQS = [
   },
   {
     q: 'What is the placement assistance process?',
-    a: 'From month 9 onward, our placement cell works with you on resume building, LinkedIn optimization, mock technical interviews, and HR round preparation. We then schedule interviews with our hiring partners until you are placed.',
+    a: 'From month 9 onward, our placement cell works with you on resume building, LinkedIn optimization, mock technical interviews, and HR round preparation. We then introduce you to companies in our growing hiring network and support you through interviews until you receive an offer. We commit to the process — outcomes depend on your performance in company interviews.',
   },
   {
     q: 'Is EMI available?',

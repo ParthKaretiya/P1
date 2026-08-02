@@ -1,6 +1,9 @@
 import styles from './Mentors.module.css'
 import { Reveal, RevealItem } from './Reveal'
 
+/* ⚠ PLACEHOLDER mentors — these are NOT real people. Replace with the
+   confirmed, verifiable mentor lineup (real names, roles, experience)
+   before launch. If the lineup isn't final, list only confirmed mentors. */
 const MENTORS = [
   {
     name: 'Vikram Singh',

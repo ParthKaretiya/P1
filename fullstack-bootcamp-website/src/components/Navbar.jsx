@@ -10,7 +10,7 @@ const navItems = [
   { label: 'About',        href: '/about' },
   { label: 'Courses',      href: '/courses' },
   { label: 'Placements',   href: '/placements' },
-  { label: 'Success Stories', href: '/testimonials' },
+  { label: 'Our Commitment', href: '/testimonials' },
   { label: 'Faculty',      href: '/mentors' },
   { label: 'Blog',         href: '/blog' },
   { label: 'Contact',      href: '/contact' },
@@ -27,11 +27,11 @@ const megaColumns = [
     ],
   },
   {
-    header: 'Outcomes & Alumni',
+    header: 'Careers & Support',
     links: [
-      { label: 'Placement Records', href: '/placements', primary: true },
-      { label: 'Success Stories',  href: '/testimonials', primary: true },
-      { label: 'Hiring Partners',  href: '/placements#partners' },
+      { label: 'Placement Support', href: '/placements', primary: true },
+      { label: 'Our Commitment',  href: '/testimonials', primary: true },
+      { label: 'Hiring Network',  href: '/placements#partners' },
     ],
   },
   {

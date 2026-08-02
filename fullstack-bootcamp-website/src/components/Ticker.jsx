@@ -7,7 +7,7 @@ const items = [
   { icon: 'fa-solid fa-laptop-code',     label: 'Hands-on Projects' },
   { icon: 'fa-solid fa-user-graduate',   label: 'Expert Mentorship' },
   { icon: 'fa-solid fa-handshake',       label: 'Placement Preparation' },
-  { icon: 'fa-solid fa-award',           label: '100% Placement Assist' },
+  { icon: 'fa-solid fa-award',           label: 'Founding Batch Enrolling' },
   { icon: 'fa-brands fa-react',          label: 'React & MERN Stack' },
 ]
 

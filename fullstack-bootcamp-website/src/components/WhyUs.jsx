@@ -19,7 +19,7 @@ const reasons = [
   },
   {
     icon: 'fa-solid fa-handshake-angle',
-    title: '100% Placement Assistance',
+    title: 'Dedicated Placement Support',
     desc: 'Resume workshops, mock interviews, LinkedIn optimization, and dedicated placement drives with partner companies.',
   },
 ]
@@ -43,7 +43,7 @@ export default function WhyUs() {
 
         <Reveal stagger className={styles.grid}>
           {reasons.map((r, i) => (
-            <RevealItem key={i} className={styles.card}>
+            <RevealItem key={i} className={styles.card} tabIndex={0}>
               <div className={styles.iconWrap}>
                 <i className={r.icon} />
               </div>

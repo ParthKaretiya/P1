@@ -2,17 +2,9 @@ import { useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import styles from './Hero.module.css'
-
-/* Stylized code lines for the editor mockup — purely decorative */
-const CODE_LINES = [
-  [{ t: 'const', c: 'kw' }, { t: ' developer', c: 'var' }, { t: ' = ', c: 'op' }, { t: 'new', c: 'kw' }, { t: ' FullStack', c: 'fn' }, { t: '()', c: 'op' }],
-  [{ t: 'developer', c: 'var' }, { t: '.learn(', c: 'op' }, { t: "'React'", c: 'str' }, { t: ', ', c: 'op' }, { t: "'Node.js'", c: 'str' }, { t: ')', c: 'op' }],
-  [{ t: 'developer', c: 'var' }, { t: '.build(', c: 'op' }, { t: 'projects', c: 'var' }, { t: ': ', c: 'op' }, { t: '10', c: 'num' }, { t: ')', c: 'op' }],
-  [{ t: 'await', c: 'kw' }, { t: ' developer', c: 'var' }, { t: '.getHired(', c: 'op' }, { t: '{', c: 'op' }],
-  [{ t: '  package', c: 'var' }, { t: ': ', c: 'op' }, { t: "'₹4-8 LPA'", c: 'str' }, { t: ',', c: 'op' }],
-  [{ t: '  assistance', c: 'var' }, { t: ': ', c: 'op' }, { t: "'100%'", c: 'str' }],
-  [{ t: '})', c: 'op' }, { t: ' // Learn. Build. Get Hired.', c: 'cmt' }],
-]
+/* PLACEHOLDER AI-generated classroom image — swap for a real photo later */
+import heroClassroomWebp from '../assets/hero-classroom-PLACEHOLDER-ai-generated.webp'
+import heroClassroomJpg from '../assets/hero-classroom-PLACEHOLDER-ai-generated.jpg'
 
 export default function Hero() {
   const visualRef = useRef(null)
@@ -67,7 +59,7 @@ export default function Hero() {
           {/* 1. Badge pill */}
           <div className={styles.badge}>
             <i className="fa-solid fa-wand-magic-sparkles" />
-            100% PLACEMENT ASSISTANCE &nbsp;•&nbsp; AHMEDABAD'S MOST PRACTICAL BOOTCAMP
+            DEDICATED PLACEMENT SUPPORT &nbsp;•&nbsp; AHMEDABAD'S MOST PRACTICAL BOOTCAMP
           </div>
 
           {/* 2. Headline */}
@@ -90,8 +82,8 @@ export default function Hero() {
             </div>
             <div className={styles.statDivider} />
             <div className={styles.stat}>
-              <span className={styles.statNum}>100%</span>
-              <span className={styles.statLabel}>Placement Assistance</span>
+              <span className={styles.statNum}>1:1</span>
+              <span className={styles.statLabel}>Placement Support</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.stat}>
@@ -156,33 +148,26 @@ export default function Hero() {
 
           <div className={styles.mockupWrap}>
 
-            {/* Layer 1 (back) — glass code editor */}
+            {/* Layer 1 (back) — classroom photo card */}
             <motion.div
-              className={styles.editorCard}
+              className={styles.photoCard}
               style={reduce ? undefined : { y: yEditor }}
             >
-              <div className={styles.editorBar}>
-                <span className={styles.winDot} data-c="r" />
-                <span className={styles.winDot} data-c="y" />
-                <span className={styles.winDot} data-c="g" />
-                <span className={styles.editorTab}>career.js</span>
-              </div>
-              <pre className={styles.editorBody}>
-                {CODE_LINES.map((line, i) => (
-                  <div key={i} className={styles.codeLine}>
-                    <span className={styles.lineNum}>{i + 1}</span>
-                    <code>
-                      {line.map((tok, j) => (
-                        <span key={j} className={styles[`tok_${tok.c}`]}>{tok.t}</span>
-                      ))}
-                    </code>
-                  </div>
-                ))}
-                <div className={styles.codeLine}>
-                  <span className={styles.lineNum}>8</span>
-                  <code><span className={styles.caret} /></code>
-                </div>
-              </pre>
+              <picture>
+                <source srcSet={heroClassroomWebp} type="image/webp" />
+                <img
+                  src={heroClassroomJpg}
+                  alt="Students collaborating on laptops during a Nirayush EduTech coding session"
+                  className={styles.photoImg}
+                  width="1376"
+                  height="768"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
+              {/* Edge-darkening vignette keeps floating cards legible on the photo */}
+              <div className={styles.photoVignette} aria-hidden="true" />
             </motion.div>
 
             {/* Layer 2 (middle) — glass dashboard mini-card */}
@@ -192,14 +177,14 @@ export default function Hero() {
             >
               <div className={styles.dashHeader}>
                 <i className="fa-solid fa-chart-line" />
-                Placement Dashboard
+                Skill Progress
               </div>
               <div className={styles.dashBars}>
                 {[38, 55, 47, 70, 62, 88, 100].map((h, i) => (
                   <span key={i} className={styles.dashBar} style={{ '--h': `${h}%`, '--d': `${i * 90}ms` }} />
                 ))}
               </div>
-              <span className={styles.dashFoot}>Batch outcomes ↗</span>
+              <span className={styles.dashFoot}>HTML → React → Node → Deploy ↗</span>
             </motion.div>
 
             {/* Layer 3 (front) — floating stat badges at the shallowest depth */}
@@ -207,15 +192,14 @@ export default function Hero() {
               className={styles.badgeLayer}
               style={reduce ? undefined : { y: yFront }}
             >
-              {/* Floating badge 1 — top right — Placement stat
-                  PLACEHOLDER NUMBER: update "500+" with the real figure */}
+              {/* Floating badge 1 — top right — Founding batch */}
               <div className={`${styles.floatCard} ${styles.cardTopRight}`}>
                 <div className={styles.floatCardIcon} style={{ background: '#16a34a' }}>
-                  <i className="fa-solid fa-user-graduate" />
+                  <i className="fa-solid fa-rocket" />
                 </div>
                 <div>
-                  <strong>500+ Students</strong>
-                  <span>Placed in Tech Roles</span>
+                  <strong>Founding Batch</strong>
+                  <span>Now Enrolling</span>
                 </div>
               </div>
 

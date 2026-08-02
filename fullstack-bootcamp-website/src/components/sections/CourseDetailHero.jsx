@@ -7,9 +7,9 @@ const QUICK_FACTS = [
   { icon: 'fa-solid fa-clock',            label: 'Class Frequency',   value: 'Mon–Sat, 2hrs/day' },
   { icon: 'fa-solid fa-cube',             label: 'Core Modules',      value: '14 Modules' },
   { icon: 'fa-solid fa-laptop-code',      label: 'Live Projects',     value: '10+ Projects' },
-  { icon: 'fa-solid fa-handshake-angle',  label: 'Placement',         value: '100% Assistance' },
+  { icon: 'fa-solid fa-handshake-angle',  label: 'Placement',         value: 'Dedicated Support' },
   { icon: 'fa-solid fa-certificate',      label: 'Certificate',       value: 'Industry Recognized' },
-  { icon: 'fa-solid fa-indian-rupee-sign',label: 'Package Range',     value: '₹4–8 LPA' },
+  { icon: 'fa-solid fa-indian-rupee-sign',label: 'Industry Benchmark',value: '₹4–8 LPA' },
   { icon: 'fa-solid fa-users',            label: 'Batch Size',        value: 'Small Batches' },
 ]
 
