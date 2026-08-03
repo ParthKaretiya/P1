@@ -27,11 +27,9 @@ const errorHandler = (err, req, res, next) => {
     return sendErrorResponse(res, 'Resource not found.', 404);
   }
 
-  // Default fallback response format required by prompt specifications
+  // Return actual error message for fast debugging
   const statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;
-  const customMessage = process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong.';
-
-  return sendErrorResponse(res, customMessage || 'Something went wrong.', statusCode);
+  return sendErrorResponse(res, err.message || 'Something went wrong.', statusCode);
 };
 
 export default errorHandler;
