@@ -10,7 +10,8 @@ const quickLinks = [
   { label: 'Courses',         href: '/courses' },
   { label: 'Placements',      href: '/placements' },
   { label: 'Our Commitment',  href: '/testimonials' },
-  { label: 'Faculty',         href: '/mentors' },
+  // ⚠ Faculty link hidden until real mentor lineup is confirmed
+  // { label: 'Faculty',         href: '/mentors' },
   { label: 'Gallery',         href: '/gallery' },
   { label: 'FAQ',             href: '/faq' },
   { label: 'Contact Us',      href: '/contact' },

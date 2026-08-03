@@ -3,7 +3,9 @@ import Hero         from '../components/Hero'
 import HiringPartners from '../components/HiringPartners'
 import Ticker       from '../components/Ticker'
 import WhyUs        from '../components/WhyUs'
-import Mentors      from '../components/Mentors'
+// ⚠ Mentors section hidden — data was placeholder/fabricated. Re-enable the
+// import and the <Mentors /> element below ONLY with real, confirmed mentors.
+// import Mentors      from '../components/Mentors'
 import Placement    from '../components/Placement'
 import Testimonials from '../components/Testimonials'
 import Faq          from '../components/Faq'
@@ -26,7 +28,7 @@ export default function Home({ onSuccess }) {
       <Ticker />
       <WhyUs />
       <HomeCoursesPreview />
-      <Mentors />
+      {/* <Mentors /> — hidden until real mentor lineup is confirmed */}
       <Placement />
       <Testimonials />
       <Faq />

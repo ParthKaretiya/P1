@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'motion/react'
 
 import Navbar          from './components/Navbar'
@@ -19,7 +19,8 @@ const Courses        = lazy(() => import('./pages/Courses'))
 const CourseDetail   = lazy(() => import('./pages/CourseDetail'))
 const Placements     = lazy(() => import('./pages/Placements'))
 const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'))
-const FacultyPage    = lazy(() => import('./pages/FacultyPage'))
+// ⚠ FacultyPage hidden — placeholder mentor data. Restore with the /mentors route.
+// const FacultyPage    = lazy(() => import('./pages/FacultyPage'))
 const Admissions     = lazy(() => import('./pages/Admissions'))
 const ContactPage    = lazy(() => import('./pages/ContactPage'))
 const Gallery        = lazy(() => import('./pages/Gallery'))
@@ -65,7 +66,9 @@ function AnimatedRoutes({ showToast }) {
         <Route path="/courses/:courseId" element={<PageTransition><CourseDetail onSuccess={showToast} /></PageTransition>} />
         <Route path="/placements" element={<PageTransition><Placements /></PageTransition>} />
         <Route path="/testimonials" element={<PageTransition><TestimonialsPage /></PageTransition>} />
-        <Route path="/mentors" element={<PageTransition><FacultyPage /></PageTransition>} />
+        {/* ⚠ /mentors hidden — FacultyPage shows placeholder mentors. Restore this
+            route (and the Navbar/Footer/Home references) once real mentors are confirmed. */}
+        <Route path="/mentors" element={<Navigate to="/about" replace />} />
         <Route path="/admissions" element={<PageTransition><Admissions onSuccess={showToast} /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><ContactPage onSuccess={showToast} /></PageTransition>} />
         <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} />

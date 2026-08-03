@@ -11,7 +11,8 @@ const navItems = [
   { label: 'Courses',      href: '/courses' },
   { label: 'Placements',   href: '/placements' },
   { label: 'Our Commitment', href: '/testimonials' },
-  { label: 'Faculty',      href: '/mentors' },
+  // ⚠ Faculty hidden until real mentor lineup is confirmed (fabricated data removed)
+  // { label: 'Faculty',      href: '/mentors' },
   { label: 'Blog',         href: '/blog' },
   { label: 'Contact',      href: '/contact' },
 ]
@@ -36,9 +37,10 @@ const megaColumns = [
   {
     header: 'Campus & Life',
     links: [
-      { label: 'Our Faculty',    href: '/mentors', primary: true },
+      // ⚠ 'Our Faculty' hidden until real mentor lineup is confirmed
+      // { label: 'Our Faculty',    href: '/mentors', primary: true },
       { label: 'Campus Gallery', href: '/gallery', primary: true, badge: 'New' },
-      { label: 'Blog & Guides',  href: '/blog' },
+      { label: 'Blog & Guides',  href: '/blog', primary: true },
     ],
   },
   {
