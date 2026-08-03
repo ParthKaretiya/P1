@@ -9,11 +9,13 @@
  * @param {string} message - Success message
  * @param {number} statusCode - HTTP status code (Default: 200/201)
  */
-export const sendSuccessResponse = (res, message = 'Operation successful.', statusCode = 200) => {
-  return res.status(statusCode).json({
+export const sendSuccessResponse = (res, message = 'Operation successful.', statusCode = 200, data) => {
+  const payload = {
     success: true,
     message,
-  });
+  };
+  if (data !== undefined) payload.data = data;
+  return res.status(statusCode).json(payload);
 };
 
 /**

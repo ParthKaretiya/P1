@@ -1,14 +1,11 @@
-/**
- * Enquiry Routes
- * Defines API routing for /api/enquiry endpoints.
- */
-
 import express from 'express';
-import { createEnquiry } from '../controllers/enquiryController.js';
+import { createEnquiry, debugSendEmail, debugVerifySmtp } from '../controllers/enquiryController.js';
+import { enquiryLimiter, debugLimiter } from '../middleware/rateLimit.js';
 
 const router = express.Router();
 
-// POST /api/enquiry -> Submit new student enquiry
-router.post('/', createEnquiry);
+router.post('/', enquiryLimiter, createEnquiry);
+router.get('/email-debug', debugLimiter, debugSendEmail);
+router.get('/smtp-verify', debugLimiter, debugVerifySmtp);
 
 export default router;

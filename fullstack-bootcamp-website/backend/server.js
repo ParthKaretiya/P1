@@ -1,42 +1,63 @@
-/**
- * Nirayush Edutech - Backend Server Entrypoint
- * Technology Stack: Node.js, Express.js, MongoDB Atlas (Mongoose), Nodemailer
- */
-
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 import connectDB from './config/db.js';
 import enquiryRoutes from './routes/enquiryRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
+import { validateEnv } from './utils/envValidation.js';
 
-// Initialize Express Application
+const ENV_ERRORS = validateEnv();
+if (ENV_ERRORS.length) {
+  console.error('[Env Validation] Missing or invalid environment variables:');
+  for (const e of ENV_ERRORS) console.error(`  - ${e}`);
+  console.error('[Env Validation] Fix the above and restart the server.');
+  process.exit(1);
+}
+
+const normalizeOrigin = (url) => (url ? url.replace(/\/+$/, '') : url);
+
 const app = express();
 
-// Connect to MongoDB Atlas
 connectDB();
 
-const allowedOrigins = [
-  'https://www.nirayush.com',
-  'https://nirayush.com',
-  process.env.CLIENT_URL,
-  'http://localhost:5173',
-  'http://localhost:3000',
-].filter(Boolean);
+const allowedOrigins = new Set(
+  [
+    'https://www.nirayush.com',
+    'https://nirayush.com',
+    normalizeOrigin(process.env.CLIENT_URL),
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ]
+    .map(normalizeOrigin)
+    .filter(Boolean)
+);
 
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error(`CORS: Origin ${origin} not allowed`));
-  },
-  credentials: true,
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.has(normalizeOrigin(origin))) return callback(null, true);
+      callback(new Error('CORS: Origin ' + origin + ' not allowed'));
+    },
+    credentials: true,
+  })
+);
 
-// 2. Health Check Endpoint (For monitoring & Render deployment status)
+app.set('trust proxy', 1);
+
+const globalLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Too many requests. Please try again later.' },
+});
+app.use(globalLimiter);
+
+app.use(express.json({ limit: '64kb' }));
+app.use(express.urlencoded({ extended: true, limit: '64kb' }));
+
 app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
@@ -44,40 +65,39 @@ app.get('/', (req, res) => {
   });
 });
 
-// 3. API Routes
 app.use('/api/enquiry', enquiryRoutes);
 
-// 4. 404 Route Handler (Catch-all for undefined endpoints)
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: `API Route ${req.originalUrl} not found.`,
+    message: 'API Route ' + req.originalUrl + ' not found.',
   });
 });
 
-// 5. Global Error Handling Middleware
 app.use(errorHandler);
 
-// 6. Start Express Server
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
-  console.log(`[Nirayush Edutech Server] Running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode.`);
-  
-  // Keep-alive self-ping every 10 mins so Render free tier never sleeps
-  const RENDER_URL = 'https://p1-p2rz.onrender.com';
-  setInterval(async () => {
-    try {
-      await fetch(`${RENDER_URL}/`);
-      console.log('[Keep-Alive Ping] Successfully pinged server to prevent sleeping.');
-    } catch (e) {
-      // Ignore background ping errors
-    }
-  }, 10 * 60 * 1000); // 10 minutes
+  console.log(
+    '[Nirayush Edutech Server] Running on port ' + PORT + ' in ' + (process.env.NODE_ENV || 'development') + ' mode.'
+  );
+
+  const keepAliveUrl = normalizeOrigin(
+    process.env.RENDER_EXTERNAL_URL || process.env.BACKEND_URL || 'https://p1-p2rz.onrender.com'
+  );
+  if (keepAliveUrl) {
+    setInterval(async () => {
+      try {
+        await fetch(`${keepAliveUrl}/`);
+        console.log('[Keep-Alive Ping] Successfully pinged server to prevent sleeping.');
+      } catch (e) {
+        // Ignore background ping errors
+      }
+    }, 10 * 60 * 1000);
+  }
 });
 
-// Handle unhandled promise rejections gracefully
 process.on('unhandledRejection', (err) => {
-  console.error(`[Unhandled Rejection Error]: ${err.message}`);
-  // Close server & exit process
+  console.error('[Unhandled Rejection Error]: ' + err.message);
   server.close(() => process.exit(1));
 });

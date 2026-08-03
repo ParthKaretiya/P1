@@ -13,33 +13,70 @@ const QUALIFICATIONS = [
   'Other',
 ]
 
+const DEFAULT_BACKEND_URL = 'https://p1-p2rz.onrender.com'
+const HONEYPOT_FIELD = 'website_interests_hp'
+const TIMEOUT_MS = 60000
+
+const normalizeUrl = (value) => (typeof value === 'string' ? value.trim().replace(/\/+$/, '') : '')
+
+const classifyError = (error, response, status) => {
+  if (error?.name === 'AbortError') return 'timeout'
+  if (status === 429) return 'rate-limit'
+  if (status >= 400 && status < 500) return 'client'
+  if (status >= 500) return 'server'
+  if (typeof response?.message === 'string' && /CORS/i.test(response.message)) return 'cors'
+  if (error && !status) return 'network'
+  return 'generic'
+}
+
+const errorMessage = (kind, serverMessage) => {
+  switch (kind) {
+    case 'timeout':
+      return 'Request timed out. The backend may be starting up — please wait 30 seconds and try again.'
+    case 'rate-limit':
+      return 'Too many submissions from your connection. Please try again in a few minutes.'
+    case 'cors':
+      return 'Cross-origin request blocked. The website origin may not be authorized.'
+    case 'network':
+      return 'Unable to reach the server. Please check your internet and try again.'
+    case 'server':
+      return 'Server error. Please try again in a few minutes.'
+    default:
+      return serverMessage || 'Failed to submit enquiry. Please try again.'
+  }
+}
+
 export default function Contact({ onSuccess }) {
   const [form, setForm] = useState({
     name: '', phone: '', email: '', qualification: '', message: '',
+    [HONEYPOT_FIELD]: '',
   })
   const [errors, setErrors] = useState({})
 
-  // Pre-warm Render backend on mount so it's awake before user submits
+  const backendUrl = normalizeUrl(import.meta.env.VITE_API_URL || DEFAULT_BACKEND_URL)
+
   useEffect(() => {
-    const backendUrl = import.meta.env.VITE_API_URL || 'https://p1-p2rz.onrender.com'
-    fetch(`${backendUrl}/`).catch(() => {}) // silent ping — wakes up free-tier server
-  }, [])
+    if (!backendUrl) return
+    fetch(`${backendUrl}/`).catch(() => {})
+  }, [backendUrl])
 
   const validate = () => {
     const err = {}
-    if (!form.name.trim())          err.name    = 'Name is required'
+    if (!form.name.trim()) err.name = 'Name is required'
     if (!form.phone.trim() || !/^\d{10}$/.test(form.phone.trim()))
-                                    err.phone   = 'Enter a valid 10-digit number'
+      err.phone = 'Enter a valid 10-digit number'
     if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email))
-                                    err.email   = 'Enter a valid email'
-    if (!form.qualification)        err.qual    = 'Please select your qualification'
+      err.email = 'Enter a valid email'
+    if (!form.qualification) err.qual = 'Please select your qualification'
+    if (form.message && form.message.length > 2000)
+      err.message = 'Message is too long (limit 2000 characters).'
     return err
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setForm(f => ({ ...f, [name]: value }))
-    if (errors[name]) setErrors(e => ({ ...e, [name]: undefined }))
+    setForm((f) => ({ ...f, [name]: value }))
+    if (errors[name]) setErrors((e) => ({ ...e, [name]: undefined }))
   }
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -47,29 +84,51 @@ export default function Contact({ onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const err = validate()
-    if (Object.keys(err).length) { setErrors(err); return }
+    if (Object.keys(err).length) {
+      setErrors(err)
+      return
+    }
 
     setIsSubmitting(true)
+    let responseBody = null
+    let status = 0
+    let caughtError = null
+
     try {
-      const backendUrl = import.meta.env.VITE_API_URL || 'https://p1-p2rz.onrender.com'
+      const payload = { ...form }
+      if (backendUrl.includes('localhost') || backendUrl.startsWith('http://localhost')) {
+        // keep honeypot value if any
+      }
       const response = await fetch(`${backendUrl}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-        signal: AbortSignal.timeout(60000), // 60s timeout for Render free tier wake-up
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(TIMEOUT_MS),
       })
-      const data = await response.json()
-
-      if (response.ok && data.success) {
-        onSuccess('🎉 Thank you! Our counsellor will reach you within 24 hours.')
-        setForm({ name: '', phone: '', email: '', qualification: '', message: '' })
-        setErrors({})
-      } else {
-        setErrors({ submit: data.message || 'Failed to submit enquiry. Please try again.' })
+      status = response.status
+      try {
+        responseBody = await response.json()
+      } catch {
+        responseBody = null
       }
+
+      if (response.ok && responseBody?.success) {
+        onSuccess?.('🎉 Thank you! Our counsellor will reach you within 24 hours.')
+        setForm({ name: '', phone: '', email: '', qualification: '', message: '', [HONEYPOT_FIELD]: '' })
+        setErrors({})
+        return
+      }
+
+      const kind = classifyError(null, responseBody, status)
+      setErrors({ submit: errorMessage(kind, responseBody?.message) })
     } catch (err) {
-      setErrors({ submit: 'Server is starting up, please wait 30 seconds and try again.' })
+      caughtError = err
+      const kind = classifyError(err, responseBody, status)
+      setErrors({ submit: errorMessage(kind, responseBody?.message) })
     } finally {
+      if (caughtError) {
+        // left intentionally for future debug logging hooks
+      }
       setIsSubmitting(false)
     }
   }
@@ -93,13 +152,11 @@ export default function Contact({ onSuccess }) {
 
         <div className={styles.inner}>
 
-          {/* ── Left: Contact info ───────────────────────────── */}
           <Reveal direction="left" className={styles.infoCol}>
             <h3>Get in Touch</h3>
             <p>Have questions about the program, eligibility, fees, or scholarships? We're here to help.</p>
 
             <div className={styles.details}>
-              {/* Address */}
               <div className={styles.detail}>
                 <div className={styles.detailIcon}><i className="fa-solid fa-location-dot" /></div>
                 <div>
@@ -108,7 +165,6 @@ export default function Contact({ onSuccess }) {
                 </div>
               </div>
 
-              {/* Phone */}
               <div className={styles.detail}>
                 <div className={styles.detailIcon}><i className="fa-solid fa-phone" /></div>
                 <div>
@@ -117,7 +173,6 @@ export default function Contact({ onSuccess }) {
                 </div>
               </div>
 
-              {/* Hours */}
               <div className={styles.detail}>
                 <div className={styles.detailIcon}><i className="fa-solid fa-clock" /></div>
                 <div>
@@ -127,7 +182,6 @@ export default function Contact({ onSuccess }) {
               </div>
             </div>
 
-            {/* Quick promise cards */}
             <div className={styles.promises}>
               {[
                 { icon: 'fa-solid fa-bolt', text: '24-hr Response' },
@@ -142,13 +196,11 @@ export default function Contact({ onSuccess }) {
             </div>
           </Reveal>
 
-          {/* ── Right: Enquiry form ──────────────────────────── */}
           <Reveal direction="right" className={styles.formWrap}>
             <h3>Enquiry Form</h3>
             <form id="enquiry-form" onSubmit={handleSubmit} noValidate>
 
               <div className={styles.formGrid}>
-                {/* Name */}
                 <div className={`${styles.formGroup} ${errors.name ? styles.hasError : ''}`}>
                   <label htmlFor="name">Full Name *</label>
                   <input
@@ -156,11 +208,12 @@ export default function Contact({ onSuccess }) {
                     placeholder="Your full name"
                     value={form.name}
                     onChange={handleChange}
+                    maxLength={120}
+                    autoComplete="name"
                   />
                   {errors.name && <span className={styles.errorMsg}>{errors.name}</span>}
                 </div>
 
-                {/* Phone */}
                 <div className={`${styles.formGroup} ${errors.phone ? styles.hasError : ''}`}>
                   <label htmlFor="phone">Phone Number *</label>
                   <input
@@ -169,11 +222,11 @@ export default function Contact({ onSuccess }) {
                     value={form.phone}
                     onChange={handleChange}
                     maxLength={10}
+                    autoComplete="tel"
                   />
                   {errors.phone && <span className={styles.errorMsg}>{errors.phone}</span>}
                 </div>
 
-                {/* Email */}
                 <div className={`${styles.formGroup} ${errors.email ? styles.hasError : ''}`}>
                   <label htmlFor="email">Email Address *</label>
                   <input
@@ -181,11 +234,12 @@ export default function Contact({ onSuccess }) {
                     placeholder="your@email.com"
                     value={form.email}
                     onChange={handleChange}
+                    maxLength={254}
+                    autoComplete="email"
                   />
                   {errors.email && <span className={styles.errorMsg}>{errors.email}</span>}
                 </div>
 
-                {/* Qualification */}
                 <div className={`${styles.formGroup} ${errors.qual ? styles.hasError : ''}`}>
                   <label htmlFor="qualification">Qualification *</label>
                   <select
@@ -201,7 +255,6 @@ export default function Contact({ onSuccess }) {
                   {errors.qual && <span className={styles.errorMsg}>{errors.qual}</span>}
                 </div>
 
-                {/* Message */}
                 <div className={`${styles.formGroup} ${styles.full}`}>
                   <label htmlFor="message">Message / Question (Optional)</label>
                   <textarea
@@ -210,8 +263,23 @@ export default function Contact({ onSuccess }) {
                     rows={4}
                     value={form.message}
                     onChange={handleChange}
+                    maxLength={2000}
                   />
+                  {errors.message && <span className={styles.errorMsg}>{errors.message}</span>}
                 </div>
+              </div>
+
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}>
+                <label htmlFor={HONEYPOT_FIELD}>Do not fill this field</label>
+                <input
+                  id={HONEYPOT_FIELD}
+                  name={HONEYPOT_FIELD}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form[HONEYPOT_FIELD]}
+                  onChange={handleChange}
+                />
               </div>
 
               {errors.submit && (
