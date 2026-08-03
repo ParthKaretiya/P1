@@ -9,12 +9,21 @@ import nodemailer from 'nodemailer';
  * Creates and returns a Nodemailer SMTP Transporter instance using environment variables.
  */
 const createTransporter = () => {
+  // Explicit host/port config: port 587 + STARTTLS.
+  // Render blocks/times-out outbound connections on port 465 (used by service:'gmail'),
+  // which caused "Connection timeout ETIMEDOUT CONN" in production.
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // STARTTLS upgrade after connect
+    requireTLS: true,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 20000,
   });
 };
 
