@@ -9,12 +9,12 @@ import nodemailer from 'nodemailer';
  * Creates and returns a Nodemailer SMTP Transporter instance using environment variables.
  */
 const createTransporter = () => {
-  // Explicit host/port config: port 587 + STARTTLS.
-  // Render blocks/times-out outbound connections on port 465 (used by service:'gmail'),
+  // Brevo SMTP relay (smtp-relay.brevo.com) — port 587 + STARTTLS.
+  // Render blocks/times-out outbound connections on port 465,
   // which caused "Connection timeout ETIMEDOUT CONN" in production.
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
+    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+    port: Number(process.env.SMTP_PORT) || 587,
     secure: false, // STARTTLS upgrade after connect
     requireTLS: true,
     auth: {
@@ -34,7 +34,8 @@ const createTransporter = () => {
  */
 export const sendEnquiryEmails = async (enquiryDetails) => {
   const { name, phone, email, qualification, message, createdAt } = enquiryDetails;
-  const companyEmail = process.env.COMPANY_EMAIL || process.env.SMTP_USER;
+  const companyEmail = process.env.COMPANY_EMAIL || process.env.FROM_EMAIL;
+  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
   const formattedDate = new Date(createdAt || Date.now()).toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'full',
@@ -47,7 +48,8 @@ export const sendEnquiryEmails = async (enquiryDetails) => {
   // 1. ENQUIRY NOTIFICATION EMAIL — sent to company staff
   // ─────────────────────────────────────────────────────────────────────────────
   const companyMailOptions = {
-    from: `"Nirayush Edutech Portal" <${process.env.SMTP_USER}>`,
+    from: `"Nirayush Edutech Portal" <${fromEmail}>`,
+    replyTo: email, // staff can hit "Reply" to respond to the student directly
     to: companyEmail,
     subject: `📋 New Enquiry Received — ${name}`,
     html: `
@@ -180,7 +182,7 @@ This is an automated notification from the Nirayush Edutech website portal.
   // 2. THANK YOU EMAIL — sent to the student
   // ─────────────────────────────────────────────────────────────────────────────
   const studentMailOptions = {
-    from: `"Nirayush Edutech" <${process.env.SMTP_USER}>`,
+    from: `"Nirayush Edutech" <${fromEmail}>`,
     to: email,
     subject: `Thank You for Your Enquiry — Nirayush Edutech`,
     html: `
