@@ -62,6 +62,17 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(`[Nirayush Edutech Server] Running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode.`);
+  
+  // Keep-alive self-ping every 10 mins so Render free tier never sleeps
+  const RENDER_URL = 'https://p1-p2rz.onrender.com';
+  setInterval(async () => {
+    try {
+      await fetch(`${RENDER_URL}/`);
+      console.log('[Keep-Alive Ping] Successfully pinged server to prevent sleeping.');
+    } catch (e) {
+      // Ignore background ping errors
+    }
+  }, 10 * 60 * 1000); // 10 minutes
 });
 
 // Handle unhandled promise rejections gracefully

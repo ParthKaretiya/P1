@@ -42,22 +42,17 @@ export const createEnquiry = async (req, res, next) => {
       message: message ? message.trim() : '',
     });
 
-    // 3. Send automated emails (Company notification + Student thank-you)
-    // Wrap in try-catch so email delivery issues don't crash database saving response if configured gracefully,
-    // or log error to help debugging while still maintaining robust API output.
-    try {
-      await sendEnquiryEmails({
-        name: newEnquiry.name,
-        phone: newEnquiry.phone,
-        email: newEnquiry.email,
-        qualification: newEnquiry.qualification,
-        message: newEnquiry.message,
-        createdAt: newEnquiry.createdAt,
-      });
-    } catch (emailError) {
+    // 3. Send automated emails in background (INSTANT response to user)
+    sendEnquiryEmails({
+      name: newEnquiry.name,
+      phone: newEnquiry.phone,
+      email: newEnquiry.email,
+      qualification: newEnquiry.qualification,
+      message: newEnquiry.message,
+      createdAt: newEnquiry.createdAt,
+    }).catch((emailError) => {
       console.error(`[Email Service Warning]: Failed to send emails: ${emailError.message}`);
-      // Note: Enquiry is saved even if email server credentials are misconfigured or temporary SMTP failure occurs.
-    }
+    });
 
     // 4. Return Success JSON Response
     return sendSuccessResponse(res, 'Enquiry submitted successfully.', 201);
