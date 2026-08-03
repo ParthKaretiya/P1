@@ -9,7 +9,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-3);
-  margin-bottom: var(--space-5);
+  /* Single featured course: keep the lone card comfortably wide and centered
+     instead of stretching edge-to-edge in a grid built for three. */
+  max-width: 640px;
+  margin: 0 auto var(--space-5);
 }
 
 .card {

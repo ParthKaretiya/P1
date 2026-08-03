@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import PageHeader from '../components/ui/PageHeader'
 import CtaBanner  from '../components/CtaBanner'
 import Faq        from '../components/Faq'
 import { COURSES_DATA } from '../data/coursesData'
 import styles from './CourseDetail.module.css'
-import { Reveal, RevealItem } from '../components/Reveal'
+import { Reveal } from '../components/Reveal'
 import { useSEO } from '../hooks/useSEO'
 
 export default function CourseDetail({ onSuccess }) {
@@ -263,28 +263,6 @@ export default function CourseDetail({ onSuccess }) {
 
       {/* FAQ Accordion Section */}
       <Faq />
-
-      {/* Related Programs Recommendation */}
-      <section className={styles.relatedSection}>
-        <div className="container">
-          <Reveal className={styles.relatedHead}>
-            <span className="section-tag">Explore Alternatives</span>
-            <h2>Related <span className="grad">Engineering Programs</span></h2>
-          </Reveal>
-          <Reveal stagger className={styles.relatedGrid}>
-            {COURSES_DATA.filter(c => c.id !== course.id).slice(0, 3).map(rel => (
-              <RevealItem key={rel.id} className={styles.relCard}>
-                <i className={rel.devicon} style={{ fontSize: '2.2rem' }} />
-                <h3>{rel.title}</h3>
-                <p>{rel.desc}</p>
-                <Link to={`/courses/${rel.id}`} className={styles.relLink}>
-                  View Roadmap <i className="fa-solid fa-arrow-right" />
-                </Link>
-              </RevealItem>
-            ))}
-          </Reveal>
-        </div>
-      </section>
 
       <CtaBanner />
     </>

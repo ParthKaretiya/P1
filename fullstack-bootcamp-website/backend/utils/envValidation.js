@@ -1,4 +1,4 @@
-const REQUIRED = ['MONGO_URI', 'COMPANY_EMAIL', 'SMTP_USER', 'SMTP_PASS', 'FROM_EMAIL', 'CLIENT_URL'];
+const REQUIRED = ['MONGO_URI', 'COMPANY_EMAIL', 'RESEND_API_KEY', 'FROM_EMAIL', 'CLIENT_URL'];
 
 export const validateEnv = () => {
   const errors = [];

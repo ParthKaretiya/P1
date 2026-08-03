@@ -60,6 +60,40 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: var(--space-4);
+  /* Single featured course: keep the lone card comfortably wide and centered
+     instead of stretching edge-to-edge in a grid built for four. */
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Upcoming programs note under the featured course */
+.comingSoon {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 720px;
+  margin: var(--space-4) auto 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--white);
+  border: 1px dashed var(--gray-400);
+  border-radius: var(--radius-xl);
+}
+.comingSoon i {
+  font-size: 1.4rem;
+  color: var(--orange-deep);
+  margin-top: 0.2rem;
+}
+.comingSoon h4 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  margin-bottom: 0.25rem;
+}
+.comingSoon p {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  line-height: 1.65;
 }
 
 .card {

@@ -7,30 +7,25 @@ import { useSEO }  from '../hooks/useSEO'
 import { COURSES_DATA } from '../data/coursesData'
 
 const ALL_TECHS = [
-  { name: 'C++', icon: 'devicon-cplusplus-plain colored' },
-  { name: 'Java', icon: 'devicon-java-plain colored' },
-  { name: 'Python', icon: 'devicon-python-plain colored' },
+  { name: 'HTML5', icon: 'devicon-html5-plain colored' },
+  { name: 'CSS3', icon: 'devicon-css3-plain colored' },
   { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
   { name: 'React', icon: 'devicon-react-original colored' },
   { name: 'Node.js', icon: 'devicon-nodejs-plain colored' },
-  { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
   { name: 'Express', icon: 'devicon-express-original' },
-  { name: 'HTML5', icon: 'devicon-html5-plain colored' },
-  { name: 'CSS3', icon: 'devicon-css3-plain colored' },
+  { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
   { name: 'Git', icon: 'devicon-git-plain colored' },
   { name: 'GitHub', icon: 'devicon-github-original' },
-  { name: 'PostgreSQL', icon: 'devicon-postgresql-plain colored' },
   { name: 'Docker', icon: 'devicon-docker-plain colored' },
   { name: 'AWS', icon: 'devicon-amazonwebservices-original colored' },
   { name: 'Linux', icon: 'devicon-linux-plain' },
-  { name: 'Next.js', icon: 'devicon-nextjs-original' },
 ]
 
 export default function Courses() {
   useSEO({
     title: 'Programs & Learning Roadmaps',
-    description: "Explore Nirayush EduTech's industry-aligned Full Stack, C++ DSA, Python AI, and Java Spring Boot programs with detailed 5-phase roadmaps and placement assistance.",
-    keywords: 'full stack courses Ahmedabad, MERN stack bootcamp, C++ DSA course, Python FastAPI, Java Spring Boot',
+    description: "Explore Nirayush EduTech's Full Stack Development Bootcamp — a 12-month MERN program with a detailed 5-phase roadmap and placement assistance.",
+    keywords: 'full stack course Ahmedabad, MERN stack bootcamp, full stack developer bootcamp, React Node.js course',
   })
 
   return (
@@ -64,7 +59,7 @@ export default function Courses() {
         </div>
       </section>
 
-      {/* Course Grid */}
+      {/* Featured Course */}
       <section className={styles.coursesSection}>
         <div className="container">
           <Reveal stagger className={styles.grid}>
@@ -124,6 +119,18 @@ export default function Courses() {
 
               </RevealItem>
             ))}
+          </Reveal>
+
+          {/* Upcoming programs note */}
+          <Reveal className={styles.comingSoon}>
+            <i className="fa-solid fa-wand-magic-sparkles" />
+            <div>
+              <h4>More Programs Coming Soon</h4>
+              <p>
+                We're focused on making our founding Full Stack batch exceptional.
+                New specialised tracks will be announced here — subscribe in the footer to be the first to know.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>

@@ -1,27 +1,49 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { escapeHtml, sleep } from '../utils/common.js';
 
-const RETRYABLE_CODES = new Set([
-  'ECONNRESET',
-  'ETIMEDOUT',
-  'ECONNREFUSED',
-  'ESOCKET',
-  'EAI_AGAIN',
-  'ENOTFOUND',
-]);
+// ---------------------------------------------------------------------------
+// Resend client (lazy singleton so a missing key fails at send-time with a
+// clear message instead of crashing the module import).
+// ---------------------------------------------------------------------------
+let resendClient = null;
+const getResend = () => {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is not configured. Add it to your environment.');
+  }
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resendClient;
+};
 
+// Resend requires the from address to be on a verified domain (nirayush.com).
+const getFromEmail = () => {
+  const from = (process.env.FROM_EMAIL || '').trim();
+  if (!from) {
+    throw new Error('FROM_EMAIL is not configured. Set it to an address on your verified Resend domain, e.g. noreply@nirayush.com.');
+  }
+  if (!/@nirayush\.com$/i.test(from) && !/@resend\.dev$/i.test(from)) {
+    console.warn(
+      `[Email Config Warning] FROM_EMAIL "${from}" is not on the verified domain nirayush.com. ` +
+        'Resend will reject sends from unverified domains (e.g. gmail.com). Use noreply@nirayush.com.'
+    );
+  }
+  return from;
+};
+
+// ---------------------------------------------------------------------------
+// Retry helper — Resend returns { data, error } instead of throwing, so the
+// send wrapper below converts API errors into throws for the retry loop.
+// Retry only transient failures: network errors, 429 rate limits, 5xx.
+// ---------------------------------------------------------------------------
 const isRetryableError = (err) => {
   if (!err) return false;
-  if (RETRYABLE_CODES.has(err.code)) return true;
-  if (RETRYABLE_CODES.has(err.errno)) return true;
-  const msg = (err.message || '').toLowerCase();
-  const status = Number(err.responseCode || err.status || 0);
-  if (status >= 400 && status < 500) return false;
+  const status = Number(err.statusCode || err.status || 0);
+  if (status === 429) return true;
   if (status >= 500) return true;
-  if (/timeout|timed out|temporary|try again later|connection|socket|econn|eai|enotfound/.test(msg)) {
-    return true;
-  }
-  return false;
+  if (status >= 400) return false; // 4xx (bad key, unverified domain, validation) — retrying won't help
+  const msg = (err.message || '').toLowerCase();
+  return /timeout|timed out|network|fetch failed|econn|socket|eai_again|enotfound/.test(msg);
 };
 
 const withRetry = async (fn, { retries = 3, initialDelayMs = 1000 } = {}) => {
@@ -45,28 +67,26 @@ const withRetry = async (fn, { retries = 3, initialDelayMs = 1000 } = {}) => {
   throw lastError;
 };
 
-const createTransporter = () =>
-  nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: false,
-    requireTLS: true,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-    connectionTimeout: 15000,
-    greetingTimeout: 15000,
-    socketTimeout: 20000,
-  });
-
-const verifyTransporter = async (transporter) => {
-  try {
-    const ok = await transporter.verify();
-    return { ok, error: null };
-  } catch (err) {
-    return { ok: false, error: err.message || String(err) };
+/**
+ * Send one email via Resend. Throws a descriptive Error on failure so callers
+ * (and the retry wrapper) can handle it; returns { id } on success.
+ */
+const sendViaResend = async (payload, label) => {
+  const resend = getResend();
+  const { data, error } = await resend.emails.send(payload);
+  if (error) {
+    const err = new Error(
+      `[Resend:${label}] ${error.name || 'error'}: ${error.message || 'Unknown Resend API error'}`
+    );
+    err.statusCode = error.statusCode;
+    err.name = error.name || err.name;
+    console.error(
+      `[Resend API Error] label=${label} name=${error.name} statusCode=${error.statusCode ?? 'n/a'} message=${error.message}`
+    );
+    throw err;
   }
+  console.log(`[Resend Sent] label=${label} id=${data?.id}`);
+  return data;
 };
 
 const buildEnquiryContext = (enquiryDetails) => {
@@ -107,9 +127,9 @@ const buildEnquiryContext = (enquiryDetails) => {
 const createCompanyMailOptions = (fromEmail, companyEmail, context) => {
   const { safe, formattedDate, raw } = context;
   return {
-    from: `"Nirayush Edutech Portal" <${fromEmail}>`,
+    from: `Nirayush Edutech Portal <${fromEmail}>`,
     replyTo: raw.email,
-    to: companyEmail,
+    to: [companyEmail],
     subject: `New Enquiry Received — ${raw.name}`,
     html: `<!DOCTYPE html>
 <html lang="en">
@@ -224,8 +244,8 @@ This is an automated notification from the Nirayush Edutech website portal.`,
 const createStudentMailOptions = (fromEmail, context) => {
   const { safe, formattedDate, raw } = context;
   return {
-    from: `"Nirayush Edutech" <${fromEmail}>`,
-    to: raw.email,
+    from: `Nirayush Edutech <${fromEmail}>`,
+    to: [raw.email],
     subject: `Thank You for Your Enquiry — Nirayush Edutech`,
     html: `<!DOCTYPE html>
 <html lang="en">
@@ -372,25 +392,20 @@ This is an automated confirmation. Please do not reply to this email.`,
 
 export const sendEnquiryEmails = async (enquiryDetails) => {
   const context = buildEnquiryContext(enquiryDetails);
-  const companyEmail = process.env.COMPANY_EMAIL || process.env.FROM_EMAIL;
-  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
+  const companyEmail = process.env.COMPANY_EMAIL;
+  const fromEmail = getFromEmail();
 
-  if (!fromEmail) {
-    throw new Error('FROM_EMAIL / SMTP_USER not configured. Cannot send emails.');
-  }
   if (!companyEmail) {
     throw new Error('COMPANY_EMAIL not configured. Cannot send company notification.');
   }
-
-  const transporter = createTransporter();
 
   const companyMailOptions = createCompanyMailOptions(fromEmail, companyEmail, context);
   const studentMailOptions = createStudentMailOptions(fromEmail, context);
 
   const sendCompany = () =>
-    withRetry(() => transporter.sendMail(companyMailOptions), { retries: 2, initialDelayMs: 1500 });
+    withRetry(() => sendViaResend(companyMailOptions, 'company-notification'), { retries: 2, initialDelayMs: 1500 });
   const sendStudent = () =>
-    withRetry(() => transporter.sendMail(studentMailOptions), { retries: 2, initialDelayMs: 1500 });
+    withRetry(() => sendViaResend(studentMailOptions, 'student-confirmation'), { retries: 2, initialDelayMs: 1500 });
 
   const [companyResult, studentResult] = await Promise.allSettled([sendCompany(), sendStudent()]);
 
@@ -399,7 +414,7 @@ export const sendEnquiryEmails = async (enquiryDetails) => {
 
   if (companyResult.status === 'fulfilled') {
     ok.push(`company:${companyEmail}`);
-    console.log(`[Email Success]: Notification delivered to company (${companyEmail}).`);
+    console.log(`[Email Success]: Notification delivered to company (${companyEmail}). Resend id: ${companyResult.value?.id}`);
   } else {
     failed.push({ target: `company:${companyEmail}`, error: companyResult.reason?.message || String(companyResult.reason) });
     console.error(
@@ -411,7 +426,7 @@ export const sendEnquiryEmails = async (enquiryDetails) => {
 
   if (studentResult.status === 'fulfilled') {
     ok.push(`student:${context.raw.email}`);
-    console.log(`[Email Success]: Thank-you delivered to student (${context.raw.email}).`);
+    console.log(`[Email Success]: Thank-you delivered to student (${context.raw.email}). Resend id: ${studentResult.value?.id}`);
   } else {
     failed.push({ target: `student:${context.raw.email}`, error: studentResult.reason?.message || String(studentResult.reason) });
     console.error(
@@ -429,15 +444,13 @@ export const sendEnquiryEmails = async (enquiryDetails) => {
 };
 
 export const sendDebugEmail = async ({ to } = {}) => {
-  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
-  if (!fromEmail) throw new Error('FROM_EMAIL / SMTP_USER not configured.');
+  const fromEmail = getFromEmail();
   const recipient = to || process.env.COMPANY_EMAIL;
   if (!recipient) throw new Error('No recipient available for debug email.');
 
-  const transporter = createTransporter();
-  const verification = await verifyTransporter(transporter);
+  const verification = await verifyEmailConfig();
 
-  const subject = 'Nirayush Edutech — Email Debug Test';
+  const subject = 'Nirayush Edutech — Email Debug Test (Resend)';
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -447,28 +460,57 @@ export const sendDebugEmail = async ({ to } = {}) => {
 <body>
   <h1>${subject}</h1>
   <p>Time: <code>${escapeHtml(new Date().toISOString())}</code></p>
-  <p>SMTP host: <code>${escapeHtml(process.env.SMTP_HOST || 'smtp-relay.brevo.com')}</code></p>
-  <p>Port: <code>${escapeHtml(String(Number(process.env.SMTP_PORT) || 587))}</code></p>
-  <p>SMTP user: <code>${escapeHtml(process.env.SMTP_USER || '')}</code></p>
+  <p>Provider: <code>Resend API</code></p>
   <p>From: <code>${escapeHtml(fromEmail)}</code></p>
-  <p>Transporter verified: <code>${verification.ok ? 'yes' : 'no'}</code></p>
-  ${verification.error ? `<p>Verify error: <code>${escapeHtml(verification.error)}</code></p>` : ''}
-  <p>If you see this email, your SMTP configuration is working correctly.</p>
+  <p>API key configured: <code>${process.env.RESEND_API_KEY ? 'yes' : 'no'}</code></p>
+  <p>Domain check: <code>${escapeHtml(JSON.stringify(verification.domains || verification.error || 'n/a'))}</code></p>
+  <p>If you see this email, your Resend configuration is working correctly.</p>
 </body>
 </html>`;
 
-  const info = await transporter.sendMail({
-    from: `"Nirayush Edutech Portal" <${fromEmail}>`,
-    to: recipient,
-    subject,
-    html,
-  });
+  const data = await sendViaResend(
+    {
+      from: `Nirayush Edutech Portal <${fromEmail}>`,
+      to: [recipient],
+      subject,
+      html,
+    },
+    'debug-email'
+  );
 
   return {
     verification,
     recipient,
-    info: { messageId: info.messageId, accepted: info.accepted, rejected: info.rejected, response: info.response || null },
+    info: { messageId: data?.id || null },
   };
 };
 
-export const verifySmtp = async () => verifyTransporter(createTransporter());
+/**
+ * Checks the Resend API key by listing domains, and reports each domain's
+ * verification status — surfaces "invalid API key" and "domain not verified"
+ * problems without sending an email. (Replaces the old SMTP transporter verify.)
+ */
+export const verifyEmailConfig = async () => {
+  if (!process.env.RESEND_API_KEY) {
+    return { ok: false, error: 'RESEND_API_KEY is not set.' };
+  }
+  try {
+    const resend = getResend();
+    const { data, error } = await resend.domains.list();
+    if (error) {
+      return { ok: false, error: `${error.name || 'error'}: ${error.message}` };
+    }
+    const domains = (data?.data || []).map((d) => ({ name: d.name, status: d.status, region: d.region }));
+    const verified = domains.some((d) => d.status === 'verified');
+    return {
+      ok: verified,
+      error: verified ? null : 'API key is valid, but no domain is fully verified on Resend yet.',
+      domains,
+    };
+  } catch (err) {
+    return { ok: false, error: err.message || String(err) };
+  }
+};
+
+// Backwards-compatible alias (route is still /smtp-verify).
+export const verifySmtp = verifyEmailConfig;

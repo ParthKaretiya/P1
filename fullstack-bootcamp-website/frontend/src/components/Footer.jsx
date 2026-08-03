@@ -18,9 +18,9 @@ const quickLinks = [
 
 const programs = [
   { label: 'Full Stack Developer (MERN)', href: '/courses/fullstack-developer' },
-  { label: 'C++ & Data Structures',      href: '/courses/cpp-dsa' },
-  { label: 'Python & AI Backend',         href: '/courses/python-fullstack' },
-  { label: 'Java Spring Boot Track',      href: '/courses/java-enterprise' },
+  { label: '5-Phase Curriculum & Roadmap', href: '/courses/fullstack-developer' },
+  { label: 'Admissions & Fees',           href: '/admissions' },
+  { label: 'All Programs',                href: '/courses' },
 ]
 
 export default function Footer() {

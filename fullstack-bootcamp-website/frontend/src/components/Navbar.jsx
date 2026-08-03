@@ -20,10 +20,9 @@ const megaColumns = [
   {
     header: 'Programs & Roadmaps',
     links: [
-      { label: 'Full Stack Developer (MERN)', href: '/courses/fullstack-developer', primary: true, badge: 'Popular' },
-      { label: 'React Specialisation',       href: '/courses', primary: true },
-      { label: 'Node.js Backend Track',      href: '/courses', primary: true },
-      { label: 'C++ & Data Structures',      href: '/courses/cpp-dsa', badge: 'Core' },
+      { label: 'Full Stack Developer (MERN)', href: '/courses/fullstack-developer', primary: true, badge: 'Enrolling' },
+      { label: '5-Phase Curriculum & Roadmap', href: '/courses/fullstack-developer', primary: true },
+      { label: 'All Programs',                href: '/courses' },
     ],
   },
   {
