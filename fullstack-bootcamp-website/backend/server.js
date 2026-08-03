@@ -16,9 +16,21 @@ const app = express();
 // Connect to MongoDB Atlas
 connectDB();
 
-// 1. Configure Middleware
+const allowedOrigins = [
+  'https://www.nirayush.com',
+  'https://nirayush.com',
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'http://localhost:3000',
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || '*',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: Origin ${origin} not allowed`));
+  },
   credentials: true,
 }));
 app.use(express.json());
