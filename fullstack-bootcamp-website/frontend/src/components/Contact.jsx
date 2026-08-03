@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './Contact.module.css'
 import { Reveal } from './Reveal'
 
@@ -18,6 +18,12 @@ export default function Contact({ onSuccess }) {
     name: '', phone: '', email: '', qualification: '', message: '',
   })
   const [errors, setErrors] = useState({})
+
+  // Pre-warm Render backend on mount so it's awake before user submits
+  useEffect(() => {
+    const backendUrl = import.meta.env.VITE_API_URL || 'https://p1-p2rz.onrender.com'
+    fetch(`${backendUrl}/`).catch(() => {}) // silent ping — wakes up free-tier server
+  }, [])
 
   const validate = () => {
     const err = {}
