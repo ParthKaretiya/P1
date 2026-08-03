@@ -9,22 +9,11 @@ import nodemailer from 'nodemailer';
  * Creates and returns a Nodemailer SMTP Transporter instance using environment variables.
  */
 const createTransporter = () => {
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-  const port = parseInt(process.env.SMTP_PORT, 10) || 587;
-
   return nodemailer.createTransport({
-    host: host,
-    port: port,
-    secure: port === 465, // true for 465, false for other ports
+    service: 'gmail',
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
-    },
-    connectionTimeout: 5000, // 5s connection timeout
-    greetingTimeout: 5000,   // 5s greeting timeout
-    socketTimeout: 10000,     // 10s socket timeout
-    tls: {
-      rejectUnauthorized: false, // Prevents self-signed cert issues on cloud proxies
     },
   });
 };
@@ -348,8 +337,15 @@ This is an automated confirmation. Please do not reply to this email.
   };
 
   // Send both emails concurrently
-  await Promise.all([
-    transporter.sendMail(companyMailOptions),
-    transporter.sendMail(studentMailOptions),
-  ]);
+  try {
+    const results = await Promise.all([
+      transporter.sendMail(companyMailOptions),
+      transporter.sendMail(studentMailOptions),
+    ]);
+    console.log(`[Email Success]: Delivered notification to company (${companyEmail}) and thank-you to student (${email}).`);
+    return results;
+  } catch (err) {
+    console.error(`[Email Delivery Error]: ${err.message}`);
+    throw err;
+  }
 };
