@@ -45,11 +45,12 @@ export default function Contact({ onSuccess }) {
 
     setIsSubmitting(true)
     try {
-      const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      const backendUrl = import.meta.env.VITE_API_URL || 'https://p1-p2rz.onrender.com'
       const response = await fetch(`${backendUrl}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
+        signal: AbortSignal.timeout(60000), // 60s timeout for Render free tier wake-up
       })
       const data = await response.json()
 
@@ -61,7 +62,7 @@ export default function Contact({ onSuccess }) {
         setErrors({ submit: data.message || 'Failed to submit enquiry. Please try again.' })
       }
     } catch (err) {
-      setErrors({ submit: 'Unable to connect to server. Please check backend is running.' })
+      setErrors({ submit: 'Server is starting up, please wait 30 seconds and try again.' })
     } finally {
       setIsSubmitting(false)
     }
