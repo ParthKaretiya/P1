@@ -141,7 +141,7 @@ for (const d of devices) {
 // --- Short page: nothing to scroll → 0%, never NaN ---
 {
   const page = await browser.newPage({ viewport: { width: 1440, height: 3000 } }) // viewport taller than most content
-  await page.goto(`${BASE}/privacy-policy`, { waitUntil: 'networkidle' })
+  await page.goto(`${BASE}/privacy`, { waitUntil: 'networkidle' })
   await page.waitForTimeout(1200)
   await check(page, 'short-page-tall-viewport')
   await page.close()
