@@ -12,6 +12,17 @@
 .bar {
   height: 100%;
   background: linear-gradient(90deg, var(--orange-deep), var(--orange));
-  transition: width 0.1s linear;
   border-radius: 0 3px 3px 0;
+  /* scaleX from the left edge — compositor-only, no reflow per scroll tick */
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    /* State indicator stays functional; easing removed so it snaps to position */
+    transition: none;
+  }
 }
