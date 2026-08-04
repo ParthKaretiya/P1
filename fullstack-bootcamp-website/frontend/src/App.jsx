@@ -1,6 +1,10 @@
 import { useState, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence, LazyMotion } from 'motion/react'
+
+// Motion features are loaded async so the animation renderer stays out of the
+// critical bundle (components use m.* instead of motion.*).
+const loadMotionFeatures = () => import('./motionFeatures').then(mod => mod.default)
 
 import Navbar          from './components/Navbar'
 import Footer          from './components/Footer'
@@ -12,8 +16,11 @@ import PageTransition  from './components/layout/PageTransition'
 import SmoothScroll    from './components/layout/SmoothScroll'
 import './App.css'
 
-// Lazy loaded page components for optimal performance & code splitting
-const Home           = lazy(() => import('./pages/Home'))
+// Home is imported eagerly: it's the primary landing route, and lazy-loading it
+// forces a chained request (main JS → Home chunk) before the Hero/LCP can paint.
+import Home from './pages/Home'
+
+// Other pages stay lazy-loaded for code splitting
 const About          = lazy(() => import('./pages/About'))
 const Courses        = lazy(() => import('./pages/Courses'))
 const CourseDetail   = lazy(() => import('./pages/CourseDetail'))
@@ -58,7 +65,9 @@ function AnimatedRoutes({ showToast }) {
   const location = useLocation()
 
   return (
-    <AnimatePresence mode="wait">
+    // initial={false} — skip the entrance animation on first paint so the
+    // LCP isn't delayed by a 0.45s opacity fade; route changes still animate
+    <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><Home onSuccess={showToast} /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
@@ -93,6 +102,10 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      {/* LazyMotion loads the animation renderer (domMax) async — components
+          use m.* instead of motion.* so the renderer stays out of the
+          critical bundle */}
+      <LazyMotion features={loadMotionFeatures}>
       <SmoothScroll>
         <ScrollToTop />
         <ScrollProgress />
@@ -106,6 +119,7 @@ export default function App() {
         <Toast show={toast.show} message={toast.message} />
         <BackToTop />
       </SmoothScroll>
+      </LazyMotion>
     </BrowserRouter>
   )
 }

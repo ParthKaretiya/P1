@@ -21,7 +21,9 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ea580c;
+  /* darkened orange — ≥4.5:1 WCAG AA on this tinted pill over the off-white
+     section bg (orange-hot lands at 4.499 here, a hair under) */
+  color: #b93d0b;
   background: rgba(234, 88, 12, 0.08);
   border: 1px solid rgba(234, 88, 12, 0.2);
   padding: 0.35rem 0.9rem;

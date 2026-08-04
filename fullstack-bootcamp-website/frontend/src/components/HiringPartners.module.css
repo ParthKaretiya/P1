@@ -18,7 +18,8 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--gray-400);
+  /* gray-600 (not gray-400) — 4.5:1 WCAG AA on white */
+  color: var(--gray-600);
 }
 
 .marquee {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { m, AnimatePresence } from 'motion/react'
 import styles from './Faq.module.css'
 import { Reveal, EASE } from './Reveal'
 import { injectJsonLd } from '../hooks/useSEO'
@@ -83,7 +83,7 @@ export default function Faq() {
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       id={pid}
                       role="region"
                       aria-labelledby={qid}
@@ -94,7 +94,7 @@ export default function Faq() {
                       transition={{ duration: 0.4, ease: EASE }}
                     >
                       <p className={styles.answer}>{f.a}</p>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>

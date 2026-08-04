@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 /* Shared scroll-reveal primitives (Motion) — replaces the old
    .animate-on-scroll IntersectionObserver + CSS classes.
@@ -36,7 +36,7 @@ export function Reveal({ direction = 'up', stagger = false, className, children,
       }
 
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={variants}
       initial="hidden"
@@ -45,14 +45,14 @@ export function Reveal({ direction = 'up', stagger = false, className, children,
       {...rest}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
 export function RevealItem({ className, children, ...rest }) {
   return (
-    <motion.div className={className} variants={item} {...rest}>
+    <m.div className={className} variants={item} {...rest}>
       {children}
-    </motion.div>
+    </m.div>
   )
 }

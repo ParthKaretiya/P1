@@ -57,7 +57,9 @@ export default function Contact({ onSuccess }) {
 
   useEffect(() => {
     if (!backendUrl) return
-    fetch(`${backendUrl}/`).catch(() => {})
+    // Fire-and-forget warm-up ping for the free-tier backend. no-cors: we
+    // never read the response, and it keeps CORS errors out of the console.
+    fetch(`${backendUrl}/`, { mode: 'no-cors' }).catch(() => {})
   }, [backendUrl])
 
   const validate = () => {

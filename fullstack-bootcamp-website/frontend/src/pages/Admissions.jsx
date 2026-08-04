@@ -9,14 +9,9 @@ import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function Admissions({ onSuccess }) {
   useSEO({
-<<<<<<< HEAD
     // → "Admissions, Fees & EMI Plans | Nirayush EduTech" (47 chars)
     title: 'Admissions, Fees & EMI Plans',
     description: 'Transparent fee structure, no-cost EMI plans and a simple admission process for the Full Stack Bootcamp in Ahmedabad. Check eligibility and apply for the founding batch.',
-=======
-    title: 'Admissions, Fees & EMI Plans in Ahmedabad',
-    description: 'Transparent fee structure, no-cost EMI plans and a simple 3-step admission process for the Nirayush EduTech Full Stack Bootcamp. Apply for the founding batch now.',
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     keywords: 'bootcamp fee structure, full stack developer course fees, admissions Ahmedabad, tech bootcamp cost',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },

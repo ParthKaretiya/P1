@@ -16,14 +16,9 @@ const GALLERY_ITEMS = [
 
 export default function Gallery() {
   useSEO({
-<<<<<<< HEAD
     // → "Campus & Learning Gallery | Nirayush EduTech" (44 chars)
     title: 'Campus & Learning Gallery',
     description: "Take a virtual tour of Nirayush EduTech's modern coding campus in Ahmedabad — interactive labs, hackathons, project demo days and graduation celebrations. See it live.",
-=======
-    title: 'Campus & Learning Gallery — Ahmedabad',
-    description: "Tour Nirayush EduTech's modern coding campus in Ahmedabad — interactive labs, hackathons, demo days and graduation celebrations. Book an in-person campus visit.",
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     keywords: 'campus gallery Ahmedabad, bootcamp environment, tech hackathon Gujarat, coding labs',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },

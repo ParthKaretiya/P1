@@ -1,9 +1,4 @@
 User-agent: *
 Allow: /
-<<<<<<< HEAD
-=======
-Disallow: /api/
-Disallow: /admin/
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 
 Sitemap: https://www.nirayush.com/sitemap.xml

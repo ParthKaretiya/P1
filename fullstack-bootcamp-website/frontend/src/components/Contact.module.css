@@ -60,8 +60,9 @@
   color: var(--text-mid);
   line-height: 1.5;
 }
-.detail a { color: var(--orange-deep); font-weight: 600; }
-.detail a:hover { color: var(--orange-hot); }
+/* orange-hot base (4.5:1 AA on white); darker still on hover */
+.detail a { color: var(--orange-hot); font-weight: 600; }
+.detail a:hover { color: var(--orange-deep); }
 
 /* Promise chips */
 .promises {

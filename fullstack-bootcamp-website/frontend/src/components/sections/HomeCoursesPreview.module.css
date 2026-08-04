@@ -85,7 +85,8 @@
 .subtitle {
   font-size: .8rem;
   font-weight: 600;
-  color: var(--orange-deep);
+  /* orange-hot — 4.5:1 WCAG AA on white card bg */
+  color: var(--orange-hot);
   text-transform: uppercase;
   letter-spacing: .5px;
 }

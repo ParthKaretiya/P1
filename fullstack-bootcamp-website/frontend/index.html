@@ -9,57 +9,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0f172a" />
 
-  <!-- Google Fonts: Outfit, Plus Jakarta Sans, Inter & JetBrains Mono (Creative Geometric System) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" />
-  <link rel="stylesheet" media="print" onload="this.media='all'"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" />
+  <!-- Preload the Hero classroom photo (LCP element). Stable /hero/ filenames
+       (not hashed bundle assets) so this static preload always matches what
+       Hero.jsx renders — keep imagesrcset/imagesizes in sync with Hero.jsx. -->
+  <link rel="preload" as="image" type="image/avif" fetchpriority="high"
+        imagesrcset="/hero/classroom-480.avif 480w, /hero/classroom-768.avif 768w, /hero/classroom-1100.avif 1100w, /hero/classroom-1376.avif 1376w"
+        imagesizes="(max-width: 600px) 92vw, (max-width: 900px) 76vw, 530px" />
+
+  <!-- Self-hosted fonts (latin variable woff2). @font-face rules are inlined
+       (mirror of /fonts/fonts.css) so no extra render-blocking request.
+       Preload the two above-the-fold families: Outfit (H1) + Plus Jakarta Sans. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Outfit.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/PlusJakartaSans.woff2" crossorigin />
+  <style>
+    @font-face{font-family:'Outfit';font-style:normal;font-weight:400 800;font-display:swap;src:url(/fonts/Outfit.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:500 800;font-display:swap;src:url(/fonts/PlusJakartaSans.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:italic;font-weight:600;font-display:swap;src:url(/fonts/PlusJakartaSans-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/Inter.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:swap;src:url(/fonts/JetBrainsMono.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  </style>
+
+  <!-- FontAwesome 6 (self-hosted subset — only icons the site uses, ~32KB vs
+       100KB full; font-display:swap patched in; deferred — icons are
+       decorative and must not block first paint). Regenerate with
+       scripts/generate-fa-subset.mjs when adding new fa-* icons. -->
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="/fontawesome/fa-subset.min.css" />
   <noscript>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" />
+    <link rel="stylesheet" href="/fontawesome/fa-subset.min.css" />
   </noscript>
 
-  <!-- FontAwesome 6 Icons (deferred) -->
-  <link rel="stylesheet" media="print" onload="this.media='all'"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <noscript>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  </noscript>
-
-  <!-- Devicon Icons (deferred) -->
-  <link rel="stylesheet" media="print" onload="this.media='all'"
-        href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
-  <noscript>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
-  </noscript>
+  <!-- Devicon is only used on /courses & /courses/:id — those pages inject it
+       on demand via useDevicon() instead of loading it globally here. -->
 
   <title>Full Stack Development Bootcamp | Nirayush EduTech</title>
   <meta name="description"
-<<<<<<< HEAD
     content="Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad with dedicated placement support. Founding batch enrolling now — book your free counselling session today." />
   <link rel="canonical" href="https://www.nirayush.com/" />
-=======
-    content="Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad with dedicated placement support. Founding batch enrolling now — book a free counselling session." />
-  <link rel="canonical" href="https://www.nirayush.com" />
-  <meta name="robots" content="index, follow" />
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 
   <!-- Open Graph (defaults — overridden per-route by useSEO) -->
   <meta property="og:title" content="Full Stack Development Bootcamp | Nirayush EduTech" />
   <meta property="og:description"
-<<<<<<< HEAD
     content="Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad with dedicated placement support. Founding batch enrolling now — book your free counselling session today." />
   <meta property="og:url" content="https://www.nirayush.com/" />
-=======
-    content="Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad with dedicated placement support. Founding batch enrolling now — book a free counselling session." />
-  <meta property="og:url" content="https://www.nirayush.com" />
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Nirayush EduTech" />
   <meta property="og:locale" content="en_IN" />
@@ -72,11 +63,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Full Stack Development Bootcamp | Nirayush EduTech" />
   <meta name="twitter:description"
-<<<<<<< HEAD
     content="Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad with dedicated placement support. Founding batch enrolling now — book your free counselling session today." />
-=======
-    content="Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad with dedicated placement support. Founding batch enrolling now — book a free counselling session." />
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
   <meta name="twitter:image" content="https://www.nirayush.com/og-image.png" />
 </head>
 

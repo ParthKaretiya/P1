@@ -1,17 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-<<<<<<< HEAD
-import { motion, AnimatePresence } from 'motion/react'
+import { m, AnimatePresence } from 'motion/react'
 import styles from './Navbar.module.css'
 // Local optimized logo (4.6KB WebP) — replaces the old 800KB postimg.cc hotlink
 import logoWebp from '../assets/logo.webp'
 
 const LOGO_URL = logoWebp
-=======
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
-import styles from './Navbar.module.css'
-import BrandLogo from './BrandLogo'
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 
 const navItems = [
   { label: 'Home',         href: '/' },
@@ -70,17 +64,12 @@ export default function Navbar() {
   const megaWrapRef = useRef(null)
   const closeTimer  = useRef(null)
   const location    = useLocation()
-<<<<<<< HEAD
-=======
-  const reduce = useReducedMotion()
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 
   useEffect(() => {
-    if (reduce) { setScrolled(false); return }
     const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [reduce])
+  }, [])
 
   useEffect(() => {
     setMenuOpen(false)
@@ -112,24 +101,34 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setMegaOpen(false), 150)
   }
 
-<<<<<<< HEAD
   // Mega-menu items are real <Link>s (crawlable hrefs) — this just closes the menus.
   const handleMegaLink = () => {
     setMegaOpen(false)
     setMenuOpen(false)
   }
 
-=======
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
   return (
     <>
       <header className={`${styles.headerWrapper} ${scrolled ? styles.headerScrolled : ''}`}>
         <nav className={`${styles.glassPillNav} ${scrolled ? styles.pillContracted : ''}`}>
           <div className={styles.navInner}>
 
-            {/* Premium Logo */}
-            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech — Home">
-              <BrandLogo size={40} showText={true} />
+            {/* Premium Logo — no aria-label: the accessible name comes from the
+                visible text (avoids label-content-name-mismatch) */}
+            <Link to="/" className={styles.logoLink}>
+              <img
+                src={LOGO_URL}
+                alt=""
+                aria-hidden="true"
+                className={styles.logoImg}
+                loading="eager"
+                width="40"
+                height="40"
+              />
+              <div className={styles.logoTextWrap}>
+                <span className={styles.logoText}>Nirayush</span>
+                <span className={styles.logoSub}>EduTech</span>
+              </div>
             </Link>
 
 
@@ -153,7 +152,7 @@ export default function Navbar() {
 
                 <AnimatePresence>
                   {megaOpen && (
-                    <motion.div
+                    <m.div
                       className={styles.megaPanelGlass}
                       initial={{ opacity: 0, y: -8, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -170,11 +169,7 @@ export default function Navbar() {
                                   <Link
                                     to={link.href}
                                     className={link.primary ? styles.megaItemPrimary : styles.megaItemSecondary}
-<<<<<<< HEAD
                                     onClick={handleMegaLink}
-=======
-                                    onClick={() => { setMegaOpen(false); setMenuOpen(false) }}
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
                                   >
                                     <span>{link.label}</span>
                                     {link.badge && (
@@ -187,7 +182,7 @@ export default function Navbar() {
                           </div>
                         ))}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </li>
@@ -204,7 +199,7 @@ export default function Navbar() {
                     {({ isActive }) => (
                       <>
                         {isActive && (
-                          <motion.span
+                          <m.span
                             layoutId="active-nav-pill-modern"
                             className={styles.activePillBg}
                             transition={{ duration: 0.25, ease: SPRING_EASE }}
@@ -243,7 +238,7 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             className={styles.mobileGlassDrawer}
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -253,7 +248,7 @@ export default function Navbar() {
             <div className={styles.mobileMenuContainer}>
               <ul className={styles.mobileNavList}>
                 {navItems.map((item, idx) => (
-                  <motion.li
+                  <m.li
                     key={item.href}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -268,7 +263,7 @@ export default function Navbar() {
                     >
                       {item.label}
                     </NavLink>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
               <div className={styles.mobileDrawerFooter}>
@@ -277,13 +272,13 @@ export default function Navbar() {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {megaOpen && (
-          <motion.div
+          <m.div
             className={styles.backdropBlur}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

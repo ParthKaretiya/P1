@@ -26,26 +26,12 @@ export default function CtaBanner() {
             session and take the first step toward your tech career.
           </p>
         </div>
-<<<<<<< HEAD
         {/* Real crawlable route link; scrolls in-page when a #contact section exists */}
         <Link
           ref={enrollRef}
           to="/admissions"
           className={styles.cta}
-          onClick={e => {
-            const contact = document.querySelector('#contact')
-            if (contact) {
-              e.preventDefault()
-              contact.scrollIntoView({ behavior: 'smooth' })
-            }
-          }}
-=======
-        <Link
-          ref={enrollRef}
-          to="/contact"
-          className={styles.cta}
           onClick={handleClick}
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
         >
           <i className="fa-solid fa-rocket" aria-hidden="true" />
           Enroll Now

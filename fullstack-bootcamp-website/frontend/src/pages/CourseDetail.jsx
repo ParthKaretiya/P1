@@ -8,7 +8,7 @@ import { COURSES_DATA } from '../data/coursesData'
 import styles from './CourseDetail.module.css'
 import { Reveal } from '../components/Reveal'
 import { useSEO } from '../hooks/useSEO'
-<<<<<<< HEAD
+import { useDevicon } from '../hooks/useDevicon'
 import { buildCourseSchema, buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function CourseDetail() {
@@ -23,21 +23,11 @@ export default function CourseDetail() {
 }
 
 function CourseDetailContent({ course }) {
-=======
-import { buildCourseSchema } from '../data/schema'
-
-export default function CourseDetail({ onSuccess: _onSuccess }) {
-  const { courseId } = useParams()
-
-  // Find matching course or fallback to fullstack-developer
-  const course = COURSES_DATA.find(c => c.id === courseId) || COURSES_DATA[0]
-
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
   const [activeTab, setActiveTab] = useState('roadmap')
   const [openFaq, setOpenFaq] = useState(0)
 
+  useDevicon()
   useSEO({
-<<<<<<< HEAD
     title: `${course.title} Course & Roadmap`,
     description: `${course.desc} ${course.duration} program in Ahmedabad with placement support — view the full curriculum and apply today.`,
     keywords: `${course.title}, roadmap, syllabus, ${course.techStack.join(', ')}`,
@@ -49,12 +39,6 @@ export default function CourseDetail({ onSuccess: _onSuccess }) {
         { label: course.title },
       ]),
     ],
-=======
-    title: `${course.title} Course | Nirayush EduTech`,
-    description: `${course.desc} Explore the full 5-phase roadmap, projects, and placement prep — enroll in Ahmedabad's founding batch today.`,
-    keywords: `${course.title}, roadmap, syllabus, ${course.techStack.join(', ')}`,
-    jsonLd: buildCourseSchema(course),
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
   })
 
   return (

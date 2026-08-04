@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion, useInView, useMotionValue, animate, useReducedMotion } from 'motion/react'
+import { m, useInView, useMotionValue, animate, useReducedMotion } from 'motion/react'
 import styles from './Placement.module.css'
 import { Reveal } from './Reveal'
 
@@ -118,7 +118,7 @@ export default function Placement() {
           <h3 className={styles.alumniTitle}>How We Prepare You to Get Hired</h3>
           <div className={styles.alumniGrid}>
             {SUPPORT_PILLARS.map((p, i) => (
-              <motion.div
+              <m.div
                 key={p.title}
                 className={styles.alumniCard}
                 initial={{ opacity: 0, y: 15 }}
@@ -131,7 +131,7 @@ export default function Placement() {
                 </div>
                 <h4 className={styles.alumniName}>{p.title}</h4>
                 <p className={styles.alumniRole}>{p.desc}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </Reveal>

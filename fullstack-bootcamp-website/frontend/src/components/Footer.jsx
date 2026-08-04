@@ -1,14 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
-<<<<<<< HEAD
 // Local optimized logo (4.6KB WebP) — replaces the old 800KB postimg.cc hotlink
 import logoWebp from '../assets/logo.webp'
 
 const LOGO_URL = logoWebp
-=======
-import BrandLogo from './BrandLogo'
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 
 const quickLinks = [
   { label: 'Home',            href: '/' },
@@ -93,13 +89,8 @@ export default function Footer() {
 
           {/* Column 1: Brand & Logo */}
           <div className={styles.brand}>
-<<<<<<< HEAD
             <Link to="/" className={styles.logoLink}>
               <img src={LOGO_URL} alt="Nirayush EduTech logo" className={styles.logoImg} width="48" height="48" loading="lazy" />
-=======
-            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech — Home">
-              <BrandLogo size={48} showText={false} />
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
             </Link>
             <p className={styles.brandDesc}>
               Ahmedabad's premier software engineering bootcamp. Transforming motivated students into industry-ready developers through 1-on-1 mentorship and production projects.
@@ -109,12 +100,9 @@ export default function Footer() {
                   (dead links hurt SEO/UX). Re-add with real hrefs + aria-labels:
                   { icon: 'fa-brands fa-linkedin-in', href: '...', label: 'LinkedIn' } */}
               {[
-<<<<<<< HEAD
                 // ⚠ LinkedIn / Instagram / YouTube hidden until the real profiles exist —
                 //   placeholder '#' links fail Lighthouse (link-name / crawlable-anchors).
                 //   Also add them to sameAs in src/data/structuredData.js when live.
-=======
->>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
                 { icon: 'fa-brands fa-whatsapp', href: 'https://wa.me/919054117266', label: 'Chat with us on WhatsApp' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className={styles.socialBtn} target="_blank" rel="noreferrer" aria-label={s.label}>
