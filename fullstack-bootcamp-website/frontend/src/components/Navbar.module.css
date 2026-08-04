@@ -119,9 +119,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.44rem 0.9rem;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.44rem 1rem;
   font-family: var(--font-sub);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.005em;
   color: #475569;
@@ -216,13 +218,15 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  min-height: 48px;
   text-align: left;
   background: transparent;
   border: none;
-  padding: 0.4rem 0.65rem;
+  text-decoration: none;
+  padding: 0.6rem 0.8rem;
   border-radius: var(--radius-sm);
   font-family: var(--font-sub);
-  font-size: 0.83rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: #1e293b;
   cursor: pointer;
@@ -257,9 +261,10 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.52rem 1.3rem;
+  min-height: 48px;
+  padding: 0.52rem 1.4rem;
   font-family: var(--font-sub);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--white);
   background: linear-gradient(135deg, #c2410c 0%, var(--orange-deep) 50%, #f97316 100%);
@@ -279,26 +284,29 @@
 .hamburgerBtn {
   display: none;
   flex-direction: column;
-  justify-content: space-between;
-  width: 26px;
-  height: 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 48px;
+  height: 48px;
   background: transparent;
   border: none;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   padding: 0;
 }
 
 .bar1, .bar2, .bar3 {
-  width: 100%;
+  width: 26px;
   height: 2px;
   background: var(--navy-dark);
   border-radius: 2px;
   transition: all 0.3s var(--ease-spring);
 }
 
-.hamburgerActive .bar1 { transform: translateY(8px) rotate(45deg); }
+.hamburgerActive .bar1 { transform: translateY(7px) rotate(45deg); }
 .hamburgerActive .bar2 { opacity: 0; }
-.hamburgerActive .bar3 { transform: translateY(-8px) rotate(-45deg); }
+.hamburgerActive .bar3 { transform: translateY(-7px) rotate(-45deg); }
 
 /* Mobile Drawer */
 .mobileGlassDrawer {
@@ -326,7 +334,8 @@
 
 .mobileNavLink {
   display: block;
-  padding: 0.65rem 0.9rem;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
   font-family: var(--font-sub);
   font-size: 1rem;
   font-weight: 600;
@@ -359,9 +368,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: 48px;
   padding: 0.8rem;
   font-family: var(--font-sub);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--white);
   background: linear-gradient(135deg, #c2410c 0%, var(--orange-deep) 50%, #f97316 100%);

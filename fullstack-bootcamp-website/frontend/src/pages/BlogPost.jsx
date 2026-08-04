@@ -25,11 +25,14 @@ function BlogPostContent({ post }) {
     description: post.excerpt,
     keywords: `${post.category}, full stack tutorial, Nirayush EduTech blog`,
     type: 'article',
+<<<<<<< HEAD
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
       { label: 'Blog', path: '/blog' },
       { label: post.title },
     ]),
+=======
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
   })
 
   return (

@@ -42,7 +42,7 @@ export default function JourneyTimeline() {
                 <div className={styles.dot}><i className={m.icon} /></div>
               </div>
               <div className={styles.card}>
-                <h4>{m.title}</h4>
+                <h3>{m.title}</h3>
                 <p>{m.desc}</p>
               </div>
             </Reveal>

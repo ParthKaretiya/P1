@@ -55,9 +55,14 @@ const TECH_TIERS = [
 
 export default function Courses() {
   useSEO({
+<<<<<<< HEAD
     // → "Full Stack Courses & MERN Roadmap | Nirayush EduTech" (52 chars)
     title: 'Full Stack Courses & MERN Roadmap',
     description: "Explore Nirayush EduTech's Full Stack Development Bootcamp — a 12-month MERN program with a detailed 5-phase roadmap and placement assistance. View the curriculum.",
+=======
+    title: 'Full Stack Developer Courses & Roadmaps',
+    description: "Explore Nirayush EduTech's 12-month MERN Full Stack Bootcamp in Ahmedabad — 5-phase roadmap, 10+ projects, placement help. View the curriculum and enroll now.",
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     keywords: 'full stack course Ahmedabad, MERN stack bootcamp, full stack developer bootcamp, React Node.js course',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
@@ -83,7 +88,7 @@ export default function Courses() {
         <div className="container">
           <Reveal className={styles.techHead}>
             <span className="section-tag">Official Technology Stack</span>
-            <h3 className={styles.techSubhead}>Technologies & Tools You Will Master</h3>
+            <h2 className={styles.techSubhead}>Technologies & Tools You Will Master</h2>
             <p className={styles.techNote}>
               Every module below is part of the single 12-month Full Stack Development Bootcamp,
               organised by the phase in which it is taught.

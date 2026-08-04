@@ -20,7 +20,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-.campusCard h3 {
+.campusCard h2 {
   font-family: var(--font-head);
   font-size: 1.35rem;
   font-weight: 800;

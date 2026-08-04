@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import styles from './Faq.module.css'
 import { Reveal, EASE } from './Reveal'
+import { injectJsonLd } from '../hooks/useSEO'
+import { buildFaqSchema } from '../data/schema'
 
 // Exported so FAQPage JSON-LD structured data matches the visible content exactly.
 export const FAQS = [
@@ -42,6 +44,9 @@ export const FAQS = [
 export default function Faq() {
   const [open, setOpen] = useState(0)
 
+  // FAQPage JSON-LD — mirrors the exact visible questions/answers above
+  useEffect(() => injectJsonLd('faq', buildFaqSchema(FAQS)), [])
+
   return (
     <section id="faq" className={styles.section}>
       <div className="container">
@@ -62,19 +67,26 @@ export default function Faq() {
         <Reveal className={styles.list}>
           {FAQS.map((f, i) => {
             const isOpen = open === i
+            const qid = `faq-q-${i}`
+            const pid = `faq-panel-${i}`
             return (
               <div key={f.q} className={`${styles.item} ${isOpen ? styles.itemOpen : ''}`}>
                 <button
+                  id={qid}
                   className={styles.question}
                   onClick={() => setOpen(isOpen ? -1 : i)}
                   aria-expanded={isOpen}
+                  aria-controls={pid}
                 >
                   <span>{f.q}</span>
-                  <i className={`fa-solid fa-chevron-down ${styles.chevron}`} />
+                  <i className={`fa-solid fa-chevron-down ${styles.chevron}`} aria-hidden="true" />
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
+                      id={pid}
+                      role="region"
+                      aria-labelledby={qid}
                       className={styles.answerInner}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}

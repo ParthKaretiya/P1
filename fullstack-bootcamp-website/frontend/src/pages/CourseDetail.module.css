@@ -374,7 +374,7 @@
   color: var(--orange-deep);
 }
 
-.resourceCard h4 {
+.resourceCard h3 {
   font-family: var(--font-head);
   font-size: 0.95rem;
   font-weight: 700;

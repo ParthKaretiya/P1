@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+<<<<<<< HEAD
     <loc>https://www.nirayush.com/</loc>
+=======
+    <loc>https://www.nirayush.com</loc>
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     <lastmod>2026-08-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.nirayush.com/courses</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -19,24 +24,65 @@
     <priority>0.9</priority>
   </url>
   <url>
+=======
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     <loc>https://www.nirayush.com/about</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
+=======
+    <loc>https://www.nirayush.com/courses</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.nirayush.com/courses/fullstack-developer</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     <loc>https://www.nirayush.com/placements</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
+=======
+    <loc>https://www.nirayush.com/testimonials</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.nirayush.com/admissions</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     <loc>https://www.nirayush.com/contact</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
+=======
+    <loc>https://www.nirayush.com/gallery</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     <loc>https://www.nirayush.com/faq</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
@@ -49,6 +95,7 @@
     <priority>0.7</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.nirayush.com/testimonials</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
@@ -61,6 +108,8 @@
     <priority>0.5</priority>
   </url>
   <url>
+=======
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     <loc>https://www.nirayush.com/privacy</loc>
     <lastmod>2026-08-04</lastmod>
     <changefreq>yearly</changefreq>
@@ -72,6 +121,7 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+<<<<<<< HEAD
   <url>
     <loc>https://www.nirayush.com/courses/fullstack-developer</loc>
     <lastmod>2026-08-04</lastmod>
@@ -102,4 +152,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+=======
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 </urlset>

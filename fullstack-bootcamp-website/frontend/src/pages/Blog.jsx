@@ -47,9 +47,14 @@ export const BLOG_POSTS = [
 
 export default function Blog() {
   useSEO({
+<<<<<<< HEAD
     // → "Developer Blog & Career Guides | Nirayush EduTech" (49 chars)
     title: 'Developer Blog & Career Guides',
     description: 'Expert articles, developer roadmaps, tech stack comparisons and interview preparation guides by Nirayush EduTech. Start reading and level up your coding career.',
+=======
+    title: 'Developer Blog & Career Guides',
+    description: 'Expert articles, developer roadmaps, tech stack comparisons and interview prep guides from Nirayush EduTech mentors. Read the latest guides and level up today.',
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
     keywords: 'full stack developer blog, MERN stack guide, software developer career tips, tech interview prep',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
@@ -72,6 +77,7 @@ export default function Blog() {
 
       <section className={styles.section}>
         <div className="container">
+          <h2 className="sr-only">Latest Articles & Guides</h2>
           <Reveal stagger className={styles.grid}>
             {BLOG_POSTS.map(post => (
               <RevealItem key={post.id} className={styles.card}>

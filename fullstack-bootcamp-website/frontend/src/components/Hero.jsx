@@ -10,19 +10,17 @@ export default function Hero() {
   const visualRef = useRef(null)
   const reduce = useReducedMotion()
 
-  const scrollTo = (id) => (e) => {
-    e.preventDefault()
-    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
-  /* Soft parallax: layers drift at different speeds as the hero scrolls out */
+  /* Soft parallax: layers drift at different speeds as the hero scrolls out.
+     useScroll/useTransform called unconditionally per Rules of Hooks; Motion's
+     reduced-motion detection internally skips transform updates for users
+     who opted out. We then pass literal 0 values as fallback to force 0 offset. */
   const { scrollYProgress } = useScroll({
     target: visualRef,
     offset: ['start end', 'end start'],
   })
-  const yEditor = useTransform(scrollYProgress, [0, 1], [30, -30])
-  const yMid = useTransform(scrollYProgress, [0, 1], [55, -55])
-  const yFront = useTransform(scrollYProgress, [0, 1], [85, -85])
+  const yEditor = reduce ? 0 : useTransform(scrollYProgress, [0, 1], [30, -30])
+  const yMid    = reduce ? 0 : useTransform(scrollYProgress, [0, 1], [55, -55])
+  const yFront  = reduce ? 0 : useTransform(scrollYProgress, [0, 1], [85, -85])
 
   /* Cursor-follow glow — writes CSS vars directly (no re-render per move) */
   const onGlowMove = useCallback((e) => {

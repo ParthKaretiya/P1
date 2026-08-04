@@ -1,0 +1,37 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.icon {
+  display: block;
+  flex-shrink: 0;
+  contain: layout paint size;
+}
+
+.text {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+  justify-content: center;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+
+.sub {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  margin-top: 2px;
+}

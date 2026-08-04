@@ -1,11 +1,21 @@
+import { useEffect } from 'react'
 import styles from './PageHeader.module.css'
 import { Reveal } from '../Reveal'
 import { Link } from 'react-router-dom'
+import { injectJsonLd } from '../../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../../data/schema'
 
 /**
  * Premium Sub-page Hero Banner (Deep Navy w/ Mesh Gradient)
+ * Also emits BreadcrumbList JSON-LD matching the visible breadcrumb trail.
  */
 export default function PageHeader({ tag, title, accent, desc, breadcrumbs = [] }) {
+  useEffect(() => {
+    if (breadcrumbs.length === 0) return
+    return injectJsonLd('breadcrumbs', buildBreadcrumbSchema(breadcrumbs))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(breadcrumbs)])
+
   return (
     <section className={styles.header}>
       <div className={styles.meshBg} />

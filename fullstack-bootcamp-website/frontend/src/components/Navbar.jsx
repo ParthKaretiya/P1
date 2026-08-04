@@ -1,11 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
+<<<<<<< HEAD
 import { motion, AnimatePresence } from 'motion/react'
 import styles from './Navbar.module.css'
 // Local optimized logo (4.6KB WebP) — replaces the old 800KB postimg.cc hotlink
 import logoWebp from '../assets/logo.webp'
 
 const LOGO_URL = logoWebp
+=======
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
+import styles from './Navbar.module.css'
+import BrandLogo from './BrandLogo'
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 
 const navItems = [
   { label: 'Home',         href: '/' },
@@ -64,12 +70,17 @@ export default function Navbar() {
   const megaWrapRef = useRef(null)
   const closeTimer  = useRef(null)
   const location    = useLocation()
+<<<<<<< HEAD
+=======
+  const reduce = useReducedMotion()
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
 
   useEffect(() => {
+    if (reduce) { setScrolled(false); return }
     const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [reduce])
 
   useEffect(() => {
     setMenuOpen(false)
@@ -101,12 +112,15 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setMegaOpen(false), 150)
   }
 
+<<<<<<< HEAD
   // Mega-menu items are real <Link>s (crawlable hrefs) — this just closes the menus.
   const handleMegaLink = () => {
     setMegaOpen(false)
     setMenuOpen(false)
   }
 
+=======
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
   return (
     <>
       <header className={`${styles.headerWrapper} ${scrolled ? styles.headerScrolled : ''}`}>
@@ -114,19 +128,8 @@ export default function Navbar() {
           <div className={styles.navInner}>
 
             {/* Premium Logo */}
-            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech Home">
-              <img
-                src={LOGO_URL}
-                alt="Nirayush EduTech"
-                className={styles.logoImg}
-                loading="eager"
-                width="40"
-                height="40"
-              />
-              <div className={styles.logoTextWrap}>
-                <span className={styles.logoText}>Nirayush</span>
-                <span className={styles.logoSub}>EduTech</span>
-              </div>
+            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech — Home">
+              <BrandLogo size={40} showText={true} />
             </Link>
 
 
@@ -167,7 +170,11 @@ export default function Navbar() {
                                   <Link
                                     to={link.href}
                                     className={link.primary ? styles.megaItemPrimary : styles.megaItemSecondary}
+<<<<<<< HEAD
                                     onClick={handleMegaLink}
+=======
+                                    onClick={() => { setMegaOpen(false); setMenuOpen(false) }}
+>>>>>>> 14207f4ce7ff4fcace3e01b39d2548e43aa8799e
                                   >
                                     <span>{link.label}</span>
                                     {link.badge && (

@@ -55,7 +55,7 @@ export default function Testimonials() {
           <div className={styles.featuredMeta}>
             <div className={styles.avatarLg}>{FOUNDER_NOTE.initials}</div>
             <div className={styles.featuredPerson}>
-              <h4>{FOUNDER_NOTE.name}</h4>
+              <h3>{FOUNDER_NOTE.name}</h3>
               <span>{FOUNDER_NOTE.role}</span>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default function Testimonials() {
               <div className={styles.person}>
                 <div className={styles.avatar}>{t.initials}</div>
                 <div>
-                  <h4>{t.name}</h4>
+                  <h3>{t.name}</h3>
                   <span>Founding Batch Commitment</span>
                 </div>
               </div>

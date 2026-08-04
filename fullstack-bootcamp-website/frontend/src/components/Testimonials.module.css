@@ -71,7 +71,7 @@
 .featuredPerson {
   text-align: left;
 }
-.featuredPerson h4 {
+.featuredPerson h3 {
   font-family: var(--font-head);
   font-size: 1.05rem;
   font-weight: 800;
@@ -147,7 +147,7 @@
   flex-shrink: 0;
 }
 
-.person h4 {
+.person h3 {
   font-family: var(--font-head);
   font-size: .9rem;
   font-weight: 700;
