@@ -6,19 +6,50 @@ import { Reveal, RevealItem } from '../components/Reveal'
 import { useSEO }  from '../hooks/useSEO'
 import { COURSES_DATA } from '../data/coursesData'
 
-const ALL_TECHS = [
-  { name: 'HTML5', icon: 'devicon-html5-plain colored' },
-  { name: 'CSS3', icon: 'devicon-css3-plain colored' },
-  { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
-  { name: 'React', icon: 'devicon-react-original colored' },
-  { name: 'Node.js', icon: 'devicon-nodejs-plain colored' },
-  { name: 'Express', icon: 'devicon-express-original' },
-  { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
-  { name: 'Git', icon: 'devicon-git-plain colored' },
-  { name: 'GitHub', icon: 'devicon-github-original' },
-  { name: 'Docker', icon: 'devicon-docker-plain colored' },
-  { name: 'AWS', icon: 'devicon-amazonwebservices-original colored' },
-  { name: 'Linux', icon: 'devicon-linux-plain' },
+// Tiered technology breakdown — skill bullets pulled from the 5-phase
+// curriculum in coursesData.js. All tiers are part of the single bootcamp.
+const TECH_TIERS = [
+  {
+    id: 'core',
+    label: 'Core Modules',
+    tagline: 'Phases 1–3 · The foundational stack every student masters',
+    items: [
+      { name: 'HTML5', icon: 'devicon-html5-plain colored', skills: ['Semantic markup', 'Accessibility', 'Forms & inputs', 'Browser APIs'] },
+      { name: 'CSS3', icon: 'devicon-css3-plain colored', skills: ['Flexbox', 'CSS Grid', 'Animations', 'Responsive design'] },
+      { name: 'JavaScript', icon: 'devicon-javascript-plain colored', skills: ['ES6+ syntax', 'Closures', 'Async / Await', 'DOM manipulation'] },
+      { name: 'React 18', icon: 'devicon-react-original colored', skills: ['Components & JSX', 'Hooks', 'Redux Toolkit', 'React Router v6', 'Performance'] },
+      { name: 'Node.js', icon: 'devicon-nodejs-plain colored', skills: ['Runtime & Event Loop', 'npm ecosystem', 'Async I/O', 'API servers'] },
+      { name: 'Express', icon: 'devicon-express-original', skills: ['REST architecture', 'Routing', 'Middleware', 'JWT authentication'] },
+      { name: 'MongoDB', icon: 'devicon-mongodb-plain colored', skills: ['Mongoose schemas', 'CRUD operations', 'Aggregations', 'Compass'] },
+      { name: 'Git & GitHub', icon: 'devicon-git-plain colored', skills: ['Version control', 'Branching', 'Pull requests', 'Team workflow'] },
+    ],
+  },
+  {
+    id: 'optional',
+    label: 'Optional Modules',
+    tagline: 'Workflow & productivity tools taught alongside the core phases — included in the same program',
+    items: [
+      { name: 'TypeScript', icon: 'devicon-typescript-plain colored', skills: ['Static typing', 'Interfaces', 'Typed React props'] },
+      { name: 'Tailwind CSS', icon: 'devicon-tailwindcss-plain colored', skills: ['Utility classes', 'Responsive variants', 'Custom themes'] },
+      { name: 'Vite', icon: 'fa-solid fa-bolt', skills: ['Dev server & HMR', 'Production builds', 'Env configuration'] },
+      { name: 'Postman', icon: 'fa-solid fa-paper-plane', skills: ['API testing', 'Collections', 'Environments'] },
+      { name: 'Chrome DevTools', icon: 'devicon-chrome-plain colored', skills: ['Debugging', 'Network panel', 'Performance profiling'] },
+      { name: 'Linux Basics', icon: 'devicon-linux-plain', skills: ['Shell commands', 'File permissions', 'SSH & servers'] },
+    ],
+  },
+  {
+    id: 'advanced',
+    label: 'Advanced Modules',
+    tagline: 'Phases 4–5 · Expert-level production engineering — included in the same program',
+    items: [
+      { name: 'Docker', icon: 'devicon-docker-plain colored', skills: ['Containers', 'Dockerfiles', 'Docker Compose'] },
+      { name: 'AWS', icon: 'devicon-amazonwebservices-original colored', skills: ['EC2 hosting', 'S3 storage', 'CloudFront CDN'] },
+      { name: 'Redis', icon: 'devicon-redis-plain colored', skills: ['Caching', 'Performance tuning', 'Session stores'] },
+      { name: 'CI/CD Pipelines', icon: 'fa-solid fa-rotate', skills: ['GitHub Actions', 'Automated testing', 'Auto deployments'] },
+      { name: 'WebSockets', icon: 'devicon-socketio-original', skills: ['Socket.io', 'Real-time apps', 'Live chat systems'] },
+      { name: 'DSA & System Design', icon: 'fa-solid fa-diagram-project', skills: ['Data structures', 'System design basics', 'Mock interviews'] },
+    ],
+  },
 ]
 
 export default function Courses() {
@@ -41,20 +72,46 @@ export default function Courses() {
         ]}
       />
 
-      {/* Tech Logos Header Marquee */}
+      {/* Tiered Technology Breakdown */}
       <section className={styles.techSection}>
         <div className="container">
           <Reveal className={styles.techHead}>
             <span className="section-tag">Official Technology Stack</span>
             <h3 className={styles.techSubhead}>Technologies & Tools You Will Master</h3>
+            <p className={styles.techNote}>
+              Every module below is part of the single 12-month Full Stack Development Bootcamp,
+              organised by the phase in which it is taught.
+            </p>
           </Reveal>
-          <Reveal className={styles.techRow}>
-            {ALL_TECHS.map(t => (
-              <div key={t.name} className={styles.techChip}>
-                <i className={`${t.icon} ${styles.techIcon}`} />
-                <span>{t.name}</span>
-              </div>
-            ))}
+
+          {TECH_TIERS.map(tier => (
+            <div key={tier.id} className={styles.tierBlock}>
+              <Reveal className={styles.tierHead}>
+                <span className={`${styles.tierBadge} ${styles[`tier_${tier.id}`]}`}>{tier.label}</span>
+                <p className={styles.tierTagline}>{tier.tagline}</p>
+              </Reveal>
+              <Reveal stagger className={styles.tierGrid}>
+                {tier.items.map(t => (
+                  <RevealItem key={t.name} className={`${styles.techCard} ${styles[`accent_${tier.id}`]}`}>
+                    <div className={styles.techCardHead}>
+                      <i className={`${t.icon} ${styles.techCardIcon}`} />
+                      <span className={styles.techCardName}>{t.name}</span>
+                    </div>
+                    <ul className={styles.skillList}>
+                      {t.skills.map(s => (
+                        <li key={s}>{s}</li>
+                      ))}
+                    </ul>
+                  </RevealItem>
+                ))}
+              </Reveal>
+            </div>
+          ))}
+
+          <Reveal className={styles.techCta}>
+            <Link to="/courses/fullstack-developer" className="btn btn-outline-dark">
+              View Full Curriculum & 5-Phase Roadmap <i className="fa-solid fa-arrow-right" />
+            </Link>
           </Reveal>
         </div>
       </section>
