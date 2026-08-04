@@ -14,6 +14,7 @@ export default function BlogPost() {
     title: post.title,
     description: post.excerpt,
     keywords: `${post.category}, full stack tutorial, Nirayush EduTech blog`,
+    type: 'article',
   })
 
   return (

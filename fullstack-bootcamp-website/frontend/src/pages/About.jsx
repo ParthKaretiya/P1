@@ -8,8 +8,8 @@ import { useSEO } from '../hooks/useSEO'
 
 export default function About() {
   useSEO({
-    title: 'About Us',
-    description: "Learn about Nirayush EduTech — our mission, vision, values, and journey to becoming Ahmedabad's premier Full Stack Developer Bootcamp.",
+    title: 'About Our Coding Bootcamp in Ahmedabad',
+    description: "Discover Nirayush EduTech's mission, vision, and journey to becoming Ahmedabad's premier Full Stack Developer Bootcamp. Meet the team — book a free visit today.",
     keywords: 'about Nirayush EduTech, full stack bootcamp history, mission vision',
   })
 

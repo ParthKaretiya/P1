@@ -15,8 +15,8 @@ const GALLERY_ITEMS = [
 
 export default function Gallery() {
   useSEO({
-    title: 'Campus & Learning Gallery',
-    description: "Take a virtual tour of Nirayush EduTech's modern coding campus in Ahmedabad — interactive labs, hackathons, project demo days, and graduation celebrations.",
+    title: 'Campus & Learning Gallery — Ahmedabad',
+    description: "Tour Nirayush EduTech's modern coding campus in Ahmedabad — interactive labs, hackathons, demo days and graduation celebrations. Book an in-person campus visit.",
     keywords: 'campus gallery Ahmedabad, bootcamp environment, tech hackathon Gujarat, coding labs',
   })
 
@@ -35,6 +35,7 @@ export default function Gallery() {
 
       <section className={styles.section}>
         <div className="container">
+          <h2 className="sr-only">Campus Life Highlights</h2>
           <Reveal stagger className={styles.grid}>
             {GALLERY_ITEMS.map((item, i) => (
               <RevealItem key={i} className={styles.card}>

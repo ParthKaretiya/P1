@@ -52,7 +52,7 @@ export default function Eligibility() {
                   <i className={c.icon} />
                 </div>
                 <div className={styles.eligText}>
-                  <h4>{c.title}</h4>
+                  <h3>{c.title}</h3>
                   <p>{c.desc}</p>
                 </div>
               </div>
@@ -62,7 +62,7 @@ export default function Eligibility() {
             <div className={styles.scholarship}>
               <i className="fa-solid fa-trophy" />
               <div>
-                <h4>🎓 Scholarship Available!</h4>
+                <h3>🎓 Scholarship Available!</h3>
                 <p>Students with above <strong>7 CGPA</strong> are eligible for a merit-based scholarship. Apply today!</p>
               </div>
             </div>

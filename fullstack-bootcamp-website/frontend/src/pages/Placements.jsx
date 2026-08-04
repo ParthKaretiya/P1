@@ -8,7 +8,7 @@ import { useSEO } from '../hooks/useSEO'
 export default function Placements() {
   useSEO({
     title: 'Placement Support & Career Preparation',
-    description: "Dedicated placement support for Nirayush EduTech's founding batch — resume building, mock interviews, portfolio reviews, and introductions to our growing hiring network.",
+    description: 'Resume building, mock interviews, portfolio reviews and hiring-network introductions for every Nirayush EduTech student. See how placement support works today.',
     keywords: 'placement support Ahmedabad, full stack developer career prep, bootcamp placement assistance, tech jobs Gujarat',
   })
 

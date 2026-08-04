@@ -8,8 +8,8 @@ import { useSEO }   from '../hooks/useSEO'
 
 export default function Admissions({ onSuccess }) {
   useSEO({
-    title: 'Admissions & Fee Structure',
-    description: 'Transparent fee structure, flexible payment plans, and easy admission process for Nirayush EduTech Full Stack Bootcamp in Ahmedabad.',
+    title: 'Admissions, Fees & EMI Plans in Ahmedabad',
+    description: 'Transparent fee structure, no-cost EMI plans and a simple 3-step admission process for the Nirayush EduTech Full Stack Bootcamp. Apply for the founding batch now.',
     keywords: 'bootcamp fee structure, full stack developer course fees, admissions Ahmedabad, tech bootcamp cost',
   })
 

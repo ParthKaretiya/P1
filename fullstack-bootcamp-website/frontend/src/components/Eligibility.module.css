@@ -48,7 +48,7 @@
   flex-shrink: 0;
 }
 
-.eligText h4 {
+.eligText h3 {
   font-family: var(--font-head);
   font-weight: 700;
   font-size: 1rem;
@@ -79,7 +79,7 @@
   flex-shrink: 0;
   margin-top: .15rem;
 }
-.scholarship h4 {
+.scholarship h3 {
   font-family: var(--font-head);
   font-weight: 800;
   font-size: 1.05rem;

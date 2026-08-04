@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'motion/react'
+import { NavLink, Link, useLocation } from 'react-router-dom'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import styles from './Navbar.module.css'
-
-const LOGO_URL = 'https://i.postimg.cc/nz96D1VJ/Chat-GPT-Image-Jul-30-2026-05-17-19-PM.png'
+import BrandLogo from './BrandLogo'
 
 const navItems = [
   { label: 'Home',         href: '/' },
@@ -62,13 +61,14 @@ export default function Navbar() {
   const megaWrapRef = useRef(null)
   const closeTimer  = useRef(null)
   const location    = useLocation()
-  const navigate    = useNavigate()
+  const reduce = useReducedMotion()
 
   useEffect(() => {
+    if (reduce) { setScrolled(false); return }
     const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [reduce])
 
   useEffect(() => {
     setMenuOpen(false)
@@ -100,12 +100,6 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setMegaOpen(false), 150)
   }
 
-  const handleMegaLink = (href) => {
-    setMegaOpen(false)
-    setMenuOpen(false)
-    navigate(href)
-  }
-
   return (
     <>
       <header className={`${styles.headerWrapper} ${scrolled ? styles.headerScrolled : ''}`}>
@@ -113,19 +107,8 @@ export default function Navbar() {
           <div className={styles.navInner}>
 
             {/* Premium Logo */}
-            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech Home">
-              <img
-                src={LOGO_URL}
-                alt="Nirayush EduTech"
-                className={styles.logoImg}
-                loading="eager"
-                width="40"
-                height="40"
-              />
-              <div className={styles.logoTextWrap}>
-                <span className={styles.logoText}>Nirayush</span>
-                <span className={styles.logoSub}>EduTech</span>
-              </div>
+            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech — Home">
+              <BrandLogo size={40} showText={true} />
             </Link>
 
 
@@ -163,15 +146,16 @@ export default function Navbar() {
                             <ul className={styles.megaList}>
                               {col.links.map(link => (
                                 <li key={link.label}>
-                                  <button
+                                  <Link
+                                    to={link.href}
                                     className={link.primary ? styles.megaItemPrimary : styles.megaItemSecondary}
-                                    onClick={() => handleMegaLink(link.href)}
+                                    onClick={() => { setMegaOpen(false); setMenuOpen(false) }}
                                   >
                                     <span>{link.label}</span>
                                     {link.badge && (
                                       <span className={styles.megaBadge}>{link.badge}</span>
                                     )}
-                                  </button>
+                                  </Link>
                                 </li>
                               ))}
                             </ul>

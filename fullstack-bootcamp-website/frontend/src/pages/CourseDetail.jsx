@@ -7,20 +7,22 @@ import { COURSES_DATA } from '../data/coursesData'
 import styles from './CourseDetail.module.css'
 import { Reveal } from '../components/Reveal'
 import { useSEO } from '../hooks/useSEO'
+import { buildCourseSchema } from '../data/schema'
 
-export default function CourseDetail({ onSuccess }) {
+export default function CourseDetail({ onSuccess: _onSuccess }) {
   const { courseId } = useParams()
-  
+
   // Find matching course or fallback to fullstack-developer
   const course = COURSES_DATA.find(c => c.id === courseId) || COURSES_DATA[0]
-  
+
   const [activeTab, setActiveTab] = useState('roadmap')
   const [openFaq, setOpenFaq] = useState(0)
 
   useSEO({
-    title: `${course.title} — Detailed Roadmap & Curriculum`,
-    description: `Complete 5-phase learning roadmap for ${course.title}. ${course.desc}`,
+    title: `${course.title} Course | Nirayush EduTech`,
+    description: `${course.desc} Explore the full 5-phase roadmap, projects, and placement prep — enroll in Ahmedabad's founding batch today.`,
     keywords: `${course.title}, roadmap, syllabus, ${course.techStack.join(', ')}`,
+    jsonLd: buildCourseSchema(course),
   })
 
   return (
@@ -249,7 +251,7 @@ export default function CourseDetail({ onSuccess }) {
                   <a key={i} href={r.url} target="_blank" rel="noreferrer" className={styles.resourceCard}>
                     <div>
                       <span className={styles.resType}>{r.type}</span>
-                      <h4>{r.title}</h4>
+                      <h3>{r.title}</h3>
                     </div>
                     <i className="fa-solid fa-arrow-up-right-from-square" />
                   </a>

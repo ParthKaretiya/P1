@@ -1,15 +1,19 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useReducedMotion } from 'motion/react'
 import Lenis from 'lenis'
 
 export default function SmoothScroll({ children }) {
   const lenisRef = useRef(null)
   const { pathname, hash } = useLocation()
+  const reduce = useReducedMotion()
 
   useEffect(() => {
+    if (reduce) return
+
     const lenis = new Lenis({
       duration: 1.25,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Ultra smooth exponential inertia decay
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
@@ -33,16 +37,27 @@ export default function SmoothScroll({ children }) {
       lenis.destroy()
       window.lenis = null
     }
-  }, [])
+  }, [reduce])
 
-  // Handle page transitions and anchor links smoothly
   useEffect(() => {
-    if (!lenisRef.current) return
+    if (reduce || !lenisRef.current) {
+      if (hash) {
+        const targetEl = document.querySelector(hash)
+        if (targetEl) {
+          setTimeout(() => {
+            const top = targetEl.getBoundingClientRect().top + window.scrollY - 90
+            window.scrollTo({ top, behavior: 'auto' })
+          }, 100)
+        }
+        return
+      }
+      if (!lenisRef.current) window.scrollTo(0, 0)
+      return
+    }
 
     if (hash) {
       const targetEl = document.querySelector(hash)
       if (targetEl) {
-        // Smooth scroll to anchor element with offset for fixed header
         setTimeout(() => {
           lenisRef.current?.scrollTo(targetEl, { offset: -90, duration: 1.4 })
         }, 100)
@@ -50,9 +65,8 @@ export default function SmoothScroll({ children }) {
       }
     }
 
-    // Scroll to top immediately on new page navigation
     lenisRef.current.scrollTo(0, { immediate: true })
-  }, [pathname, hash])
+  }, [pathname, hash, reduce])
 
   return children
 }

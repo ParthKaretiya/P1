@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
-
-const LOGO_URL = 'https://i.postimg.cc/nz96D1VJ/Chat-GPT-Image-Jul-30-2026-05-17-19-PM.png'
+import BrandLogo from './BrandLogo'
 
 const quickLinks = [
   { label: 'Home',            href: '/' },
@@ -55,19 +54,24 @@ export default function Footer() {
           </div>
           <form className={styles.newsForm} onSubmit={handleNewsletter}>
             {subscribed ? (
-              <div className={styles.newsSuccess}>
+              <div className={styles.newsSuccess} role="status" aria-live="polite">
                 <i className="fa-solid fa-circle-check" /> Subscribed successfully!
               </div>
             ) : (
               <>
+                <label htmlFor="newsletter-email" className={styles.newsLabel}>
+                  Email Address
+                </label>
                 <input
+                  id="newsletter-email"
                   type="email"
                   placeholder="Enter your email address..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  autoComplete="email"
                 />
-                <button type="submit">
+                <button type="submit" aria-label="Subscribe to newsletter">
                   <span>Subscribe</span>
                   <i className="fa-solid fa-paper-plane" />
                 </button>
@@ -81,21 +85,21 @@ export default function Footer() {
 
           {/* Column 1: Brand & Logo */}
           <div className={styles.brand}>
-            <Link to="/" className={styles.logoLink}>
-              <img src={LOGO_URL} alt="Nirayush EduTech Logo" className={styles.logoImg} />
+            <Link to="/" className={styles.logoLink} aria-label="Nirayush EduTech — Home">
+              <BrandLogo size={48} showText={false} />
             </Link>
             <p className={styles.brandDesc}>
               Ahmedabad's premier software engineering bootcamp. Transforming motivated students into industry-ready developers through 1-on-1 mentorship and production projects.
             </p>
             <div className={styles.socialRow}>
+              {/* ⚠ Real social profile URLs pending — placeholder "#" links removed
+                  (dead links hurt SEO/UX). Re-add with real hrefs + aria-labels:
+                  { icon: 'fa-brands fa-linkedin-in', href: '...', label: 'LinkedIn' } */}
               {[
-                { icon: 'fa-brands fa-linkedin-in', href: '#' },
-                { icon: 'fa-brands fa-instagram',   href: '#' },
-                { icon: 'fa-brands fa-youtube',     href: '#' },
-                { icon: 'fa-brands fa-whatsapp',    href: 'https://wa.me/919054117266' },
+                { icon: 'fa-brands fa-whatsapp', href: 'https://wa.me/919054117266', label: 'Chat with us on WhatsApp' },
               ].map((s, i) => (
-                <a key={i} href={s.href} className={styles.socialBtn} target="_blank" rel="noreferrer">
-                  <i className={s.icon} />
+                <a key={i} href={s.href} className={styles.socialBtn} target="_blank" rel="noreferrer" aria-label={s.label}>
+                  <i className={s.icon} aria-hidden="true" />
                 </a>
               ))}
             </div>

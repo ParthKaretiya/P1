@@ -46,8 +46,8 @@ export const BLOG_POSTS = [
 
 export default function Blog() {
   useSEO({
-    title: 'Blog & Career Guides',
-    description: 'Expert articles, developer roadmaps, tech stack comparisons, and interview preparation guides by Nirayush EduTech.',
+    title: 'Developer Blog & Career Guides',
+    description: 'Expert articles, developer roadmaps, tech stack comparisons and interview prep guides from Nirayush EduTech mentors. Read the latest guides and level up today.',
     keywords: 'full stack developer blog, MERN stack guide, software developer career tips, tech interview prep',
   })
 
@@ -66,6 +66,7 @@ export default function Blog() {
 
       <section className={styles.section}>
         <div className="container">
+          <h2 className="sr-only">Latest Articles & Guides</h2>
           <Reveal stagger className={styles.grid}>
             {BLOG_POSTS.map(post => (
               <RevealItem key={post.id} className={styles.card}>

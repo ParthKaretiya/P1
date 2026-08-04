@@ -5,8 +5,8 @@ import { useSEO }  from '../hooks/useSEO'
 
 export default function FaqPage() {
   useSEO({
-    title: 'Frequently Asked Questions (FAQ)',
-    description: "Find answers to common questions about Nirayush EduTech's Full Stack Bootcamp — eligibility, batch timings, placement assistance, course fees, and laptop requirements.",
+    title: 'Bootcamp FAQ — Fees, Batches & Placements',
+    description: 'Answers on eligibility, batch timings, placement help, fees, EMI and laptop requirements for the Nirayush EduTech Full Stack Bootcamp. Get your questions resolved.',
     keywords: 'bootcamp FAQ, coding bootcamp questions, placement policy Ahmedabad, course eligibility',
   })
 

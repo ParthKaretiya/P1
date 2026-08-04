@@ -81,7 +81,7 @@
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.card h4 {
+.card h3 {
   font-family: var(--font-head);
   font-size: 1.05rem;
   font-weight: 800;
