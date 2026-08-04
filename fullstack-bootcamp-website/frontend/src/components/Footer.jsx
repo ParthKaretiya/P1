@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
+// Local optimized logo (4.6KB WebP) — replaces the old 800KB postimg.cc hotlink
+import logoWebp from '../assets/logo.webp'
 
-const LOGO_URL = 'https://i.postimg.cc/nz96D1VJ/Chat-GPT-Image-Jul-30-2026-05-17-19-PM.png'
+const LOGO_URL = logoWebp
 
 const quickLinks = [
   { label: 'Home',            href: '/' },
@@ -63,6 +65,7 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="Enter your email address..."
+                  aria-label="Email address for newsletter"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -82,20 +85,20 @@ export default function Footer() {
           {/* Column 1: Brand & Logo */}
           <div className={styles.brand}>
             <Link to="/" className={styles.logoLink}>
-              <img src={LOGO_URL} alt="Nirayush EduTech Logo" className={styles.logoImg} />
+              <img src={LOGO_URL} alt="Nirayush EduTech logo" className={styles.logoImg} width="48" height="48" loading="lazy" />
             </Link>
             <p className={styles.brandDesc}>
               Ahmedabad's premier software engineering bootcamp. Transforming motivated students into industry-ready developers through 1-on-1 mentorship and production projects.
             </p>
             <div className={styles.socialRow}>
               {[
-                { icon: 'fa-brands fa-linkedin-in', href: '#' },
-                { icon: 'fa-brands fa-instagram',   href: '#' },
-                { icon: 'fa-brands fa-youtube',     href: '#' },
-                { icon: 'fa-brands fa-whatsapp',    href: 'https://wa.me/919054117266' },
+                // ⚠ LinkedIn / Instagram / YouTube hidden until the real profiles exist —
+                //   placeholder '#' links fail Lighthouse (link-name / crawlable-anchors).
+                //   Also add them to sameAs in src/data/structuredData.js when live.
+                { icon: 'fa-brands fa-whatsapp', href: 'https://wa.me/919054117266', label: 'Chat with us on WhatsApp' },
               ].map((s, i) => (
-                <a key={i} href={s.href} className={styles.socialBtn} target="_blank" rel="noreferrer">
-                  <i className={s.icon} />
+                <a key={i} href={s.href} className={styles.socialBtn} target="_blank" rel="noreferrer" aria-label={s.label}>
+                  <i className={s.icon} aria-hidden="true" />
                 </a>
               ))}
             </div>

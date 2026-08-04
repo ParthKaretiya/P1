@@ -4,6 +4,7 @@ import CtaBanner  from '../components/CtaBanner'
 import styles     from './Blog.module.css'
 import { Reveal, RevealItem } from '../components/Reveal'
 import { useSEO }  from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export const BLOG_POSTS = [
   {
@@ -46,9 +47,14 @@ export const BLOG_POSTS = [
 
 export default function Blog() {
   useSEO({
-    title: 'Blog & Career Guides',
-    description: 'Expert articles, developer roadmaps, tech stack comparisons, and interview preparation guides by Nirayush EduTech.',
+    // → "Developer Blog & Career Guides | Nirayush EduTech" (49 chars)
+    title: 'Developer Blog & Career Guides',
+    description: 'Expert articles, developer roadmaps, tech stack comparisons and interview preparation guides by Nirayush EduTech. Start reading and level up your coding career.',
     keywords: 'full stack developer blog, MERN stack guide, software developer career tips, tech interview prep',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Blog' },
+    ]),
   })
 
   return (

@@ -4,6 +4,7 @@ import CtaBanner  from '../components/CtaBanner'
 import styles     from './Courses.module.css'
 import { Reveal, RevealItem } from '../components/Reveal'
 import { useSEO }  from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 import { COURSES_DATA } from '../data/coursesData'
 
 // Tiered technology breakdown — skill bullets pulled from the 5-phase
@@ -54,9 +55,14 @@ const TECH_TIERS = [
 
 export default function Courses() {
   useSEO({
-    title: 'Programs & Learning Roadmaps',
-    description: "Explore Nirayush EduTech's Full Stack Development Bootcamp — a 12-month MERN program with a detailed 5-phase roadmap and placement assistance.",
+    // → "Full Stack Courses & MERN Roadmap | Nirayush EduTech" (52 chars)
+    title: 'Full Stack Courses & MERN Roadmap',
+    description: "Explore Nirayush EduTech's Full Stack Development Bootcamp — a 12-month MERN program with a detailed 5-phase roadmap and placement assistance. View the curriculum.",
     keywords: 'full stack course Ahmedabad, MERN stack bootcamp, full stack developer bootcamp, React Node.js course',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Courses' },
+    ]),
   })
 
   return (

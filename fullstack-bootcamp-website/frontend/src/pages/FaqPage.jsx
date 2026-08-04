@@ -1,13 +1,22 @@
 import PageHeader from '../components/ui/PageHeader'
-import Faq        from '../components/Faq'
+import Faq, { FAQS } from '../components/Faq'
 import CtaBanner  from '../components/CtaBanner'
 import { useSEO }  from '../hooks/useSEO'
+import { buildFaqSchema, buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function FaqPage() {
   useSEO({
-    title: 'Frequently Asked Questions (FAQ)',
-    description: "Find answers to common questions about Nirayush EduTech's Full Stack Bootcamp — eligibility, batch timings, placement assistance, course fees, and laptop requirements.",
+    // → "Bootcamp FAQ — Fees, Batches & Placements | Nirayush EduTech"
+    title: 'Bootcamp FAQ — Fees, Batches & Placements',
+    description: "Answers to common questions about Nirayush EduTech's Full Stack Bootcamp — eligibility, batch timings, fees, EMI, refunds and placement support. Get clarity before you apply.",
     keywords: 'bootcamp FAQ, coding bootcamp questions, placement policy Ahmedabad, course eligibility',
+    jsonLd: [
+      buildFaqSchema(FAQS),
+      buildBreadcrumbSchema([
+        { label: 'Home', path: '/' },
+        { label: 'FAQ' },
+      ]),
+    ],
   })
 
   return (

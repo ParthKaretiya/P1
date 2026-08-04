@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'motion/react'
 import styles from './Faq.module.css'
 import { Reveal, EASE } from './Reveal'
 
-const FAQS = [
+// Exported so FAQPage JSON-LD structured data matches the visible content exactly.
+export const FAQS = [
   {
     q: 'Do I need coding experience to join?',
     a: 'No. The program starts from absolute fundamentals — HTML, CSS, and basic programming logic. Most of our students come from non-coding backgrounds. All you need is basic computer literacy and a strong willingness to learn.',

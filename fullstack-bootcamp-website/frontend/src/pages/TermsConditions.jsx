@@ -1,11 +1,16 @@
 import PageHeader from '../components/ui/PageHeader'
 import styles     from './LegalPage.module.css'
 import { useSEO }  from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function TermsConditions() {
   useSEO({
     title: 'Terms & Conditions',
-    description: 'Terms and conditions governing enrolment, course completion, attendance, and placement assistance at Nirayush EduTech.',
+    description: 'Terms and conditions governing enrolment, attendance, course completion and placement assistance at Nirayush EduTech. Review the full terms before you apply.',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Terms & Conditions' },
+    ]),
   })
 
   return (

@@ -4,15 +4,21 @@ import CtaBanner  from '../components/CtaBanner'
 import styles     from './ContactPage.module.css'
 import { Reveal }  from '../components/Reveal'
 import { useSEO }  from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 const ADDRESS_TEXT = 'Skyleaf, Shop No. 01, Near Sardardham, Khodiyar, Ahmedabad – 382421, Gujarat, India'
 const MAP_DIRECTIONS_URL = 'https://www.google.com/maps/search/?api=1&query=Skyleaf+Shop+No+01+Near+Sardardham+Khodiyar+Ahmedabad+382421'
 
 export default function ContactPage({ onSuccess }) {
   useSEO({
-    title: 'Contact Us & Campus Location',
-    description: 'Visit Nirayush EduTech at Skyleaf, Shop No. 01, Near Sardardham, Khodiyar, Ahmedabad - 382421. Call +91 90541 17266 or get interactive directions.',
+    // → "Contact Us — Campus in Khodiyar, Ahmedabad | Nirayush EduTech"
+    title: 'Contact Us — Campus in Khodiyar, Ahmedabad',
+    description: 'Visit Nirayush EduTech at Skyleaf, Shop No. 01, Near Sardardham, Khodiyar, Ahmedabad 382421. Call +91 90541 17266 or send a message — book your free counselling visit.',
     keywords: 'contact Nirayush EduTech, bootcamp location Ahmedabad, Skyleaf Khodiyar map',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Contact' },
+    ]),
   })
 
   const copyAddress = () => {

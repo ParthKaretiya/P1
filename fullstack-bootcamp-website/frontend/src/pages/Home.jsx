@@ -8,17 +8,21 @@ import WhyUs        from '../components/WhyUs'
 // import Mentors      from '../components/Mentors'
 import Placement    from '../components/Placement'
 import Testimonials from '../components/Testimonials'
-import Faq          from '../components/Faq'
+import Faq, { FAQS } from '../components/Faq'
 import Contact      from '../components/Contact'
 import CtaBanner    from '../components/CtaBanner'
 import HomeCoursesPreview from '../components/sections/HomeCoursesPreview'
 import { useSEO } from '../hooks/useSEO'
+import { ORGANIZATION_SCHEMA, buildFaqSchema } from '../data/structuredData'
 
 export default function Home({ onSuccess }) {
   useSEO({
-    title: 'Full Stack Developer Bootcamp — Ahmedabad',
-    description: '12-Month industry-ready Full Stack Developer Bootcamp by Nirayush EduTech. Learn React, Node.js, MongoDB, and more with dedicated placement support in Ahmedabad.',
+    // → "Full Stack Development Bootcamp | Nirayush EduTech" (51 chars)
+    title: 'Full Stack Development Bootcamp',
+    description: 'Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad. Learn React, Node.js & MongoDB with dedicated placement support — book a free counselling session.',
     keywords: 'full stack bootcamp, developer course, react nodejs, Ahmedabad, Nirayush EduTech',
+    // FAQ schema matches the visible <Faq /> section rendered below
+    jsonLd: [ORGANIZATION_SCHEMA, buildFaqSchema(FAQS)],
   })
 
   return (

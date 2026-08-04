@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
-import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import styles from './Navbar.module.css'
+// Local optimized logo (4.6KB WebP) — replaces the old 800KB postimg.cc hotlink
+import logoWebp from '../assets/logo.webp'
 
-const LOGO_URL = 'https://i.postimg.cc/nz96D1VJ/Chat-GPT-Image-Jul-30-2026-05-17-19-PM.png'
+const LOGO_URL = logoWebp
 
 const navItems = [
   { label: 'Home',         href: '/' },
@@ -62,7 +64,6 @@ export default function Navbar() {
   const megaWrapRef = useRef(null)
   const closeTimer  = useRef(null)
   const location    = useLocation()
-  const navigate    = useNavigate()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -100,10 +101,10 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setMegaOpen(false), 150)
   }
 
-  const handleMegaLink = (href) => {
+  // Mega-menu items are real <Link>s (crawlable hrefs) — this just closes the menus.
+  const handleMegaLink = () => {
     setMegaOpen(false)
     setMenuOpen(false)
-    navigate(href)
   }
 
   return (
@@ -163,15 +164,16 @@ export default function Navbar() {
                             <ul className={styles.megaList}>
                               {col.links.map(link => (
                                 <li key={link.label}>
-                                  <button
+                                  <Link
+                                    to={link.href}
                                     className={link.primary ? styles.megaItemPrimary : styles.megaItemSecondary}
-                                    onClick={() => handleMegaLink(link.href)}
+                                    onClick={handleMegaLink}
                                   >
                                     <span>{link.label}</span>
                                     {link.badge && (
                                       <span className={styles.megaBadge}>{link.badge}</span>
                                     )}
-                                  </button>
+                                  </Link>
                                 </li>
                               ))}
                             </ul>

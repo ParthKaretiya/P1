@@ -3,24 +3,40 @@ import { useParams } from 'react-router-dom'
 import PageHeader from '../components/ui/PageHeader'
 import CtaBanner  from '../components/CtaBanner'
 import Faq        from '../components/Faq'
+import NotFound   from './NotFound'
 import { COURSES_DATA } from '../data/coursesData'
 import styles from './CourseDetail.module.css'
 import { Reveal } from '../components/Reveal'
 import { useSEO } from '../hooks/useSEO'
+import { buildCourseSchema, buildBreadcrumbSchema } from '../data/structuredData'
 
-export default function CourseDetail({ onSuccess }) {
+export default function CourseDetail() {
   const { courseId } = useParams()
-  
-  // Find matching course or fallback to fullstack-developer
-  const course = COURSES_DATA.find(c => c.id === courseId) || COURSES_DATA[0]
-  
+  const course = COURSES_DATA.find(c => c.id === courseId)
+
+  // Unknown course id → real 404 instead of silently showing another course
+  // under the wrong (indexable) URL
+  if (!course) return <NotFound />
+
+  return <CourseDetailContent course={course} />
+}
+
+function CourseDetailContent({ course }) {
   const [activeTab, setActiveTab] = useState('roadmap')
   const [openFaq, setOpenFaq] = useState(0)
 
   useSEO({
-    title: `${course.title} — Detailed Roadmap & Curriculum`,
-    description: `Complete 5-phase learning roadmap for ${course.title}. ${course.desc}`,
+    title: `${course.title} Course & Roadmap`,
+    description: `${course.desc} ${course.duration} program in Ahmedabad with placement support — view the full curriculum and apply today.`,
     keywords: `${course.title}, roadmap, syllabus, ${course.techStack.join(', ')}`,
+    jsonLd: [
+      buildCourseSchema(course),
+      buildBreadcrumbSchema([
+        { label: 'Home', path: '/' },
+        { label: 'Courses', path: '/courses' },
+        { label: course.title },
+      ]),
+    ],
   })
 
   return (

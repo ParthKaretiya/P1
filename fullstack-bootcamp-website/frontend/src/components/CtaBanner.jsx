@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './CtaBanner.module.css'
 import { Reveal } from './Reveal'
 import { useMagnetic } from '../hooks/useMagnetic'
@@ -14,18 +15,22 @@ export default function CtaBanner() {
             session and take the first step toward your tech career.
           </p>
         </div>
-        <a
+        {/* Real crawlable route link; scrolls in-page when a #contact section exists */}
+        <Link
           ref={enrollRef}
-          href="#contact"
+          to="/admissions"
           className={styles.cta}
           onClick={e => {
-            e.preventDefault()
-            document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
+            const contact = document.querySelector('#contact')
+            if (contact) {
+              e.preventDefault()
+              contact.scrollIntoView({ behavior: 'smooth' })
+            }
           }}
         >
-          <i className="fa-solid fa-rocket" />
+          <i className="fa-solid fa-rocket" aria-hidden="true" />
           Enroll Now
-        </a>
+        </Link>
       </Reveal>
     </section>
   )

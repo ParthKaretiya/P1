@@ -1,11 +1,16 @@
 import PageHeader from '../components/ui/PageHeader'
 import styles     from './LegalPage.module.css'
 import { useSEO }  from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function PrivacyPolicy() {
   useSEO({
     title: 'Privacy Policy',
-    description: 'Privacy Policy and data protection terms for Nirayush EduTech student applicants and website visitors.',
+    description: 'How Nirayush EduTech collects, uses and protects the personal data of student applicants and website visitors. Read our full privacy policy and data terms.',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Privacy Policy' },
+    ]),
   })
 
   return (

@@ -3,6 +3,7 @@ import CtaBanner  from '../components/CtaBanner'
 import styles     from './Gallery.module.css'
 import { Reveal, RevealItem } from '../components/Reveal'
 import { useSEO }  from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 const GALLERY_ITEMS = [
   { title: 'Interactive Coding Labs', category: 'Infrastructure', desc: 'High-speed internet, dual-monitor setup, and modern workstations.', icon: 'fa-solid fa-desktop' },
@@ -15,9 +16,14 @@ const GALLERY_ITEMS = [
 
 export default function Gallery() {
   useSEO({
+    // → "Campus & Learning Gallery | Nirayush EduTech" (44 chars)
     title: 'Campus & Learning Gallery',
-    description: "Take a virtual tour of Nirayush EduTech's modern coding campus in Ahmedabad — interactive labs, hackathons, project demo days, and graduation celebrations.",
+    description: "Take a virtual tour of Nirayush EduTech's modern coding campus in Ahmedabad — interactive labs, hackathons, project demo days and graduation celebrations. See it live.",
     keywords: 'campus gallery Ahmedabad, bootcamp environment, tech hackathon Gujarat, coding labs',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Gallery' },
+    ]),
   })
 
   return (

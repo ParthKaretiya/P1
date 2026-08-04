@@ -1,19 +1,35 @@
 import { useParams, Link } from 'react-router-dom'
 import PageHeader from '../components/ui/PageHeader'
 import CtaBanner  from '../components/CtaBanner'
+import NotFound   from './NotFound'
 import { BLOG_POSTS } from './Blog'
 import styles from './BlogPost.module.css'
 import { Reveal } from '../components/Reveal'
 import { useSEO } from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function BlogPost() {
   const { slug } = useParams()
-  const post = BLOG_POSTS.find(p => p.id === slug) || BLOG_POSTS[0]
+  const post = BLOG_POSTS.find(p => p.id === slug)
 
+  // Unknown slug → real 404 (falling back to another post would create
+  // duplicate content indexed under a wrong URL)
+  if (!post) return <NotFound />
+
+  return <BlogPostContent post={post} />
+}
+
+function BlogPostContent({ post }) {
   useSEO({
     title: post.title,
     description: post.excerpt,
     keywords: `${post.category}, full stack tutorial, Nirayush EduTech blog`,
+    type: 'article',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Blog', path: '/blog' },
+      { label: post.title },
+    ]),
   })
 
   return (

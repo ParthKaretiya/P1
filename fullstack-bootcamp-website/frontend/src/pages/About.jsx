@@ -5,12 +5,18 @@ import AboutStory    from '../components/sections/AboutStory'
 import VisionValues  from '../components/sections/VisionValues'
 import JourneyTimeline from '../components/sections/JourneyTimeline'
 import { useSEO } from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function About() {
   useSEO({
-    title: 'About Us',
-    description: "Learn about Nirayush EduTech — our mission, vision, values, and journey to becoming Ahmedabad's premier Full Stack Developer Bootcamp.",
+    // → "About Our Coding Bootcamp in Ahmedabad | Nirayush EduTech" (58 chars)
+    title: 'About Our Coding Bootcamp in Ahmedabad',
+    description: "Learn about Nirayush EduTech — our mission, vision, values and journey to becoming Ahmedabad's most job-focused Full Stack Developer Bootcamp. Visit us today.",
     keywords: 'about Nirayush EduTech, full stack bootcamp history, mission vision',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'About' },
+    ]),
   })
 
   return (

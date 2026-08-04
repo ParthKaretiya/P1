@@ -63,7 +63,7 @@ function AnimatedRoutes({ showToast }) {
         <Route path="/" element={<PageTransition><Home onSuccess={showToast} /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/courses" element={<PageTransition><Courses /></PageTransition>} />
-        <Route path="/courses/:courseId" element={<PageTransition><CourseDetail onSuccess={showToast} /></PageTransition>} />
+        <Route path="/courses/:courseId" element={<PageTransition><CourseDetail /></PageTransition>} />
         <Route path="/placements" element={<PageTransition><Placements /></PageTransition>} />
         <Route path="/testimonials" element={<PageTransition><TestimonialsPage /></PageTransition>} />
         {/* ⚠ /mentors hidden — FacultyPage shows placeholder mentors. Restore this

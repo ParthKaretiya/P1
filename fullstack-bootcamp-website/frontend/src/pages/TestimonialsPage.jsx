@@ -2,12 +2,18 @@ import PageHeader   from '../components/ui/PageHeader'
 import Testimonials from '../components/Testimonials'
 import CtaBanner   from '../components/CtaBanner'
 import { useSEO }   from '../hooks/useSEO'
+import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function TestimonialsPage() {
   useSEO({
-    title: 'Our Commitment & Founding Batch Promise',
-    description: "Why Nirayush EduTech built its Full Stack Bootcamp, and the commitments we make to every founding batch student — mentorship, real projects, and dedicated placement support.",
+    // → "Our Founding Batch Commitment | Nirayush EduTech" (48 chars)
+    title: 'Our Founding Batch Commitment',
+    description: 'Why Nirayush EduTech built its Full Stack Bootcamp, and the commitments we make to every founding batch student — mentorship, real projects and placement support.',
     keywords: 'Nirayush EduTech founding batch, bootcamp commitment Ahmedabad, full stack bootcamp mission',
+    jsonLd: buildBreadcrumbSchema([
+      { label: 'Home', path: '/' },
+      { label: 'Our Commitment' },
+    ]),
   })
 
   return (
