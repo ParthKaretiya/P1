@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence, LazyMotion } from 'motion/react'
 
 // Motion features are loaded async so the animation renderer stays out of the
@@ -101,7 +101,7 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       {/* LazyMotion loads the animation renderer (domMax) async — components
           use m.* instead of motion.* so the renderer stays out of the
           critical bundle */}
@@ -120,6 +120,6 @@ export default function App() {
         <BackToTop />
       </SmoothScroll>
       </LazyMotion>
-    </BrowserRouter>
+    </>
   )
 }

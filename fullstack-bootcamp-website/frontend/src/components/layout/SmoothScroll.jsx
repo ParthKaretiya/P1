@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useReducedMotion } from 'motion/react'
-import Lenis from 'lenis'
 
 export default function SmoothScroll({ children }) {
   const lenisRef = useRef(null)
@@ -11,30 +10,43 @@ export default function SmoothScroll({ children }) {
   useEffect(() => {
     if (reduce) return
 
-    const lenis = new Lenis({
-      duration: 1.25,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.8,
-      infinite: false,
+    /* Lenis is dynamically imported so it stays out of the critical bundle —
+       smooth scrolling isn't needed for first paint, and this shaves ~10KB
+       off the JS that gates LCP. */
+    let cancelled = false
+    let rafId = 0
+    let lenis = null
+
+    import('lenis').then(({ default: Lenis }) => {
+      if (cancelled) return
+
+      lenis = new Lenis({
+        duration: 1.25,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.8,
+        infinite: false,
+      })
+
+      lenisRef.current = lenis
+      window.lenis = lenis
+
+      function raf(time) {
+        lenis.raf(time)
+        rafId = requestAnimationFrame(raf)
+      }
+
+      rafId = requestAnimationFrame(raf)
     })
 
-    lenisRef.current = lenis
-    window.lenis = lenis
-
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    const rafId = requestAnimationFrame(raf)
-
     return () => {
+      cancelled = true
       cancelAnimationFrame(rafId)
-      lenis.destroy()
+      lenis?.destroy()
+      lenisRef.current = null
       window.lenis = null
     }
   }, [reduce])

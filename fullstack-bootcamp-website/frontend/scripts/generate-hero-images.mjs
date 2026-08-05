@@ -15,7 +15,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SRC = path.join(__dirname, '../src/assets/hero-classroom-PLACEHOLDER-ai-generated.jpg')
 const OUT_DIR = path.join(__dirname, '../public/hero')
 
-const WIDTHS = [480, 768, 1100, 1376]
+/* 560 targets the ~530px desktop rendered size (DPR 1) — without it the
+   browser jumps from 480w straight to 768w and wastes ~16KB. */
+const WIDTHS = [480, 560, 768, 1100, 1376]
 
 await mkdir(OUT_DIR, { recursive: true })
 
