@@ -1,7 +1,7 @@
 {
-  "name": "nirayush-edutech-backend",
+  "name": "nirayush-edtech-backend",
   "version": "1.0.0",
-  "description": "Production-ready backend API for Nirayush Edutech tuition and coaching institute",
+  "description": "Production-ready backend API for Nirayush Edtech tuition and coaching institute",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -17,7 +17,7 @@
     "coaching",
     "edtech"
   ],
-  "author": "Nirayush Edutech",
+  "author": "Nirayush Edtech",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

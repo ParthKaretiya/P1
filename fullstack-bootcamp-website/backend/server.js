@@ -61,7 +61,7 @@ app.use(express.urlencoded({ extended: true, limit: '64kb' }));
 app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Nirayush Edutech API server is running smoothly.',
+    message: 'Nirayush Edtech API server is running smoothly.',
   });
 });
 
@@ -79,7 +79,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(
-    '[Nirayush Edutech Server] Running on port ' + PORT + ' in ' + (process.env.NODE_ENV || 'development') + ' mode.'
+    '[Nirayush Edtech Server] Running on port ' + PORT + ' in ' + (process.env.NODE_ENV || 'development') + ' mode.'
   );
 
   const keepAliveUrl = normalizeOrigin(

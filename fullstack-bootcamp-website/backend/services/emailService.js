@@ -127,7 +127,7 @@ const buildEnquiryContext = (enquiryDetails) => {
 const createCompanyMailOptions = (fromEmail, companyEmail, context) => {
   const { safe, formattedDate, raw } = context;
   return {
-    from: `Nirayush Edutech Portal <${fromEmail}>`,
+    from: `Nirayush Edtech Portal <${fromEmail}>`,
     replyTo: raw.email,
     to: [companyEmail],
     subject: `New Enquiry Received — ${raw.name}`,
@@ -145,7 +145,7 @@ const createCompanyMailOptions = (fromEmail, companyEmail, context) => {
         <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
           <tr>
             <td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);padding:36px 40px;text-align:center;">
-              <p style="margin:0 0 6px 0;font-size:13px;letter-spacing:3px;color:#a0c4ff;text-transform:uppercase;font-weight:600;">Nirayush Edutech</p>
+              <p style="margin:0 0 6px 0;font-size:13px;letter-spacing:3px;color:#a0c4ff;text-transform:uppercase;font-weight:600;">Nirayush Edtech</p>
               <h1 style="margin:0;font-size:26px;font-weight:700;color:#ffffff;letter-spacing:0.5px;">New Student Enquiry</h1>
               <p style="margin:10px 0 0 0;font-size:13px;color:#90b8e0;">Received via Website Portal</p>
             </td>
@@ -161,7 +161,7 @@ const createCompanyMailOptions = (fromEmail, companyEmail, context) => {
             <td style="padding:36px 40px;">
               <p style="margin:0 0 24px 0;font-size:15px;color:#444;line-height:1.6;">
                 Dear Team,<br/><br/>
-                A new admission enquiry has been received through the Nirayush Edutech website. The details of the prospective student are listed below.
+                A new admission enquiry has been received through the Nirayush Edtech website. The details of the prospective student are listed below.
               </p>
               <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0;">
                 <tr style="background:#0f3460;">
@@ -208,7 +208,7 @@ const createCompanyMailOptions = (fromEmail, companyEmail, context) => {
           </tr>
           <tr>
             <td style="background:#f8fafc;padding:24px 40px;border-top:1px solid #e2e8f0;text-align:center;">
-              <p style="margin:0;font-size:12px;color:#888;">This is an automated notification from the <strong>Nirayush Edutech</strong> website portal.</p>
+              <p style="margin:0;font-size:12px;color:#888;">This is an automated notification from the <strong>Nirayush Edtech</strong> website portal.</p>
               <p style="margin:6px 0 0 0;font-size:12px;color:#aaa;">Please do not reply to this email. Use the student contact details above.</p>
             </td>
           </tr>
@@ -218,7 +218,7 @@ const createCompanyMailOptions = (fromEmail, companyEmail, context) => {
   </table>
 </body>
 </html>`,
-    text: `NEW STUDENT ENQUIRY — NIRAYUSH EDUTECH
+    text: `NEW STUDENT ENQUIRY — NIRAYUSH EDTECH
 =======================================
 
 Dear Team,
@@ -237,22 +237,22 @@ ACTION REQUIRED:
   Contact ${raw.name} at ${raw.phone} or ${raw.email} to provide admission counselling.
 
 ---
-This is an automated notification from the Nirayush Edutech website portal.`,
+This is an automated notification from the Nirayush Edtech website portal.`,
   };
 };
 
 const createStudentMailOptions = (fromEmail, context) => {
   const { safe, formattedDate, raw } = context;
   return {
-    from: `Nirayush Edutech <${fromEmail}>`,
+    from: `Nirayush Edtech <${fromEmail}>`,
     to: [raw.email],
-    subject: `Thank You for Your Enquiry — Nirayush Edutech`,
+    subject: `Thank You for Your Enquiry — Nirayush Edtech`,
     html: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thank You — Nirayush Edutech</title>
+  <title>Thank You — Nirayush Edtech</title>
 </head>
 <body style="margin:0;padding:0;background-color:#f0f4f8;font-family:'Segoe UI',Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:40px 16px;">
@@ -261,7 +261,7 @@ const createStudentMailOptions = (fromEmail, context) => {
         <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
           <tr>
             <td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);padding:40px;text-align:center;">
-              <p style="margin:0 0 6px 0;font-size:13px;letter-spacing:3px;color:#a0c4ff;text-transform:uppercase;font-weight:600;">Nirayush Edutech</p>
+              <p style="margin:0 0 6px 0;font-size:13px;letter-spacing:3px;color:#a0c4ff;text-transform:uppercase;font-weight:600;">Nirayush Edtech</p>
               <h1 style="margin:0;font-size:28px;font-weight:700;color:#ffffff;">Thank You, ${safe.name}!</h1>
               <p style="margin:12px 0 0 0;font-size:14px;color:#90b8e0;">We have received your enquiry successfully.</p>
             </td>
@@ -279,7 +279,7 @@ const createStudentMailOptions = (fromEmail, context) => {
                 Dear <strong>${safe.name}</strong>,
               </p>
               <p style="margin:0 0 16px 0;font-size:15px;color:#444;line-height:1.7;">
-                Thank you for reaching out to <strong>Nirayush Edutech</strong>. We are delighted to hear from you and truly appreciate your interest in our programs.
+                Thank you for reaching out to <strong>Nirayush Edtech</strong>. We are delighted to hear from you and truly appreciate your interest in our programs.
               </p>
               <p style="margin:0 0 24px 0;font-size:15px;color:#444;line-height:1.7;">
                 Our dedicated admission counsellor will get in touch with you within <strong>24 working hours</strong> to guide you through the available courses, eligibility criteria, and next steps in the enrollment process.
@@ -334,7 +334,7 @@ const createStudentMailOptions = (fromEmail, context) => {
               <p style="margin:16px 0 0 0;font-size:15px;color:#333;">
                 Warm regards,<br/>
                 <strong style="color:#0f3460;">The Admissions Team</strong><br/>
-                <span style="color:#666;font-size:13px;">Nirayush Edutech</span>
+                <span style="color:#666;font-size:13px;">Nirayush Edtech</span>
               </p>
             </td>
           </tr>
@@ -357,7 +357,7 @@ const createStudentMailOptions = (fromEmail, context) => {
           <tr>
             <td style="background:#f8fafc;padding:20px 40px;border-top:1px solid #e2e8f0;text-align:center;">
               <p style="margin:0;font-size:12px;color:#999;">This is an automated confirmation email. Please do not reply to this message.</p>
-              <p style="margin:6px 0 0 0;font-size:12px;color:#bbb;">&copy; ${new Date().getFullYear()} Nirayush Edutech. All rights reserved.</p>
+              <p style="margin:6px 0 0 0;font-size:12px;color:#bbb;">&copy; ${new Date().getFullYear()} Nirayush Edtech. All rights reserved.</p>
             </td>
           </tr>
         </table>
@@ -368,7 +368,7 @@ const createStudentMailOptions = (fromEmail, context) => {
 </html>`,
     text: `Dear ${raw.name},
 
-Thank you for reaching out to Nirayush Edutech. We are delighted to hear from you and appreciate your interest in our programs.
+Thank you for reaching out to Nirayush Edtech. We are delighted to hear from you and appreciate your interest in our programs.
 
 Your enquiry has been successfully registered with us.
 
@@ -382,7 +382,7 @@ For any immediate assistance, feel free to call or WhatsApp us at +91 90541 1726
 
 Warm regards,
 The Admissions Team
-Nirayush Edutech
+Nirayush Edtech
 Skyleaf, Shop No. 01, Near Sardardham, Khodiyar, Ahmedabad – 382421
 
 ---
@@ -450,7 +450,7 @@ export const sendDebugEmail = async ({ to } = {}) => {
 
   const verification = await verifyEmailConfig();
 
-  const subject = 'Nirayush Edutech — Email Debug Test (Resend)';
+  const subject = 'Nirayush Edtech — Email Debug Test (Resend)';
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -470,7 +470,7 @@ export const sendDebugEmail = async ({ to } = {}) => {
 
   const data = await sendViaResend(
     {
-      from: `Nirayush Edutech Portal <${fromEmail}>`,
+      from: `Nirayush Edtech Portal <${fromEmail}>`,
       to: [recipient],
       subject,
       html,

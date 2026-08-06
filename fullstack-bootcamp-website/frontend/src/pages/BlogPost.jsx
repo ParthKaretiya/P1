@@ -23,7 +23,7 @@ function BlogPostContent({ post }) {
   useSEO({
     title: post.title,
     description: post.excerpt,
-    keywords: `${post.category}, full stack tutorial, Nirayush EduTech blog`,
+    keywords: `${post.category}, full stack tutorial, Nirayush EdTech blog`,
     type: 'article',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
@@ -68,7 +68,7 @@ function BlogPostContent({ post }) {
 
               <h2>Next Steps for Your Journey</h2>
               <p>
-                Whether you choose self-guided learning or an intensive bootcamp like Nirayush EduTech, consistency and hands-on projects are key. Build at least 3 production-grade applications that demonstrate full CRUD capabilities and real authentication.
+                Whether you choose self-guided learning or an intensive bootcamp like Nirayush EdTech, consistency and hands-on projects are key. Build at least 3 production-grade applications that demonstrate full CRUD capabilities and real authentication.
               </p>
 
               <div className={styles.backLinkWrap}>

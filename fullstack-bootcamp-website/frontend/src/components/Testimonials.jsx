@@ -6,7 +6,7 @@ import { Reveal, RevealItem } from './Reveal'
       Replace placeholder names/quotes with REAL founder & mentor
       words before launch — do not publish invented people. ── */
 const FOUNDER_NOTE = {
-  name: 'Dr. Ravi Patel', role: 'Founder, Nirayush EduTech', initials: 'RP',
+  name: 'Dr. Ravi Patel', role: 'Founder, Nirayush EdTech', initials: 'RP',
   quote: 'We built this program because we kept meeting talented students who finished degrees without ever building anything real. Our answer is a 12-month, project-first curriculum designed with working engineers — and a founding batch we intend to make our proof.',
 }
 

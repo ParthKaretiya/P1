@@ -47,9 +47,9 @@ export const BLOG_POSTS = [
 
 export default function Blog() {
   useSEO({
-    // → "Developer Blog & Career Guides | Nirayush EduTech" (49 chars)
+    // → "Developer Blog & Career Guides | Nirayush EdTech" (49 chars)
     title: 'Developer Blog & Career Guides',
-    description: 'Expert articles, developer roadmaps, tech stack comparisons and interview preparation guides by Nirayush EduTech. Start reading and level up your coding career.',
+    description: 'Expert articles, developer roadmaps, tech stack comparisons and interview preparation guides by Nirayush EdTech. Start reading and level up your coding career.',
     keywords: 'full stack developer blog, MERN stack guide, software developer career tips, tech interview prep',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },

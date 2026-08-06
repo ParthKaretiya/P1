@@ -37,7 +37,7 @@ export default function WhyUs() {
             Built for the <span className="grad">Modern Developer</span>
           </h2>
           <p className="section-desc">
-            We don't just teach code — we shape careers. Here's what sets Nirayush EduTech apart.
+            We don't just teach code — we shape careers. Here's what sets Nirayush EdTech apart.
           </p>
         </Reveal>
 

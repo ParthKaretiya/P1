@@ -29,7 +29,7 @@ export default function BrandLogo({ size = 40, showText = true, className = '' }
       {showText && (
         <span className={styles.text}>
           <span className={styles.title}>Nirayush</span>
-          <span className={styles.sub}>EduTech</span>
+          <span className={styles.sub}>EdTech</span>
         </span>
       )}
     </span>

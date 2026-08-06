@@ -29,7 +29,7 @@ export const FAQS = [
   },
   {
     q: 'Is there a certificate on completion?',
-    a: 'Yes. On completing the program and capstone project, you receive an industry-recognized Full Stack Developer certification from Nirayush EduTech, which you can add to your resume and LinkedIn.',
+    a: 'Yes. On completing the program and capstone project, you receive an industry-recognized Full Stack Developer certification from Nirayush EdTech, which you can add to your resume and LinkedIn.',
   },
   {
     q: 'What is the refund policy?',

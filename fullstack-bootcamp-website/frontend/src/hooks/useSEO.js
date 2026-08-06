@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 /** Canonical production origin — keep in sync with scripts/generate-sitemap.mjs */
 export const SITE_URL = 'https://www.nirayush.com'
-export const SITE_NAME = 'Nirayush EduTech'
+export const SITE_NAME = 'Nirayush EdTech'
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`
 
 /** Create-or-update a <meta> tag identified by name= or property= */
@@ -57,7 +57,7 @@ export function injectJsonLd(id, data) {
  * Twitter Card, robots and JSON-LD structured data.
  *
  * @param {object}  opts
- * @param {string}  opts.title       Page title. " | Nirayush EduTech" is appended
+ * @param {string}  opts.title       Page title. " | Nirayush EdTech" is appended
  *                                   automatically unless the brand is already present.
  * @param {string}  opts.description Meta description (aim for 150–160 chars).
  * @param {string}  [opts.keywords]  Optional meta keywords.

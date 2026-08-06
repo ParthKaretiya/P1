@@ -9,10 +9,10 @@ import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function About() {
   useSEO({
-    // → "About Our Coding Bootcamp in Ahmedabad | Nirayush EduTech" (58 chars)
+    // → "About Our Coding Bootcamp in Ahmedabad | Nirayush EdTech" (58 chars)
     title: 'About Our Coding Bootcamp in Ahmedabad',
-    description: "Learn about Nirayush EduTech — our mission, vision, values and journey to becoming Ahmedabad's most job-focused Full Stack Developer Bootcamp. Visit us today.",
-    keywords: 'about Nirayush EduTech, full stack bootcamp history, mission vision',
+    description: "Learn about Nirayush EdTech — our mission, vision, values and journey to becoming Ahmedabad's most job-focused Full Stack Developer Bootcamp. Visit us today.",
+    keywords: 'about Nirayush EdTech, full stack bootcamp history, mission vision',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
       { label: 'About' },
@@ -25,7 +25,7 @@ export default function About() {
         tag="Our Story"
         title="Building Careers, Changing Lives"
         accent="Changing Lives"
-        desc="Nirayush EduTech was founded with one mission — to bridge the gap between education and industry by creating job-ready developers."
+        desc="Nirayush EdTech was founded with one mission — to bridge the gap between education and industry by creating job-ready developers."
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'About Us' },

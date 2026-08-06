@@ -90,7 +90,7 @@ export default function Footer() {
           {/* Column 1: Brand & Logo */}
           <div className={styles.brand}>
             <Link to="/" className={styles.logoLink}>
-              <img src={LOGO_URL} alt="Nirayush EduTech logo" className={styles.logoImg} width="48" height="48" loading="lazy" />
+              <img src={LOGO_URL} alt="Nirayush EdTech logo" className={styles.logoImg} width="48" height="48" loading="lazy" />
             </Link>
             <p className={styles.brandDesc}>
               Ahmedabad's premier software engineering bootcamp. Transforming motivated students into industry-ready developers through 1-on-1 mentorship and production projects.
@@ -107,7 +107,7 @@ export default function Footer() {
                 //   contains the glyphs referenced by fa-subset.min.css), and a new
                 //   sameAs entry in src/data/structuredData.js.
                 { icon: 'fa-brands fa-whatsapp',  href: 'https://wa.me/919054117266',              label: 'Chat with us on WhatsApp' },
-                { icon: 'fa-brands fa-instagram', href: 'https://www.instagram.com/nirayush_edtech/', label: 'Nirayush EduTech on Instagram' },
+                { icon: 'fa-brands fa-instagram', href: 'https://www.instagram.com/nirayush_edtech/', label: 'Nirayush EdTech on Instagram' },
               ].map((s) => (
                 <a key={s.href} href={s.href} className={styles.socialBtn} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
                   <i className={s.icon} aria-hidden="true" />
@@ -185,7 +185,7 @@ export default function Footer() {
         {/* Bottom Copyright & Legal Links */}
         <div className={styles.bottomBar}>
           <p>
-            &copy; {year} <span>Nirayush EduTech</span>. All rights reserved.
+            &copy; {year} <span>Nirayush EdTech</span>. All rights reserved.
           </p>
           <div className={styles.legalLinks}>
             <Link to="/privacy">Privacy Policy</Link>

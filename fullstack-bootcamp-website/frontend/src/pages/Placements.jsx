@@ -8,9 +8,9 @@ import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function Placements() {
   useSEO({
-    // → "Placement Support & Career Prep | Nirayush EduTech" (50 chars)
+    // → "Placement Support & Career Prep | Nirayush EdTech" (50 chars)
     title: 'Placement Support & Career Prep',
-    description: "Dedicated placement support for Nirayush EduTech's founding batch — resume building, mock interviews, portfolio reviews and hiring-network introductions. See how it works.",
+    description: "Dedicated placement support for Nirayush EdTech's founding batch — resume building, mock interviews, portfolio reviews and hiring-network introductions. See how it works.",
     keywords: 'placement support Ahmedabad, full stack developer career prep, bootcamp placement assistance, tech jobs Gujarat',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },

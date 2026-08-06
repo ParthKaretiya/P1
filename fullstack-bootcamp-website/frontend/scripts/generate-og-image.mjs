@@ -47,7 +47,7 @@ const html = `<!doctype html>
       <path d="M21,27 Q21,44 32,47 Q43,44 43,27 L32,34 Z"/>
       <line x1="19" y1="42" x2="19" y2="48" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
       <circle cx="19" cy="51" r="3" fill="#f97316"/></g></svg>
-    <div class="brand-name">Nirayush <span>EduTech</span></div>
+    <div class="brand-name">Nirayush <span>EdTech</span></div>
   </div>
   <h1>Full Stack Development <span class="accent">Bootcamp</span></h1>
   <div class="sub">12-Month Job-Focused Program &middot; Dedicated Placement Support &middot; Ahmedabad</div>

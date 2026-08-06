@@ -24,7 +24,7 @@ export default function AboutStory() {
               Built to Close the <span className="grad">Education–Industry Gap</span>
             </h2>
             <p className={styles.body}>
-              Nirayush EduTech was founded on a bold belief — that with the right mentorship and
+              Nirayush EdTech was founded on a bold belief — that with the right mentorship and
               practical exposure, any motivated student can become a world-class developer.
             </p>
             <p className={styles.body}>

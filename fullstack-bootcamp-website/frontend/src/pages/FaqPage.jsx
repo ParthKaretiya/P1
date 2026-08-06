@@ -6,9 +6,9 @@ import { buildFaqSchema, buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function FaqPage() {
   useSEO({
-    // → "Bootcamp FAQ — Fees, Batches & Placements | Nirayush EduTech"
+    // → "Bootcamp FAQ — Fees, Batches & Placements | Nirayush EdTech"
     title: 'Bootcamp FAQ — Fees, Batches & Placements',
-    description: "Answers to common questions about Nirayush EduTech's Full Stack Bootcamp — eligibility, batch timings, fees, EMI, refunds and placement support. Get clarity before you apply.",
+    description: "Answers to common questions about Nirayush EdTech's Full Stack Bootcamp — eligibility, batch timings, fees, EMI, refunds and placement support. Get clarity before you apply.",
     keywords: 'bootcamp FAQ, coding bootcamp questions, placement policy Ahmedabad, course eligibility',
     jsonLd: [
       buildFaqSchema(FAQS),

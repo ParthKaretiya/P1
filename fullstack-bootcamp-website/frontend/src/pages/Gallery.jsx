@@ -16,9 +16,9 @@ const GALLERY_ITEMS = [
 
 export default function Gallery() {
   useSEO({
-    // → "Campus & Learning Gallery | Nirayush EduTech" (44 chars)
+    // → "Campus & Learning Gallery | Nirayush EdTech" (44 chars)
     title: 'Campus & Learning Gallery',
-    description: "Take a virtual tour of Nirayush EduTech's modern coding campus in Ahmedabad — interactive labs, hackathons, project demo days and graduation celebrations. See it live.",
+    description: "Take a virtual tour of Nirayush EdTech's modern coding campus in Ahmedabad — interactive labs, hackathons, project demo days and graduation celebrations. See it live.",
     keywords: 'campus gallery Ahmedabad, bootcamp environment, tech hackathon Gujarat, coding labs',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
@@ -30,8 +30,8 @@ export default function Gallery() {
     <>
       <PageHeader
         tag="Campus Life"
-        title="Inside Nirayush EduTech"
-        accent="Nirayush EduTech"
+        title="Inside Nirayush EdTech"
+        accent="Nirayush EdTech"
         desc="Explore our modern tech campus, interactive labs, hackathons, project demo days, and graduation ceremonies."
         breadcrumbs={[
           { label: 'Home', href: '/' },

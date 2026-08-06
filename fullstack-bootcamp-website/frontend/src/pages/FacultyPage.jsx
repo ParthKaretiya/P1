@@ -6,8 +6,8 @@ import { useSEO }  from '../hooks/useSEO'
 export default function FacultyPage() {
   useSEO({
     title: 'Our Faculty & Mentors',
-    description: 'Meet the industry experts and senior software engineers mentoring students at Nirayush EduTech Full Stack Developer Bootcamp in Ahmedabad.',
-    keywords: 'bootcamp instructors, tech mentors Ahmedabad, software engineering faculty, Nirayush EduTech mentors',
+    description: 'Meet the industry experts and senior software engineers mentoring students at Nirayush EdTech Full Stack Developer Bootcamp in Ahmedabad.',
+    keywords: 'bootcamp instructors, tech mentors Ahmedabad, software engineering faculty, Nirayush EdTech mentors',
   })
 
   return (

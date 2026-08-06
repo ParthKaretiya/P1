@@ -6,7 +6,7 @@ import { buildBreadcrumbSchema } from '../data/structuredData'
 export default function TermsConditions() {
   useSEO({
     title: 'Terms & Conditions',
-    description: 'Terms and conditions governing enrolment, attendance, course completion and placement assistance at Nirayush EduTech. Review the full terms before you apply.',
+    description: 'Terms and conditions governing enrolment, attendance, course completion and placement assistance at Nirayush EdTech. Review the full terms before you apply.',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
       { label: 'Terms & Conditions' },
@@ -31,7 +31,7 @@ export default function TermsConditions() {
           <div className={styles.wrapper}>
             <h2>1. Enrollment & Fee Payment</h2>
             <p>
-              Enrollment into Nirayush EduTech bootcamp programs is finalized upon receipt of the initial registration fee. Instalment fees must be cleared on or before the due dates agreed upon during registration.
+              Enrollment into Nirayush EdTech bootcamp programs is finalized upon receipt of the initial registration fee. Instalment fees must be cleared on or before the due dates agreed upon during registration.
             </p>
 
             <h2>2. Attendance & Code of Conduct</h2>
@@ -46,7 +46,7 @@ export default function TermsConditions() {
 
             <h2>4. Intellectual Property</h2>
             <p>
-              Course materials, project assignments, and lecture notes provided by Nirayush EduTech are for personal learning purposes only and may not be redistributed without written permission.
+              Course materials, project assignments, and lecture notes provided by Nirayush EdTech are for personal learning purposes only and may not be redistributed without written permission.
             </p>
           </div>
         </div>

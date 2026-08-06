@@ -49,10 +49,10 @@ function useAfterFirstPaint() {
 export default function Home({ onSuccess }) {
   const belowFoldReady = useAfterFirstPaint()
   useSEO({
-    // → "Full Stack Development Bootcamp | Nirayush EduTech" (51 chars)
+    // → "Full Stack Development Bootcamp | Nirayush EdTech" (51 chars)
     title: 'Full Stack Development Bootcamp',
     description: 'Job-focused 12-month Full Stack Developer Bootcamp in Ahmedabad. Learn React, Node.js & MongoDB with dedicated placement support — book a free counselling session.',
-    keywords: 'full stack bootcamp, developer course, react nodejs, Ahmedabad, Nirayush EduTech',
+    keywords: 'full stack bootcamp, developer course, react nodejs, Ahmedabad, Nirayush EdTech',
     // FAQ JSON-LD is injected by the <Faq /> section itself (injectJsonLd)
     jsonLd: ORGANIZATION_SCHEMA,
   })

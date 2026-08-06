@@ -11,10 +11,10 @@ const MAP_DIRECTIONS_URL = 'https://www.google.com/maps/search/?api=1&query=Skyl
 
 export default function ContactPage({ onSuccess }) {
   useSEO({
-    // → "Contact Us — Campus in Khodiyar, Ahmedabad | Nirayush EduTech"
+    // → "Contact Us — Campus in Khodiyar, Ahmedabad | Nirayush EdTech"
     title: 'Contact Us — Campus in Khodiyar, Ahmedabad',
-    description: 'Visit Nirayush EduTech at Skyleaf, Shop No. 01, Near Sardardham, Khodiyar, Ahmedabad 382421. Call +91 90541 17266 or send a message — book your free counselling visit.',
-    keywords: 'contact Nirayush EduTech, bootcamp location Ahmedabad, Skyleaf Khodiyar map',
+    description: 'Visit Nirayush EdTech at Skyleaf, Shop No. 01, Near Sardardham, Khodiyar, Ahmedabad 382421. Call +91 90541 17266 or send a message — book your free counselling visit.',
+    keywords: 'contact Nirayush EdTech, bootcamp location Ahmedabad, Skyleaf Khodiyar map',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
       { label: 'Contact' },
@@ -47,7 +47,7 @@ export default function ContactPage({ onSuccess }) {
               <span className="section-tag" style={{ marginBottom: '1rem' }}>
                 <i className="fa-solid fa-location-dot" /> Primary Campus
               </span>
-              <h2>Nirayush EduTech Ahmedabad</h2>
+              <h2>Nirayush EdTech Ahmedabad</h2>
               <p className={styles.addr}>
                 <strong>Address:</strong><br />
                 {ADDRESS_TEXT}
@@ -73,7 +73,7 @@ export default function ContactPage({ onSuccess }) {
 
             <div className={styles.mapFrameWrap}>
               <iframe
-                title="Nirayush EduTech Exact Location Map"
+                title="Nirayush EdTech Exact Location Map"
                 src="https://maps.google.com/maps?q=Skyleaf%20Shop%20No%2001%20Near%20Sardardham%20Khodiyar%20Ahmedabad%20382421&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"

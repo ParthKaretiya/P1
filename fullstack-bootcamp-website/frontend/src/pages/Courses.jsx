@@ -57,9 +57,9 @@ const TECH_TIERS = [
 export default function Courses() {
   useDevicon()
   useSEO({
-    // → "Full Stack Courses & MERN Roadmap | Nirayush EduTech" (52 chars)
+    // → "Full Stack Courses & MERN Roadmap | Nirayush EdTech" (52 chars)
     title: 'Full Stack Courses & MERN Roadmap',
-    description: "Explore Nirayush EduTech's Full Stack Development Bootcamp — a 12-month MERN program with a detailed 5-phase roadmap and placement assistance. View the curriculum.",
+    description: "Explore Nirayush EdTech's Full Stack Development Bootcamp — a 12-month MERN program with a detailed 5-phase roadmap and placement assistance. View the curriculum.",
     keywords: 'full stack course Ahmedabad, MERN stack bootcamp, full stack developer bootcamp, React Node.js course',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },

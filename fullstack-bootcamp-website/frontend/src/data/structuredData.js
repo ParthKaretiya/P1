@@ -27,7 +27,7 @@ export const ORGANIZATION_SCHEMA = {
     '@type': 'ContactPoint',
     telephone: '+91-90541-17266',
     contactType: 'admissions',
-    email: 'info@nirayushedutech.com',
+    email: 'info@nirayushedtech.com',
     availableLanguage: ['English', 'Hindi', 'Gujarati'],
   },
   // Only real, live profiles belong here — add LinkedIn/YouTube once they exist.

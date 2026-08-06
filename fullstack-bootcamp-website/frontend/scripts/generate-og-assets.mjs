@@ -55,7 +55,7 @@ await og.setContent(`<!doctype html><html><head><style>
         <circle cx="19" cy="51" r="3" fill="#f97316"/>
       </g>
     </svg>
-    <div class="brand-name">Nirayush <span>EduTech</span></div>
+    <div class="brand-name">Nirayush <span>EdTech</span></div>
   </div>
   <h1>Full Stack Development <em>Bootcamp</em></h1>
   <div class="sub">12-Month Job-Focused Program &nbsp;•&nbsp; Ahmedabad</div>

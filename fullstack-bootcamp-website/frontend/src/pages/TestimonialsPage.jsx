@@ -6,10 +6,10 @@ import { buildBreadcrumbSchema } from '../data/structuredData'
 
 export default function TestimonialsPage() {
   useSEO({
-    // → "Our Founding Batch Commitment | Nirayush EduTech" (48 chars)
+    // → "Our Founding Batch Commitment | Nirayush EdTech" (48 chars)
     title: 'Our Founding Batch Commitment',
-    description: 'Why Nirayush EduTech built its Full Stack Bootcamp, and the commitments we make to every founding batch student — mentorship, real projects and placement support.',
-    keywords: 'Nirayush EduTech founding batch, bootcamp commitment Ahmedabad, full stack bootcamp mission',
+    description: 'Why Nirayush EdTech built its Full Stack Bootcamp, and the commitments we make to every founding batch student — mentorship, real projects and placement support.',
+    keywords: 'Nirayush EdTech founding batch, bootcamp commitment Ahmedabad, full stack bootcamp mission',
     jsonLd: buildBreadcrumbSchema([
       { label: 'Home', path: '/' },
       { label: 'Our Commitment' },

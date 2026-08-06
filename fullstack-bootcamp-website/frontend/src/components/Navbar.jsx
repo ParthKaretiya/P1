@@ -141,7 +141,7 @@ export default function Navbar() {
               />
               <div className={styles.logoTextWrap}>
                 <span className={styles.logoText}>Nirayush</span>
-                <span className={styles.logoSub}>EduTech</span>
+                <span className={styles.logoSub}>EdTech</span>
               </div>
             </Link>
 

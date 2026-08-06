@@ -53,7 +53,7 @@ function renderMockupLayers({ yEditor, yMid, yFront }) {
           <source srcSet={heroSrcSet('webp')} sizes={HERO_SIZES} type="image/webp" />
           <img
             src="/hero/classroom-1100.jpg"
-            alt="Students collaborating on laptops during a Nirayush EduTech coding session"
+            alt="Students collaborating on laptops during a Nirayush EdTech coding session"
             className={styles.photoImg}
             width="1376"
             height="768"
