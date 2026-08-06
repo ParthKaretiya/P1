@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { m, useInView, useMotionValue, animate, useReducedMotion } from 'motion/react'
+import { Link } from 'react-router-dom'
 import styles from './Placement.module.css'
 import { Reveal } from './Reveal'
 
@@ -137,10 +138,10 @@ export default function Placement() {
         </Reveal>
 
         <div className={styles.ctaRow}>
-          <a href="/placements" className={styles.ctaBtn}>
+          <Link to="/placements" className={styles.ctaBtn}>
             See How Placement Support Works
             <i className="fa-solid fa-arrow-right" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
