@@ -11,7 +11,7 @@ export default function FounderSection() {
           <Reveal direction="left" className={styles.photoCol}>
             <div className={styles.photoWrap}>
               <img
-                src="https://i.postimg.cc/zGpZx43Z/dr-ravi-patel.webp"
+                src="/dr-ravi-patel.webp"
                 alt="Dr. Ravi Patel — Founder, Nirayush EdTech"
                 className={styles.photo}
                 loading="lazy"
