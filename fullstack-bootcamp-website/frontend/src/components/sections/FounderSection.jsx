@@ -1,5 +1,6 @@
 import styles from './FounderSection.module.css'
 import { Reveal } from '../Reveal'
+import founderPhoto from '../../assets/dr-ravi-patel.webp'
 
 export default function FounderSection() {
   return (
@@ -11,10 +12,11 @@ export default function FounderSection() {
           <Reveal direction="left" className={styles.photoCol}>
             <div className={styles.photoWrap}>
               <img
-                src="/dr-ravi-patel.webp"
+                src={founderPhoto}
                 alt="Dr. Ravi Patel — Founder, Nirayush EdTech"
                 className={styles.photo}
-                loading="lazy"
+                loading="eager"
+                fetchPriority="high"
                 width="420"
                 height="520"
               />
