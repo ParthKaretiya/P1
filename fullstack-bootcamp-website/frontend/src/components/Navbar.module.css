@@ -309,9 +309,17 @@
 .hamburgerActive .bar3 { transform: translateY(-7px) rotate(-45deg); }
 
 /* Mobile Drawer */
+.mobileScrim {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(15, 23, 42, 0.35);
+  -webkit-tap-highlight-color: transparent;
+}
+
 .mobileGlassDrawer {
   position: fixed;
-  top: 78px;
+  top: 82px;
   left: 14px;
   right: 14px;
   z-index: 999;
@@ -323,6 +331,11 @@
     0 0 0 1px rgba(15,23,42,0.04),
     0 16px 48px rgba(15, 23, 42, 0.18),
     0 4px 12px rgba(15, 23, 42, 0.1);
+  /* Never taller than the viewport — scroll inside instead */
+  max-height: calc(100dvh - 82px - 14px - env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobileNavList {
@@ -355,6 +368,53 @@
   background: rgba(234, 88, 12, 0.07);
   color: var(--orange-deep);
   font-weight: 700;
+}
+
+/* Quick links (mega-menu pages surfaced on mobile) */
+.mobileQuickLinks {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid #e8edf3;
+}
+
+.mobileQuickHeader {
+  display: block;
+  font-family: var(--font-sub);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--orange-deep);
+  margin-bottom: 0.6rem;
+  padding-left: 0.25rem;
+}
+
+.mobileQuickGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mobileQuickLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.9rem;
+  font-family: var(--font-sub);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.mobileQuickLink:hover {
+  background: rgba(234, 88, 12, 0.07);
+  border-color: rgba(234, 88, 12, 0.3);
+  color: var(--orange-deep);
 }
 
 .mobileDrawerFooter {
@@ -391,4 +451,56 @@
   .desktopMenu { display: none; }
   .hamburgerBtn { display: flex; }
   .megaPanelGlass { display: none; }
+}
+
+/* Tablets / large phones */
+@media (max-width: 640px) {
+  .headerWrapper {
+    padding: 10px 12px;
+  }
+  .headerScrolled {
+    padding: 8px 12px;
+  }
+  .glassPillNav {
+    padding: 0.35rem 0.6rem 0.35rem 0.75rem;
+  }
+  .pillContracted {
+    padding: 0.3rem 0.55rem 0.3rem 0.7rem;
+  }
+  .actions {
+    gap: 0.25rem;
+  }
+  .applyBtn {
+    min-height: 40px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    gap: 0.35rem;
+  }
+  .applyBtn:hover {
+    transform: none;
+  }
+  .logoImg {
+    height: 34px;
+    width: 34px;
+  }
+  .logoText {
+    font-size: 0.95rem;
+  }
+  .mobileGlassDrawer {
+    top: 72px;
+    left: 10px;
+    right: 10px;
+    padding: var(--space-3);
+    max-height: calc(100dvh - 72px - 12px - env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Small phones — drop the header CTA (the drawer has its own Apply button) */
+@media (max-width: 374px) {
+  .applyBtn {
+    display: none;
+  }
+  .logoSub {
+    display: none;
+  }
 }

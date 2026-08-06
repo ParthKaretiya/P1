@@ -78,8 +78,22 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (!menuOpen) return () => { document.body.style.overflow = '' }
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', onKey)
+    }
   }, [menuOpen])
+
+  // Close the mobile drawer if the viewport grows past the mobile breakpoint
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1025px)')
+    const onChange = (e) => { if (e.matches) setMenuOpen(false) }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
 
   useEffect(() => {
     if (!megaOpen) return
@@ -224,6 +238,8 @@ export default function Navbar() {
                 className={`${styles.hamburgerBtn} ${menuOpen ? styles.hamburgerActive : ''}`}
                 onClick={() => setMenuOpen(v => !v)}
                 aria-label="Toggle menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-nav-drawer"
               >
                 <span className={styles.bar1} />
                 <span className={styles.bar2} />
@@ -238,41 +254,63 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       <AnimatePresence>
         {menuOpen && (
-          <m.div
-            className={styles.mobileGlassDrawer}
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.25, ease: SPRING_EASE }}
-          >
-            <div className={styles.mobileMenuContainer}>
-              <ul className={styles.mobileNavList}>
-                {navItems.map((item, idx) => (
-                  <m.li
-                    key={item.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.03 + 0.04, duration: 0.2 }}
-                  >
-                    <NavLink
-                      to={item.href}
-                      end={item.href === '/'}
-                      className={({ isActive }) =>
-                        `${styles.mobileNavLink} ${isActive ? styles.mobileNavActive : ''}`
-                      }
+          <>
+            <m.div
+              className={styles.mobileScrim}
+              onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+            <m.div
+              id="mobile-nav-drawer"
+              className={styles.mobileGlassDrawer}
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25, ease: SPRING_EASE }}
+            >
+              <div className={styles.mobileMenuContainer}>
+                <ul className={styles.mobileNavList}>
+                  {navItems.map((item, idx) => (
+                    <m.li
+                      key={item.href}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.03 + 0.04, duration: 0.2 }}
                     >
-                      {item.label}
-                    </NavLink>
-                  </m.li>
-                ))}
-              </ul>
-              <div className={styles.mobileDrawerFooter}>
-                <Link to="/admissions" className={styles.mobileApplyBtn}>
-                  Apply Now — Cohort 2025
-                </Link>
+                      <NavLink
+                        to={item.href}
+                        end={item.href === '/'}
+                        className={({ isActive }) =>
+                          `${styles.mobileNavLink} ${isActive ? styles.mobileNavActive : ''}`
+                        }
+                      >
+                        {item.label}
+                      </NavLink>
+                    </m.li>
+                  ))}
+                </ul>
+
+                {/* Pages that only live in the desktop mega menu */}
+                <div className={styles.mobileQuickLinks}>
+                  <span className={styles.mobileQuickHeader}>More</span>
+                  <div className={styles.mobileQuickGrid}>
+                    <Link to="/admissions" className={styles.mobileQuickLink}>Admissions & Fees</Link>
+                    <Link to="/gallery" className={styles.mobileQuickLink}>Campus Gallery</Link>
+                    <Link to="/faq" className={styles.mobileQuickLink}>FAQ</Link>
+                  </div>
+                </div>
+
+                <div className={styles.mobileDrawerFooter}>
+                  <Link to="/admissions" className={styles.mobileApplyBtn}>
+                    Apply Now — Cohort 2025
+                  </Link>
+                </div>
               </div>
-            </div>
-          </m.div>
+            </m.div>
+          </>
         )}
       </AnimatePresence>
 
