@@ -1,9 +1,8 @@
 import PageHeader    from '../components/ui/PageHeader'
-import WhyUs         from '../components/WhyUs'
 import CtaBanner     from '../components/CtaBanner'
 import AboutStory    from '../components/sections/AboutStory'
+import FounderSection from '../components/sections/FounderSection'
 import VisionValues  from '../components/sections/VisionValues'
-import JourneyTimeline from '../components/sections/JourneyTimeline'
 import { useSEO } from '../hooks/useSEO'
 import { buildBreadcrumbSchema } from '../data/structuredData'
 
@@ -32,9 +31,8 @@ export default function About() {
         ]}
       />
       <AboutStory />
+      <FounderSection />
       <VisionValues />
-      <WhyUs />
-      <JourneyTimeline />
       <CtaBanner />
     </>
   )
