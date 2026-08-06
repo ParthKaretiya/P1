@@ -100,12 +100,16 @@ export default function Footer() {
                   (dead links hurt SEO/UX). Re-add with real hrefs + aria-labels:
                   { icon: 'fa-brands fa-linkedin-in', href: '...', label: 'LinkedIn' } */}
               {[
-                // ⚠ LinkedIn / Instagram / YouTube hidden until the real profiles exist —
+                // ⚠ LinkedIn / YouTube still hidden until the real profiles exist —
                 //   placeholder '#' links fail Lighthouse (link-name / crawlable-anchors).
-                //   Also add them to sameAs in src/data/structuredData.js when live.
-                { icon: 'fa-brands fa-whatsapp', href: 'https://wa.me/919054117266', label: 'Chat with us on WhatsApp' },
-              ].map((s, i) => (
-                <a key={i} href={s.href} className={styles.socialBtn} target="_blank" rel="noreferrer" aria-label={s.label}>
+                //   Adding an icon here also needs: `node scripts/generate-fa-subset.mjs`
+                //   + `python scripts/subset-fa-fonts.py` (the shipped woff2 only
+                //   contains the glyphs referenced by fa-subset.min.css), and a new
+                //   sameAs entry in src/data/structuredData.js.
+                { icon: 'fa-brands fa-whatsapp',  href: 'https://wa.me/919054117266',              label: 'Chat with us on WhatsApp' },
+                { icon: 'fa-brands fa-instagram', href: 'https://www.instagram.com/nirayush_edtech/', label: 'Nirayush EduTech on Instagram' },
+              ].map((s) => (
+                <a key={s.href} href={s.href} className={styles.socialBtn} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
                   <i className={s.icon} aria-hidden="true" />
                 </a>
               ))}

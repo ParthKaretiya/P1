@@ -30,7 +30,8 @@ export const ORGANIZATION_SCHEMA = {
     email: 'info@nirayushedutech.com',
     availableLanguage: ['English', 'Hindi', 'Gujarati'],
   },
-  // sameAs: add real social profile URLs here once the accounts are live.
+  // Only real, live profiles belong here — add LinkedIn/YouTube once they exist.
+  sameAs: ['https://www.instagram.com/nirayush_edtech/'],
 }
 
 /** Course schema for a course-detail page. */

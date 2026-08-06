@@ -28,8 +28,11 @@ const walk = (dir) => {
 walk(SRC_DIR)
 
 const css = readFileSync(path.join(FA_DIR, 'all.min.css'), 'utf8')
-// Glyph rules: .fa-name:before{content:"\fXXX"} (possibly comma-joined aliases)
-const glyphRe = /\.(?:fa-[a-z0-9-]+)(?:,\.fa-[a-z0-9-]+)*::?before\{content:"[^"]+"\}/g
+// Glyph rules: .fa-name:before{content:"\fXXX"} — aliases are comma-joined and
+// FA repeats ':before' on EVERY selector (.fa-location-dot:before,.fa-map-marker-alt:before{…}),
+// so the ':before' must be inside the repeated group. Matching it only once at
+// the end silently dropped every aliased icon (~20 of them rendered as blanks).
+const glyphRe = /(?:\.fa-[a-z0-9-]+::?before,?)+\{content:"[^"]+"\}/g
 const kept = []
 for (const m of css.matchAll(glyphRe)) {
   const sels = m[0].split('{')[0].split(',').map(s => s.replace(/::?before/, '').slice(1))
