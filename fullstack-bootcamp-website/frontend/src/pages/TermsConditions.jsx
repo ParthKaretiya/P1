@@ -19,7 +19,7 @@ export default function TermsConditions() {
         tag="Legal"
         title="Terms & Conditions"
         accent="Terms & Conditions"
-        desc="Last updated: January 2025"
+        desc="Last updated: January 2026"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Terms & Conditions' },

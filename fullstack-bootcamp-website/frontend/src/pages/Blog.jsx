@@ -9,7 +9,7 @@ import { buildBreadcrumbSchema } from '../data/structuredData'
 export const BLOG_POSTS = [
   {
     id: 'how-to-become-fullstack-developer-2025',
-    title: 'How to Become a Full Stack Developer in 2025: Complete Roadmap',
+    title: 'How to Become a Full Stack Developer in 2026: Complete Roadmap',
     date: 'Jan 15, 2025',
     author: 'Nirayush Tech Team',
     category: 'Career Guide',

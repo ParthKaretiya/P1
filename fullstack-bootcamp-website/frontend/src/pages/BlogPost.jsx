@@ -52,7 +52,7 @@ function BlogPostContent({ post }) {
             <Reveal className={styles.content}>
               <p className={styles.lead}>{post.excerpt}</p>
 
-              <h2>Why Full Stack Development in 2025?</h2>
+              <h2>Why Full Stack Development in 2026?</h2>
               <p>
                 The demand for developers who can work across both frontend interfaces and backend infrastructure
                 has never been higher. Modern companies require agile engineers capable of taking a feature from UI mockups to database design and cloud deployment.

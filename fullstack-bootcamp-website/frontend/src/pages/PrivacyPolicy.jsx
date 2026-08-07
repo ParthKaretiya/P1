@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
         tag="Legal"
         title="Privacy Policy"
         accent="Privacy Policy"
-        desc="Last updated: January 2025"
+        desc="Last updated: January 2026"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Privacy Policy' },

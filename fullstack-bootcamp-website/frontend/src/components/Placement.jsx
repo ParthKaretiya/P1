@@ -137,6 +137,18 @@ export default function Placement() {
           </div>
         </Reveal>
 
+        {/* ─── Placement Eligibility Notice ──────────────────────── */}
+        <Reveal>
+          <div className={styles.attendanceNotice}>
+            <i className="fa-solid fa-circle-info" />
+            <p>
+              <strong>Placement Support Eligibility:</strong> A minimum of{' '}
+              <strong>80% attendance</strong> throughout the program is required
+              to qualify for our placement support services.
+            </p>
+          </div>
+        </Reveal>
+
         <div className={styles.ctaRow}>
           <Link to="/placements" className={styles.ctaBtn}>
             See How Placement Support Works

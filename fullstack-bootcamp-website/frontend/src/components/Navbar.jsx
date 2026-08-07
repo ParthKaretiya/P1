@@ -305,7 +305,7 @@ export default function Navbar() {
 
                 <div className={styles.mobileDrawerFooter}>
                   <Link to="/admissions" className={styles.mobileApplyBtn}>
-                    Apply Now — Cohort 2025
+                    Apply Now — Cohort 2026
                   </Link>
                 </div>
               </div>
